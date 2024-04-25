@@ -4,30 +4,27 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        index: './src/index.js',
+        index: './src/dash/index.js',
+        print: './src/print/print.js',
     },
     devtool: 'inline-source-map',
-    devServer: {
-        static: './dist',
-    },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Development',
+            title: 'Dash',
+            filename: 'view/dash.html',
+            template: './src/dash/index.html',
+
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Print',
+            filename: 'view/print.html',
+            template: './src/print/print.html'
+            
         }),
     ],
     output: {
-        filename: '[name].bundle.js',
+        filename: 'public/js/[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        clean: true,
-
         publicPath: '/',
-    },
-    module: {
-        rules: [
-            {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
-            },
-        ],
     },
 };
