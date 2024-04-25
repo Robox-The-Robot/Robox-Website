@@ -13,13 +13,13 @@ module.exports = {
             title: 'Dash',
             filename: 'view/dash.html',
             template: './src/dash/index.html',
-
+            chunks: ["index"]
         }),
         new HtmlWebpackPlugin({
             title: 'Print',
             filename: 'view/print.html',
-            template: './src/print/print.html'
-            
+            template: './src/print/print.html',
+            chunks: ["print"]
         }),
     ],
     output: {
