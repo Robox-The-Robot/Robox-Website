@@ -43,12 +43,14 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    cursor: pointer;
 }
 #project-holder {
     width: 80%;
     display: flex;
     flex-direction: row;
     gap: 20px;
+    flex-wrap: wrap;
 }
 .project-image {
     width: 100%;
@@ -56,7 +58,7 @@ body {
     border-radius: 10px;
 }
 .project {
-    width: 200px;
+    width: 230px;
     height: 150px;
     border-radius: 10px;
     background-color: var(--primary-card-color);
