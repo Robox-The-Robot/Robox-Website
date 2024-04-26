@@ -1,3 +1,92 @@
 body {
-    background-color: red;
+    background-color: var(--main-bg-color);
+    padding: 0;
+    margin: 0;
+    font-family: 'Oxanium';
+    font-size: 22px;
+}
+#header {
+    background-color: var(--secondary-bg-color);
+    width: 100%;
+    height: 75px;
+}
+#create-project {
+    margin-left: auto;
+}
+#content-header {
+    display: flex;
+    width: 80%;
+    justify-content: flex-start;
+}
+#main-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#create-project {
+    color: rgb(0, 0, 0);
+    background-color: var(--secondary-bg-color);
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 25px;
+    align-self: center;
+    border-radius: 50%;
+    display: inline-block;
+}
+.button {
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+#project-holder {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.project-image {
+    width: 100%;
+    height: 70%;
+    border-radius: 10px;
+}
+.project {
+    width: 200px;
+    height: 150px;
+    border-radius: 10px;
+    background-color: var(--primary-card-color);
+    filter: drop-shadow(5px 5px);
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.project-info {
+    display: flex;
+    flex-direction: row;
+    height: 30%;
+    width: 100%;
+}
+.project-text {
+    width: 80%;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+.dots {
+    background-color: var(--primary-card-color);
+    color: black;
+    width: 10%;
+    font-size: 25px;
+    height: 100%;
+    margin-left: auto;
+}
+.project-date {
+    font-size: 13px;
+    color: gray;
 }
