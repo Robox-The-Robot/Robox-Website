@@ -4,8 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        index: './src/dash/index.js',
-        print: './src/print/print.js',
+        dash: './src/dash/index.js',
+        serialization: "./src/serialization.js"
     },
     devtool: 'inline-source-map',
     plugins: [
@@ -13,13 +13,7 @@ module.exports = {
             title: 'Dash',
             filename: 'view/dash.html',
             template: './src/dash/index.html',
-            chunks: ["index"]
-        }),
-        new HtmlWebpackPlugin({
-            title: 'Print',
-            filename: 'view/print.html',
-            template: './src/print/print.html',
-            chunks: ["print"]
+            chunks: ["dash"]
         }),
     ],
     output: {
