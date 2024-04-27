@@ -15,6 +15,7 @@ dayjs.extend(relativeTime)
 document.addEventListener("DOMContentLoaded", (event) => {
     const projectTemplate = document.querySelector("#template-project")
     const projectHolder = document.querySelector("#project-holder")
+    let toolbarModal = document.querySelector("#toolbar")
     let projects = getProjects()
     let projectIds = Object.keys(projects)
     //If no projects may need to update this warning?
@@ -44,31 +45,53 @@ document.addEventListener("DOMContentLoaded", (event) => {
         for (let item of document.querySelectorAll(".project")) {
             item.addEventListener("click", (e) => {
                 let item = e.target
-                if (!e.target.classList.contains("project")) item = item.parentNode
-                const id = item.querySelector(".project-name").textContent.split(" ").join("-")
+                let dots = item.closest(".dots")
+                if (dots === null) { //Checking if it is the dialog being pressed or the dots
+                    if (!e.target.classList.contains("project")) item = item.parentNode
+                    const id = item.querySelector(".project-name").textContent.split(" ").join("-")
+                }
+                else { //it is the dots
+                    let boundingRect= dots.getBoundingClientRect()
+                    let x = boundingRect["x"]+(boundingRect["width"])/2
+                    let y = boundingRect["y"] + (boundingRect["height"]) / 2
+                    toolbarModal.style.left = `${x}px`
+                    toolbarModal.style.top = `${y}px`
+                    toolbarModal.showModal()
+                }
                 
-                window.location.assign(`${window.location.href}workspace/${id}`)
+                
+                // window.location.assign(`${window.location.href}workspace/${id}`)
             })
         }
 
     }
+    
+    
+    
 
-
-    // const createProjectModal = document.querySelector("#create-project-dialog")
-    // document.querySelector("#create-project").addEventListener("click", (event) => {
-    //     createProjectModal.showModal()
-    // })
-
-    // createProjectModal.addEventListener("click", (event) => {
-    //     let rect = event.target.getBoundingClientRect();
-    //     if (rect.left > event.clientX ||
-    //         rect.right < event.clientX ||
-    //         rect.top > event.clientY ||
-    //         rect.bottom < event.clientY
-    //     ) {
-    //         createProjectModal.close();
-    //     }
-    // })
+    //TODO: Make the toolbar follow the thing
+    const editProjectModal = document.querySelector("#edit-project-dialog")
+    document.querySelector("#edit-button").addEventListener("click", (event) => {
+        editProjectModal.showModal()
+    })
+    const deleteProjectModal = document.querySelector("#delete-project-dialog")
+    document.querySelector("#delete-button").addEventListener("click", (event) => {
+        deleteProjectModal.showModal()
+    })
+    const modals = document.querySelectorAll("dialog")
+    for (const modal of modals) {
+        modal.addEventListener("click", (event) => {
+            let rect = event.target.getBoundingClientRect();
+            if (rect.left > event.clientX ||
+                rect.right < event.clientX ||
+                rect.top > event.clientY ||
+                rect.bottom < event.clientY
+            ) {
+                modal.close();
+            }
+        })
+    }
+    
 
     // const projectCreateForm = document.getElementById("project-create")
     // projectCreateForm.addEventListener("submit", (e) => {

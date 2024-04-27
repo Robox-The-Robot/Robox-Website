@@ -3,6 +3,52 @@
 </head>
 
 <body>
+    <dialog class="input-modal" id="delete-project-dialog">
+        <div>
+            <i class="fa-regular fa-trash-can"></i>
+            <h1 class="modal-title" id="delete-title">Are you sure you want to delete `Project`?</h1>
+            <p id="delete-description">It will be deleted forever (a very long time)!</p>
+            <div id="delete-buttons">
+                <button class="cancel button">
+                    Cancel
+                </button>
+                <button class="button" id="confirm-delete">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="toolbar">
+        <div>
+            <button class="toolbar-buttons button" id="edit-button">
+                <i class="fa-solid fa-pencil"></i>
+                <span>Edit</span>
+            </button>
+            <hr>
+            <button class=" toolbar-buttons button" id="delete-button">
+                <i class="fa-regular fa-trash-can"></i>
+                <span>Delete</span>
+            </button>
+        </div>
+        
+    </dialog>
+    <dialog class="input-modal" id="edit-project-dialog">
+        <div>
+            <h1 class="modal-title" id="edit-title">Rename `Prokect`</h1>
+            <form id="project-edit-form">
+                <label for="pname">Enter a new name for your project:</label><br>
+                <input placeholder="Project Name" type="text" id="pname" name="pname"><br><br>
+            </form>
+            <div id="edit-buttons">
+                <button class="button cancel">
+                    Cancel
+                </button>
+                <button class="button" id="confirm-rename">
+                    Rename
+                </button>
+            </div>
+        </div>
+    </dialog>
     <div id="header">
 
     </div>
