@@ -3,7 +3,7 @@ import "./index.css"
 import "../colorvars.css"
 import "./cross.png"
 
-import { createProject, getProject, getProjects } from '../serialization';
+import { createProject, getProject, getProjects } from '../blockly/serialization';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -69,13 +69,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
         //Check what level of untitled we are
         let level = 0
         let exists = true
-        let text = `untitled-project${level}`
+        let id = `untitled-project${level}`
         while (exists !== false) {
-            text = `untitled-project${level === 0 ? "" : "-" + level}`
-            exists = getProject(text)
+            id = `untitled-project${level === 0 ? "" : "-" + level}`
+            exists = getProject(id)
             level += 1
         }
-        createProject(text)
+        createProject(id)
+        window.location.assign(`${window.location.href}workspace/${id}`)
     })
     
     

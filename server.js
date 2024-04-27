@@ -13,7 +13,7 @@ app.get("/", function (req, res) {
     res.sendFile("view/dash.html", { root: __dirname + "/dist/" })
 })
 app.get("/workspace/:id", function(req, res) {
-    res.send("hi")
+    res.sendFile("view/workspace.html", { root: __dirname + "/dist/" })
 })
 // Serve the files on port 3000.
 app.listen(3000, function () {

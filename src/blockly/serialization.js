@@ -1,4 +1,6 @@
 import dayjs from 'dayjs';
+import * as Blockly from 'blockly';
+
 export function getProjects() {
     let projects = localStorage.getItem("roboxProjects")
     if (!projects) {
@@ -32,6 +34,7 @@ export function loadBlockly(name, workspace) {
 export function saveBlockly(name, workspace) {
     const data = Blockly.serialization.workspaces.save(workspace)
     let projects = getProjects()
+    console.log(1)
     projects[name] = { time: dayjs(), workspace: data }
     localStorage.setItem("roboxProjects", JSON.stringify(projects))
 }

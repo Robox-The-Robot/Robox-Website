@@ -5,7 +5,8 @@ module.exports = {
     mode: 'development',
     entry: {
         dash: './src/dash/index.js',
-        serialization: "./src/serialization.js"
+        serialization: "./src/blockly/serialization.js",
+        workspace: "./src/workspace/workspace.js"
     },
     devtool: 'inline-source-map',
     plugins: [
@@ -14,6 +15,12 @@ module.exports = {
             filename: 'view/dash.html',
             template: './src/dash/index.html',
             chunks: ["dash"]
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Workspace',
+            filename: 'view/workspace.html',
+            template: './src/workspace/workspace.html',
+            chunks: ["workspace"]
         }),
     ],
     output: {
