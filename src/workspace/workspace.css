@@ -9,35 +9,139 @@ code {
 }
 
 .blocklyTreeLabel {
-    color: white;
+    font-size: 15px;
+    color: black;
+    margin-left: 2px;
+    font-family: 'Inter';
 }
 #toolbar {
     width: 100%;
     height: 30px;
 }
+#header {
+    background-color: var(--secondary-bg-color);
+    width: 100%;
+    height: 75px;
+}
+#floating-container {
+    position: absolute;
+    width: 80vw;
+    height: 80vh;
+    margin-top: 15vh;
+    margin-left: 15vw;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    flex-direction: column;
 
+}
+#floating-body {
+    display: flex;
+    flex-direction: row;
+    width: 180px;
+    height: 50px;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+.floating-button {
+    border-radius: 10px;
+}
+#connection {
+    width: 120px;
+    height: 100%;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 10px;
+}
+#play {
+    background-color: #45B8DC;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    display: flex;
+}
+#hidden {
+    margin-left: auto;
+    visibility: hidden;
+    width: 20px;
+}
+#project-name {
+    color: white;
+    font-family: 'Oxanium';
+}
+#headertwo {
+    background-color: #48A9C2;
+    width: 100%;
+    height: 37.5px;
+    display: flex;
+    justify-content: center;
+}
+#header-button-container {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.button {
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+.blocklyTreeSeparator {
+    border-bottom: solid #000 1px !important;
+    margin-bottom: 13px !important;
+}
+#back{
+    height: 20px;
+    width: 20px;
+    margin-right: auto;
+    background-color: #48A9C2;
+    color: white;
+}
 
 /* Adds padding around the group of categories and separators. */
 .blocklyToolboxContents {
     padding: 0.5em;
 }
-
-/* Adds space between the categories, rounds the corners and adds space around the label. */
-.blocklyTreeRow {
-    padding: 3px;
-    margin-bottom: 0.5em;
-    border-radius: 4px;
+.blocklyTreeRowContentContainer {
+    display: flex;
+    justify-content: left;
+    align-items: left;
 }
 
+.blocklyTreeRow {
+    height: initial;
+}
+.blocklyTreeIcon {
+    display: none !important;
+}
+/* Adds space between the categories, rounds the corners and adds space around the label. */
+.blocklyTreeRow {
+    padding-bottom: 6px;
+    padding-top: 6px;
+    padding-right: 20px;
+    margin-bottom: 0.5em;
+    border-radius: 6px;
+}
+.blocklyToolboxDiv {
+    padding-left: 15px;
+    padding-right: 15px;
+}
 #pageContainer {
     width: 100%;
     max-width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 112.5px);
 }
 
 #blocklyDiv {
     width: 100%;
-    height: 100%;
 }
 
 

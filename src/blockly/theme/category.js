@@ -19,7 +19,7 @@ class CustomCategory extends Blockly.ToolboxCategory {
             // Set the background back to the original colour.
             this.rowDiv_.style.backgroundColor = this.colour_;
             // Set the text back to white.
-            labelDom.style.color = 'white';
+            labelDom.style.color = 'black';
         }
         // This is used for accessibility purposes.
         Blockly.utils.aria.setState(/** @type {!Element} */(this.htmlDiv_),

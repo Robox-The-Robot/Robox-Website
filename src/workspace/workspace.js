@@ -7,6 +7,12 @@
 import * as Blockly from 'blockly';
 import {pythonGenerator} from 'blockly/python'
 import "./workspace.css"
+import "../colorvars.css"
+
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
 
 import {loadBlockly, saveBlockly} from '../blockly/serialization';
 
@@ -28,7 +34,16 @@ import "../blockly/generators/events"
 
 // Set up UI elements and inject Blockly
 const blocklyDiv = document.getElementById('blocklyDiv');
-const ws = Blockly.inject(blocklyDiv, {toolbox});
+const ws = Blockly.inject(blocklyDiv, {
+    toolbox: toolbox, 
+    grid: {
+        spacing: 32,
+        length: 6,
+        colour: 'rgb(129,190,151)',
+        snap: true
+    },
+    trashcan: false,
+});
 
 //Use the custom theme
 ws.setTheme(theme)
@@ -54,15 +69,9 @@ ws.addChangeListener((e) => {
     if (e.isUiEvent) return;
     saveBlockly(workspaceName, ws);
 });
-
-
-// // Whenever the workspace changes meaningfully, run the code again.
-// ws.addChangeListener((e) => {
-//     // Don't run the code when the workspace finishes loading; we're
-//     // already running it once when the application starts.
-//     // Don't run the code during drags; we might have invalid state.
-//     if (e.isUiEvent || e.type == Blockly.Events.FINISHED_LOADING || ws.isDragging()) {
-//         return;
-//     }
-//     runCode();
-// });
+document.addEventListener("DOMContentLoaded", (event) => {
+    const backButton = document.querySelector("#back")
+    backButton.addEventListener("click", function(e) {
+        window.location.assign('http://localhost:3000/')
+    })
+})
