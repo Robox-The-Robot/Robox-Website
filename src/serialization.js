@@ -14,8 +14,10 @@ export function createProject(name) {
     projects[name] = { time: dayjs(), workspace: false }
     localStorage.setItem("roboxProjects", JSON.stringify(projects))
 }
-export function getProject(name) {
-    let projects = getProjects()
+export function getProject(name, projects = false) {
+    if (!projects) {
+        projects = getProjects()
+    }
     if (projects[name] === undefined) return false
     return projects[name]
 }

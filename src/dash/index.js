@@ -1,7 +1,9 @@
 import * as Blockly from 'blockly/core';
 import "./index.css"
 import "../colorvars.css"
-import { getProjects } from '../serialization';
+import "./cross.png"
+
+import { createProject, getProject, getProjects } from '../serialization';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -49,6 +51,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 if (dots === null) { //Checking if it is the dialog being pressed or the dots
                     if (!e.target.classList.contains("project")) item = item.parentNode
                     const id = item.querySelector(".project-name").textContent.split(" ").join("-")
+                    window.location.assign(`${window.location.href}workspace/${id}`)
                 }
                 else { //it is the dots
                     let boundingRect= dots.getBoundingClientRect()
@@ -58,14 +61,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     toolbarModal.style.top = `${y}px`
                     toolbarModal.showModal()
                 }
-                
-                
-                // window.location.assign(`${window.location.href}workspace/${id}`)
             })
         }
-
     }
-    
+    const createProjectButton = document.querySelector("#create-project")
+    createProjectButton.addEventListener("click", function(e)  {
+        //Check what level of untitled we are
+        let level = 0
+        let exists = true
+        let text = `untitled-project${level}`
+        while (exists !== false) {
+            text = `untitled-project${level === 0 ? "" : "-" + level}`
+            exists = getProject(text)
+            level += 1
+        }
+        createProject(text)
+    })
     
     
 
