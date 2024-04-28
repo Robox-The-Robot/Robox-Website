@@ -8,6 +8,7 @@ import * as Blockly from 'blockly';
 import {pythonGenerator} from 'blockly/python'
 import "./workspace.css"
 import "../colorvars.css"
+import "./RoboxLogo.png"
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -29,6 +30,7 @@ import "../blockly/generators/sensor"
 import "../blockly/blocks/events"
 import "../blockly/generators/events"
 
+import "./usb.js"
 
 
 

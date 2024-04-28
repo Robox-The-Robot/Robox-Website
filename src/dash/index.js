@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             exists = getProject(id)
             level += 1
         }
-        createProject(id)
+        createProject(id.split("-").join(" "))
         window.location.assign(`${window.location.href}workspace/${id}`)
     })
     
