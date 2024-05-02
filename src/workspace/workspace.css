@@ -99,8 +99,12 @@ code {
     width: 20px;
 }
 #project-name {
-    color: white;
+    background-color: #48A9C2;
     font-family: 'Oxanium';
+    color: white;
+    text-align: center;
+    border: 0;
+    font-size: 20px;
 }
 #headertwo {
     background-color: #48A9C2;

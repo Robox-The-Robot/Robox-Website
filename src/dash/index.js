@@ -90,7 +90,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let editForm = editProjectModal.querySelector("form")
         editForm.addEventListener("submit", function(e) {
             let submitterType = e.submitter.getAttribute("value")
-            console.log(1)
             if (submitterType === "confirm") {
                 let newName = document.getElementById("pname").value
                 document.getElementById("pname").value = ""
