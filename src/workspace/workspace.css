@@ -38,17 +38,23 @@ code {
 #floating-body {
     display: flex;
     flex-direction: row;
-    width: 180px;
+    width: 220px;
     height: 50px;
     z-index: 1000;
     justify-content: center;
     align-items: center;
 }
 .floating-button {
-    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    display: flex;
 }
 #connection {
-    width: 120px;
+    width: 150px;
     height: 100%;
     background-color: rgba(255,255,255,0.5);
     border-radius: 13px;
@@ -61,8 +67,14 @@ code {
 #connection-text {
     margin-left: auto;
     margin-right: 7px;
-    font-size: 14px;
+    font-family: 10px;
     font-family: "Oxanium";
+}
+.connect {
+    font-size: 14px;
+}
+.not-connected {
+
 }
 #robox-connection {
     border: 1px solid ;
@@ -72,8 +84,11 @@ code {
     height: 30px;
     width: 30px;
 }
-#robox-connection > img {
+.happy-face {
     content: url(./RoboxLogo.png);
+}
+.sad-face {
+    content: url(./sadRobox.png);
 }
 #robox-connection>img:hover {
     filter: none;
@@ -85,13 +100,10 @@ code {
 
 #play {
     background-color: #45B8DC;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    justify-content: center;
-    align-items: center;
-    margin-left: auto;
-    display: flex;
+    display: none;
+}
+#connect {
+    background-color: red;
 }
 #hidden {
     margin-left: auto;

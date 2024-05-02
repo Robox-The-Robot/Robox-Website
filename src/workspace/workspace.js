@@ -9,6 +9,7 @@ import {pythonGenerator} from 'blockly/python'
 import "./workspace.css"
 import "../colorvars.css"
 import "./RoboxLogo.png"
+import "./sadRobox.png"
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
