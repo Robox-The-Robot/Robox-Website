@@ -35,15 +35,15 @@
     <dialog class="input-modal" id="edit-project-dialog">
         <div>
             <h1 class="modal-title" id="edit-title">Rename `Prokect`</h1>
-            <form id="project-edit-form">
+            <form id="project-edit-form" method="dialog">
                 <label for="pname">Enter a new name for your project:</label><br>
                 <input placeholder="Project Name" type="text" id="pname" name="pname"><br><br>
             </form>
             <div id="edit-buttons">
-                <button class="button cancel">
+                <button type="submit" form="project-edit-form" value="cancel" class="button cancel">
                     Cancel
                 </button>
-                <button class="button" id="confirm-rename">
+                <button type="submit" form="project-edit-form" value="confirm" class="button" id="confirm-rename">
                     Rename
                 </button>
             </div>
