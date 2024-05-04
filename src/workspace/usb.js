@@ -8,6 +8,15 @@ let currentPort = null
 let currentWriter = null
 let currentStreamClosed = null
 
+// Code to prefix the script. This includes libraries, etc.
+const scriptDependency = `from machine import Pin, Timer
+led = Pin(25, Pin.OUT)
+timer = Timer()
+
+def blink(timer):
+    led.toggle()
+timer.init(freq=2.5, mode=Timer.PERIODIC, callback=blink)`
+
 const piVendorId = 0x2E8A
 connectButton.addEventListener("click", async function(e){
     const port = navigator.serial.requestPort({ filters: [{ usbVendorId: piVendorId }] });
@@ -17,7 +26,8 @@ connectButton.addEventListener("click", async function(e){
     .catch((error) => { //User did not select a port (or error connecting) show toolbar?
 
     })
-})  
+})
+
 navigator.serial.getPorts().then((ports) => {
     for (const port of ports) {
         let portInfo = port.getInfo()
@@ -27,12 +37,14 @@ navigator.serial.getPorts().then((ports) => {
         }
     }
 });
+
 navigator.serial.addEventListener("connect", (e) => {
     let portInfo = e.target.getInfo()
     if (portInfo.usbVendorId === piVendorId) {
         connect(e.target)
     }
 });
+
 navigator.serial.addEventListener("disconnect", (e) => {
     let portInfo = e.target.getInfo()
     if (portInfo.usbVendorId === piVendorId) {
@@ -69,15 +81,8 @@ async function connect(port) {
 }
 
 async function sendCode(code) {
-    let preAmble = `from machine import Pin, Timer
-led = Pin(25, Pin.OUT)
-timer = Timer()
-
-def blink(timer):
-    led.toggle()
-timer.init(freq=2.5, mode=Timer.PERIODIC, callback=blink)`
     console.log("WRITING")
-    await currentWriter.write("x032BEGINUPLD\r" + preAmble + "\r\x04\r");
+    await currentWriter.write("x032BEGINUPLD\r" + scriptDependency + "\r\x04\r");
     await currentWriter.write("x021STARTPROG\r");
     currentWriter.close();
     await currentStreamClosed;
@@ -85,7 +90,7 @@ timer.init(freq=2.5, mode=Timer.PERIODIC, callback=blink)`
         console.log("stopping")
         const writer = currentPort.writable.getWriter();
 
-        const data = new Uint8Array([0x04]); 
+        const data = new Uint8Array([0x04, 0x04]); 
         await writer.write(data);
         writer.releaseLock();
     }, "5000");

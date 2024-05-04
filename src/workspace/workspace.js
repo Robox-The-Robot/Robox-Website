@@ -93,10 +93,10 @@ renameTitle.addEventListener("blur", function (e) {
 })
 
 ws.addChangeListener((e) => {
-
     if (e.isUiEvent) return;
     saveBlockly(workspaceName, ws);
 });
+
 document.addEventListener("DOMContentLoaded", (event) => {
     const backButton = document.querySelector("#back")
     backButton.addEventListener("click", function(e) {
