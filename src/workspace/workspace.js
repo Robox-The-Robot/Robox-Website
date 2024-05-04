@@ -74,7 +74,7 @@ const workspaceName = workspacePath[workspacePath.length - 1].split("-").join(" 
 loadBlockly(workspaceName, ws)
 
 runCode();
-
+// blocklyFlyout
 let currentWorkspace = workspaceName
 let renameTitle = document.querySelector("#project-name")
 renameTitle.value = workspaceName
@@ -92,10 +92,27 @@ renameTitle.addEventListener("blur", function (e) {
     }
 })
 
-ws.addChangeListener((e) => {
+ws.addChangeListener((e) => { // Saving every time block is added
     if (e.isUiEvent) return;
     saveBlockly(workspaceName, ws);
 });
+
+const blocklyFlyout = document.querySelector(".blocklyFlyout")
+const blocklyToolbar = document.querySelector(".blocklyToolboxDiv")
+const deleteThing = document.querySelector("#delete-drag")
+
+ws.addChangeListener((e) => { //On drag show delete menu
+    if (e.type !== Blockly.Events.BLOCK_DRAG) return
+    let width = blocklyFlyout.style.display === "none" ? blocklyToolbar.getBoundingClientRect()["width"] : blocklyFlyout.getBoundingClientRect()["right"] 
+    
+    if (e.isStart) {
+        deleteThing.style.width = `${width}px`
+        deleteThing.style.display = "flex"
+    }
+    else {
+        deleteThing.style.display = "none"
+    }
+})
 
 document.addEventListener("DOMContentLoaded", (event) => {
     const backButton = document.querySelector("#back")

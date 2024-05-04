@@ -1,5 +1,6 @@
 const connectButton = document.querySelector("#connect")
 const playButton = document.querySelector("#play")
+const stopButton = document.querySelector("#stop")
 
 const connectionText = document.querySelector("#connection-text")
 const roboxFace = document.querySelector("#robox-connection > img")
@@ -18,6 +19,12 @@ def blink(timer):
 timer.init(freq=2.5, mode=Timer.PERIODIC, callback=blink)`
 
 const piVendorId = 0x2E8A
+
+reconnectPico()
+
+
+
+
 connectButton.addEventListener("click", async function(e){
     const port = navigator.serial.requestPort({ filters: [{ usbVendorId: piVendorId }] });
     port.then(async (connectedPort) => {
@@ -26,17 +33,23 @@ connectButton.addEventListener("click", async function(e){
     .catch((error) => { //User did not select a port (or error connecting) show toolbar?
 
     })
-})
+})  
 
-navigator.serial.getPorts().then((ports) => {
-    for (const port of ports) {
-        let portInfo = port.getInfo()
-        if (portInfo.usbVendorId === piVendorId) {
-            connect(port)
-            break;
-        }
-    }
-});
+playButton.addEventListener("click", async function (e) {
+    sendCode()
+    playButton.style.display = 'none'
+    stopButton.style.display = 'flex'
+})  
+
+stopButton.addEventListener("click", async function (e) {
+    stopButton.style.display = 'none'
+    restartPico()
+})  
+
+
+
+
+
 
 navigator.serial.addEventListener("connect", (e) => {
     let portInfo = e.target.getInfo()
@@ -75,23 +88,26 @@ async function connect(port) {
     connectionText.textContent = "Connected"
     roboxFace.classList.add("happy-face")
     roboxFace.classList.remove("sad-face")
-    setTimeout(async () => {
-        sendCode()
-    }, "2000");
+}
+function reconnectPico() {
+    navigator.serial.getPorts().then((ports) => {
+        for (const port of ports) {
+            let portInfo = port.getInfo()
+            if (portInfo.usbVendorId === piVendorId) {
+                connect(port)
+                break;
+            }
+        }
+    });
+}
+
+async function restartPico() {
+    await currentWriter.write("x069\r")
 }
 
 async function sendCode(code) {
     console.log("WRITING")
     await currentWriter.write("x032BEGINUPLD\r" + scriptDependency + "\r\x04\r");
     await currentWriter.write("x021STARTPROG\r");
-    currentWriter.close();
-    await currentStreamClosed;
-    setTimeout(async () => {
-        console.log("stopping")
-        const writer = currentPort.writable.getWriter();
-
-        const data = new Uint8Array([0x04, 0x04]); 
-        await writer.write(data);
-        writer.releaseLock();
-    }, "5000");
+    console.log("SENT")
 }
