@@ -76,6 +76,7 @@ async function disconnect() {
     roboxFace.classList.remove("happy-face")
     roboxFace.classList.add("sad-face")
 }
+
 async function connect(port) {
     await port.open({ baudRate: 9600 });
     let textEncoder = new TextEncoderStream();
@@ -89,6 +90,7 @@ async function connect(port) {
     roboxFace.classList.add("happy-face")
     roboxFace.classList.remove("sad-face")
 }
+
 function reconnectPico() {
     navigator.serial.getPorts().then((ports) => {
         for (const port of ports) {
