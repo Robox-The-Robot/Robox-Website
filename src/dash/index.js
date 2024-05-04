@@ -3,7 +3,7 @@ import "./index.css"
 import "../colorvars.css"
 import "./cross.png"
 
-import { createProject, getProject, getProjects } from '../blockly/serialization';
+import { createProject, getProject, getProjects, editProject, deleteProject } from '../blockly/serialization';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             let projectTime = dayjs(project["time"])
             time.textContent = projectTime.fromNow()
             title.textContent = projectId
-            clone.id = `${projectIndex}-project`
+            clone.querySelector(".project").id = `${projectId}`
 
             projectHolder.appendChild(clone)
 
@@ -59,6 +59,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     let y = boundingRect["y"] + (boundingRect["height"]) / 2
                     toolbarModal.style.left = `${x}px`
                     toolbarModal.style.top = `${y}px`
+                    console.log(item.closest(".project").id)
+                    toolbarModal.setAttribute("target", item.closest(".project").id)
                     toolbarModal.showModal()
                 }
             })
@@ -81,14 +83,48 @@ document.addEventListener("DOMContentLoaded", (event) => {
     
     
 
-    //TODO: Make the toolbar follow the thing
     const editProjectModal = document.querySelector("#edit-project-dialog")
+    const editForm = editProjectModal.querySelector("form")
     document.querySelector("#edit-button").addEventListener("click", (event) => {
+        editProjectModal.setAttribute("target", toolbarModal.getAttribute("target"))
+        editProjectModal.querySelector("#edit-title").textContent = `Rename '${editProjectModal.getAttribute("target") }'?`
+        editProjectModal.querySelector("#pname").value = editProjectModal.getAttribute("target")
         editProjectModal.showModal()
+        editForm.addEventListener("submit", function(e) {
+            let submitterType = e.submitter.getAttribute("baction")
+            if (submitterType === "confirm") {
+                let newName = document.getElementById("pname").value
+                document.getElementById("pname").value = ""
+                //Check if error
+                let checkProject = getProject(newName)
+                if (checkProject === false) { //good to go
+                    editProject(editProjectModal.getAttribute("target"), newName)
+                    window.location.reload()
+                    //Do something to confirm (thinking popup)
+                }
+                else { // Display the error somehow
+
+                }
+            }
+        }, {once: true})
     })
     const deleteProjectModal = document.querySelector("#delete-project-dialog")
+    const deleteButtons = deleteProjectModal.querySelector("#delete-buttons")
     document.querySelector("#delete-button").addEventListener("click", (event) => {
+        deleteProjectModal.setAttribute("target", toolbarModal.getAttribute("target"))
+        deleteProjectModal.querySelector("#delete-title").textContent = `Are you sure you want to delete ${editProjectModal.getAttribute("target") }?`
         deleteProjectModal.showModal()
+        deleteButtons.addEventListener("click", function (e) {
+            if (e.target.nodeName === "DIV") return
+            if (e.target.id === "confirm-delete") {
+                deleteProject(editProjectModal.getAttribute("target"))
+                window.location.reload()
+            }
+            else {
+                deleteProjectModal.close()
+            }
+            deleteButtons.removeEventListener("click", this)
+        })
     })
     const modals = document.querySelectorAll("dialog")
     for (const modal of modals) {

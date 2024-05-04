@@ -9,14 +9,17 @@
             <div id="floating-body">
                 <div id="connection">
                     <div id="robox-connection">
-                        <img src="./RoboxLogo.png">
+                        <img class="sad-face">
                     </div>
                     <div id="connection-text">
-                        Connected
+                        Disconnected
                     </div>
                 </div>
-                <button class="button" class="floating-button" id="play">
+                <button class="button floating-button" id="play">
                     <i class="fa-solid fa-play"></i>
+                </button>
+                <button class="button floating-button" id="connect">
+                    <i class="fa-solid fa-plug"></i>
                 </button>
             </div>
         </div>
@@ -29,9 +32,7 @@
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
                 <!-- This is not centered... wjhy? -->
-                <h2 id="project-name">
-                    Project name
-                </h2>
+                <input type="text" id="project-name" value="Project name">
                 <div id="hidden"></div>
             </div>
             

@@ -9,13 +9,14 @@ import {pythonGenerator} from 'blockly/python'
 import "./workspace.css"
 import "../colorvars.css"
 import "./RoboxLogo.png"
+import "./sadRobox.png"
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
 import '@fortawesome/fontawesome-free/js/regular'
 import '@fortawesome/fontawesome-free/js/brands'
 
-import {loadBlockly, saveBlockly} from '../blockly/serialization';
+import {editProject, loadBlockly, saveBlockly, getProject} from '../blockly/serialization';
 
 import theme from '../blockly/theme/theme';
 import '../blockly/theme/category';
@@ -74,6 +75,22 @@ loadBlockly(workspaceName, ws)
 
 runCode();
 
+let currentWorkspace = workspaceName
+let renameTitle = document.querySelector("#project-name")
+renameTitle.value = workspaceName
+renameTitle.addEventListener("blur", function (e) {
+    if (renameTitle.value !== currentWorkspace) {
+        let newName = renameTitle.value
+        let checkProject = getProject(newName)
+        if (checkProject === false) { //good to go
+            editProject(currentWorkspace, newName)
+            //Do something to confirm (thinking popup)
+        }
+        else { // Display the error somehow
+
+        }
+    }
+})
 
 ws.addChangeListener((e) => {
 
