@@ -1,5 +1,6 @@
 const connectButton = document.querySelector("#connect")
 const playButton = document.querySelector("#play")
+const stopButton = document.querySelector("#stop")
 
 const connectionText = document.querySelector("#connection-text")
 const roboxFace = document.querySelector("#robox-connection > img")
@@ -9,6 +10,12 @@ let currentWriter = null
 let currentStreamClosed = null
 
 const piVendorId = 0x2E8A
+
+reconnectPico()
+
+
+
+
 connectButton.addEventListener("click", async function(e){
     const port = navigator.serial.requestPort({ filters: [{ usbVendorId: piVendorId }] });
     port.then(async (connectedPort) => {
@@ -18,15 +25,21 @@ connectButton.addEventListener("click", async function(e){
 
     })
 })  
-navigator.serial.getPorts().then((ports) => {
-    for (const port of ports) {
-        let portInfo = port.getInfo()
-        if (portInfo.usbVendorId === piVendorId) {
-            connect(port)
-            break;
-        }
-    }
-});
+playButton.addEventListener("click", async function (e) {
+    sendCode()
+    playButton.style.display = 'none'
+    stopButton.style.display = 'flex'
+})  
+stopButton.addEventListener("click", async function (e) {
+    stopButton.style.display = 'none'
+    restartPico()
+})  
+
+
+
+
+
+
 navigator.serial.addEventListener("connect", (e) => {
     let portInfo = e.target.getInfo()
     if (portInfo.usbVendorId === piVendorId) {
@@ -63,30 +76,37 @@ async function connect(port) {
     connectionText.textContent = "Connected"
     roboxFace.classList.add("happy-face")
     roboxFace.classList.remove("sad-face")
-    setTimeout(async () => {
-        sendCode()
-    }, "2000");
+}
+function reconnectPico() {
+    navigator.serial.getPorts().then((ports) => {
+        for (const port of ports) {
+            let portInfo = port.getInfo()
+            if (portInfo.usbVendorId === piVendorId) {
+                connect(port)
+                break;
+            }
+        }
+    });
+}
+
+async function restartPico() {
+    await currentWriter.write("x069\r")
 }
 
 async function sendCode(code) {
-    let preAmble = `from machine import Pin, Timer
+    let preAmble = `import select
+import sys
+import time
+
+from machine import Pin, Timer
+
 led = Pin(25, Pin.OUT)
 timer = Timer()
 
 def blink(timer):
     led.toggle()
 timer.init(freq=2.5, mode=Timer.PERIODIC, callback=blink)`
-    console.log("WRITING")
     await currentWriter.write("x032BEGINUPLD\r" + preAmble + "\r\x04\r");
     await currentWriter.write("x021STARTPROG\r");
-    currentWriter.close();
-    await currentStreamClosed;
-    setTimeout(async () => {
-        console.log("stopping")
-        const writer = currentPort.writable.getWriter();
-
-        const data = new Uint8Array([0x04]); 
-        await writer.write(data);
-        writer.releaseLock();
-    }, "5000");
+    console.log("SENT")
 }
