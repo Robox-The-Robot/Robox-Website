@@ -17,6 +17,21 @@ export const toolbox = {
   'contents': [
     {
       'kind': 'category',
+      'name': 'Events',
+      'categorystyle': 'events_category',
+      'contents': [
+        {
+          'kind': 'block',
+          'type': 'event_begin',
+        },
+      ]
+    },
+    {
+      'kind': 'sep',
+    },
+    
+    {
+      'kind': 'category',
       'name': 'Logic',
       'categorystyle': 'logic_category',
       'contents': [
@@ -695,13 +710,16 @@ export const toolbox = {
     },
     {
       'kind': 'category',
-      'name': 'Events',
-      'categorystyle': 'events_category',
+      'name': 'System',
+      'categorystyle': 'system_category',
       'contents': [
-        {
-          'kind': 'block',
-          'type': 'event_begin',
-        },
+      ]
+    },
+    {
+      'kind': 'category',
+      'name': 'Motors',
+      'categorystyle': 'motor_category',
+      'contents': [
       ]
     },
     {
