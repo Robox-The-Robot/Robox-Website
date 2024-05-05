@@ -23,17 +23,19 @@ const piVendorId = 0x2E8A
 reconnectPico()
 
 
-
-
-connectButton.addEventListener("click", async function(e){
+async function connectToPort(e) {
     const port = navigator.serial.requestPort({ filters: [{ usbVendorId: piVendorId }] });
     port.then(async (connectedPort) => {
         connect(connectedPort)
     })
     .catch((error) => { //User did not select a port (or error connecting) show toolbar?
-
+        // Show a toast/poup saying failed setup
+        console.warn("Could not connect to the Robox device. Please try again.")
     })
-})  
+}
+
+connectButton.addEventListener("click", connectToPort);
+document.getElementById("connection").addEventListener("click", connectToPort);
 
 playButton.addEventListener("click", async function (e) {
     sendCode()

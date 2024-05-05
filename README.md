@@ -23,3 +23,5 @@ To run the command:
 ```
 nodemon --ignore ./dist/ -e html,css,js --exec npm run start
 ```
+
+Server will connect to a local server on port `3000` (`127.0.0.1:3000` or `localhost:3000`).

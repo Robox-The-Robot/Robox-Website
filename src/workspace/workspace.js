@@ -92,9 +92,23 @@ renameTitle.addEventListener("blur", function (e) {
     }
 })
 
+// Save/export workspace
 ws.addChangeListener((e) => { // Saving every time block is added
     if (e.isUiEvent) return;
     saveBlockly(workspaceName, ws);
+});
+
+document.getElementById("export").addEventListener("click", (e) => {
+    let fileDownload = saveBlockly(workspaceName, ws);
+
+    let downloadEl = document.createElement('a');
+    downloadEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + fileDownload);
+    downloadEl.setAttribute('download', workspaceName + '.robox');
+
+    downloadEl.style.display = 'none';
+    document.body.appendChild(downloadEl);
+    downloadEl.click();
+    document.body.removeChild(downloadEl);
 });
 
 const blocklyFlyout = document.querySelector(".blocklyFlyout")

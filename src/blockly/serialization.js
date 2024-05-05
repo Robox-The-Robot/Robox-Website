@@ -35,11 +35,16 @@ export function saveBlockly(name, workspace) {
     const data = Blockly.serialization.workspaces.save(workspace)
     let projects = getProjects()
     projects[name] = { time: dayjs(), workspace: data }
-    localStorage.setItem("roboxProjects", JSON.stringify(projects))
+
+    let projectData = JSON.stringify(projects)
+    localStorage.setItem("roboxProjects", projectData)
+
+    return projectData
 }
+
 export function editProject(oldName, newName) {
     let projects = getProjects()
-    if (!projects[oldName]) throw new Error("Project does not exists")
+    if (!projects[oldName]) throw new Error("Project does not exist")
     if (projects[newName]) throw new Error("Project already exists")
     projects[newName] = structuredClone(projects[oldName])
     delete projects[oldName]
@@ -48,7 +53,7 @@ export function editProject(oldName, newName) {
 }
 export function deleteProject(name) {
     let projects = getProjects()
-    if (!projects[name]) throw new Error("Project does not exists")
+    if (!projects[name]) throw new Error("Project does not exist")
     delete projects[name]
     localStorage.setItem("roboxProjects", JSON.stringify(projects))
 }

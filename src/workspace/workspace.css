@@ -63,6 +63,7 @@ code {
     flex-direction: row;
     align-items: center;
     justify-content: left;
+    cursor: pointer;
 }
 #connection-text {
     margin-left: auto;
@@ -74,7 +75,6 @@ code {
     font-size: 14px;
 }
 #robox-connection {
-    border: 1px solid ;
     margin-left: 7px;
 }
 .blocklyToolboxDiv { 
@@ -156,8 +156,7 @@ code {
 #header-button-container {
     width: 90%;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 .button {
@@ -167,17 +166,17 @@ code {
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
+    color: white;
+    background: none;
 }
 .blocklyTreeSeparator {
     border-bottom: solid #000 1px !important;
     margin-bottom: 13px !important;
 }
+
 #back{
     height: 20px;
     width: 20px;
-    margin-right: auto;
-    background-color: #48A9C2;
-    color: white;
 }
 
 /* Adds padding around the group of categories and separators. */
