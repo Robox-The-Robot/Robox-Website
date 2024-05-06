@@ -42,7 +42,7 @@ export function saveBlockly(name, workspace) {
     return projectData
 }
 
-export function editProject(oldName, newName) {
+export function renameProject(oldName, newName) {
     let projects = getProjects()
     if (!projects[oldName]) throw new Error("Project does not exist")
     if (projects[newName]) throw new Error("Project already exists")

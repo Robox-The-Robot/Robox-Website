@@ -16,7 +16,7 @@ import '@fortawesome/fontawesome-free/js/solid'
 import '@fortawesome/fontawesome-free/js/regular'
 import '@fortawesome/fontawesome-free/js/brands'
 
-import {editProject, loadBlockly, saveBlockly, getProject} from '../blockly/serialization';
+import { renameProject, loadBlockly, saveBlockly, getProject } from '../blockly/serialization';
 
 import theme from '../blockly/theme/theme';
 import '../blockly/theme/category';
@@ -76,14 +76,14 @@ loadBlockly(workspaceName, ws)
 runCode();
 // blocklyFlyout
 let currentWorkspace = workspaceName
-let renameTitle = document.querySelector("#project-name")
+let renameTitle = document.getElementById("project-name")
 renameTitle.value = workspaceName
 renameTitle.addEventListener("blur", function (e) {
     if (renameTitle.value !== currentWorkspace) {
         let newName = renameTitle.value
         let checkProject = getProject(newName)
         if (checkProject === false) { //good to go
-            editProject(currentWorkspace, newName)
+            renameProject(currentWorkspace, newName)
             //Do something to confirm (thinking popup)
         }
         else { // Display the error somehow
@@ -113,24 +113,17 @@ document.getElementById("export").addEventListener("click", (e) => {
 
 const blocklyFlyout = document.querySelector(".blocklyFlyout")
 const blocklyToolbar = document.querySelector(".blocklyToolboxDiv")
-const deleteThing = document.querySelector("#delete-drag")
+const deleteIndicator = document.getElementById("delete-drag")
 
 ws.addChangeListener((e) => { //On drag show delete menu
     if (e.type !== Blockly.Events.BLOCK_DRAG) return
     let width = blocklyFlyout.style.display === "none" ? blocklyToolbar.getBoundingClientRect()["width"] : blocklyFlyout.getBoundingClientRect()["right"] 
     
     if (e.isStart) {
-        deleteThing.style.width = `${width}px`
-        deleteThing.style.display = "flex"
+        deleteIndicator.style.width = `${width}px`
+        deleteIndicator.style.display = "flex"
     }
     else {
-        deleteThing.style.display = "none"
+        deleteIndicator.style.display = "none"
     }
-})
-
-document.addEventListener("DOMContentLoaded", (event) => {
-    const backButton = document.querySelector("#back")
-    backButton.addEventListener("click", function(e) {
-        window.location.assign('http://localhost:3000/')
-    })
 })

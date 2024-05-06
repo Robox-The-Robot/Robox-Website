@@ -6,6 +6,7 @@ body {
     font-family: 'Oxanium';
     font-size: 22px;
 }
+
 #header {
     background-color: var(--secondary-bg-color);
     width: 100%;
@@ -18,7 +19,9 @@ body {
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
+    background: none;
 }
+
 #create-project {
     margin-left: auto;
 }
@@ -73,7 +76,7 @@ body {
 #content-header {
     display: flex;
     width: 80%;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 .input-modal::backdrop {
     background: rgba(0, 0, 0, 0.40);
@@ -110,8 +113,9 @@ body {
     margin: 0;
     border: 0;
     padding: 5px;
+    padding-top: 10px;
     border-radius: 10px;
-    filter: drop-shadow(5px 5px 10px black)
+    filter: drop-shadow(5px 5px 5px black);
 }
 #toolbar > div {
     width: 100%;
@@ -170,6 +174,7 @@ body {
     height: 70%;
     border-radius: 10px;
 }
+
 .project {
     width: 230px;
     height: 150px;
@@ -180,7 +185,13 @@ body {
     display: flex;
     flex-direction: column;
     padding: 10px;
+    cursor: pointer;
 }
+.project:hover {
+    transform: translate(-3px, -3px);
+    filter: drop-shadow(8px 8px);
+}
+
 .project-info {
     display: flex;
     flex-direction: row;
@@ -206,3 +217,10 @@ body {
     color: gray;
 }
 
+#actionBar {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: right;
+    margin-top: 20px;
+}

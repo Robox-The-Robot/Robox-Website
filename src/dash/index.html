@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
         <title>Robox Dashboard</title>
@@ -9,7 +10,7 @@
         <dialog class="input-modal" id="delete-project-dialog">
             <div>
                 <i class="fa-regular fa-trash-can"></i>
-                <h1 class="modal-title" id="delete-title">Are you sure you want to delete `Project`?</h1>
+                <h1 class="modal-title" id="delete-title">Are you sure you want to delete '<span id="deletePName">Project</span>'?</h1>
                 <p id="delete-description">It will be deleted forever (a very long time)!</p>
                 <div id="delete-buttons">
                     <button class="cancel button">
@@ -37,7 +38,7 @@
         </dialog>
         <dialog class="input-modal" id="edit-project-dialog">
             <div>
-                <h1 class="modal-title" id="edit-title">Rename `Project`</h1>
+                <h1 class="modal-title" id="edit-title">Rename '<span id="editPName">Project</span>'</h1>
                 <form id="project-edit-form" method="dialog">
                     <label for="pname">Enter a new name for your project:</label><br>
                     <input placeholder="Project Name" type="text" id="pname" name="pname"><br><br>
@@ -54,15 +55,29 @@
         </dialog>
         <div id="header">
 
+        <!--
+            TODO:
+            It would be nice to drag and drop files within the window to upload them.
+
+            See link: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/File_drag_and_drop
+        -->
+
         </div>
         <div id="main-content">
             <div id="content-header">
                 <h1>
                     Projects
                 </h1>
-                <button class="button" id="create-project">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
+
+                <div id="actionBar">
+                    <button class="button" id="upload-project">
+                        <input type="file" hidden accept=".robox" id="fileInput" style="display:none;">
+                        <i class="fa-solid fa-upload"></i>
+                    </button>
+                    <button class="button" id="create-project">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
             </div>
             <div id="project-holder">
                 
@@ -78,7 +93,7 @@
                             Project
                         </div>
                         <div class="project-date">
-                            Last Opended XXX
+                            Last Opened XXX
                         </div>
                     </div>
                     <button class="dots button">

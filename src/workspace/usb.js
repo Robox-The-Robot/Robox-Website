@@ -1,8 +1,8 @@
-const connectButton = document.querySelector("#connect")
-const playButton = document.querySelector("#play")
-const stopButton = document.querySelector("#stop")
+const connectButton = document.getElementById("connect")
+const playButton = document.getElementById("play")
+const stopButton = document.getElementById("stop")
 
-const connectionText = document.querySelector("#connection-text")
+const connectionText = document.getElementById("connection-text")
 const roboxFace = document.querySelector("#robox-connection > img")
 
 let currentPort = null
