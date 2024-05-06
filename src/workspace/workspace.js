@@ -102,7 +102,7 @@ document.getElementById("export").addEventListener("click", (e) => {
     let fileDownload = saveBlockly(workspaceName, ws);
 
     let downloadEl = document.createElement('a');
-    downloadEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + fileDownload);
+    downloadEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileDownload));
     downloadEl.setAttribute('download', workspaceName + '.robox');
 
     downloadEl.style.display = 'none';

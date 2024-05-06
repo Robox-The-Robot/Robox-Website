@@ -39,7 +39,16 @@ export function saveBlockly(name, workspace) {
     let projectData = JSON.stringify(projects)
     localStorage.setItem("roboxProjects", projectData)
 
-    return projectData
+    return JSON.stringify(data)
+}
+
+export function saveBlocklyCompressed(name, data) {
+    // TODO: SAVEBLOCKLYCOMPRESSED REQUIRES FILE VALIDATION
+    let projects = getProjects()
+    projects[name] = { time: dayjs(), workspace: JSON.parse(data) }
+
+    let projectData = JSON.stringify(projects)
+    localStorage.setItem("roboxProjects", projectData)
 }
 
 export function renameProject(oldName, newName) {

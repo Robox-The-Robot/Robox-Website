@@ -3,7 +3,7 @@ import "./index.css"
 import "../colorvars.css"
 import "./cross.png"
 
-import { createProject, getProject, getProjects, renameProject, deleteProject } from '../blockly/serialization';
+import { createProject, getProject, getProjects, renameProject, deleteProject, saveBlocklyCompressed } from '../blockly/serialization';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -17,7 +17,22 @@ dayjs.extend(relativeTime)
 
 // Upload tool
 const uploadButton = document.getElementById("upload-project");
+const fileInput = document.getElementById("fileInput");
 
+uploadButton.addEventListener("click", () => { fileInput.click(); });
+fileInput.addEventListener("change", (e) => {
+    for (let file of e.target.files) {
+        let reader = new FileReader();
+
+        reader.addEventListener('load', (event) => {
+            // TODO: SAVEBLOCKLYCOMPRESSED REQUIRES FILE VALIDATION
+            console.log(event.target.result);
+            saveBlocklyCompressed(file.name.replace(/\.[^/.]+$/, ""), event.target.result);
+            window.location.reload(); // Refresh the project list instead of the page
+        });
+        reader.readAsText(file);
+    }
+});
 
 
 const projectTemplate = document.getElementById("template-project")
@@ -106,7 +121,7 @@ document.getElementById("edit-button").addEventListener("click", (event) => {
             let checkProject = getProject(newName)
             if (checkProject === false) { //good to go
                 renameProject(projectName, newName)
-                window.location.reload()
+                window.location.reload() // Refresh the project list instead of the page
                 //Do something to confirm (thinking popup)
             }
             else { // Display the error somehow
@@ -127,7 +142,7 @@ document.getElementById("delete-button").addEventListener("click", (event) => {
         if (e.target.nodeName === "DIV") return
         if (e.target.id === "confirm-delete") {
             deleteProject(projectName);
-            window.location.reload()
+            window.location.reload() // Refresh the project list instead of the page
         }
         else {
             deleteProjectModal.close()
@@ -157,5 +172,5 @@ for (const modal of modals) {
 //     const name = nameInput.value
 //     nameInput.value = ""
 //     createProject(name)
-//     window.location.reload()
+//     window.location.reload() // Refresh the project list instead of the page
 // })
