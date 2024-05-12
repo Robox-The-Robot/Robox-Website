@@ -8,7 +8,7 @@ const sensors = [
         "type": "distance",
         "message0": "distance",
         "output": "Number",
-        "colour": 0,
+        "colour": "%{BKY_SENSOR_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },
@@ -16,7 +16,7 @@ const sensors = [
         "type": "line_position",
         "message0": "line position",
         "output": "Number",
-        "colour": 0,
+        "colour": "%{BKY_SENSOR_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },

@@ -14,7 +14,7 @@ const events = [
                 "name": "event_code"
             }
         ],
-        "colour": 65,
+        "colour": "%{BKY_EVENT_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },

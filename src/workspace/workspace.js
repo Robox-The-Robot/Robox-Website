@@ -59,10 +59,10 @@ const ws = Blockly.inject(blocklyDiv, {
         pinch: true
     },
     trashcan: false,
+    theme: theme,
 });
 
-//Use the custom theme
-ws.setTheme(theme)
+
 ws.addChangeListener(Blockly.Events.disableOrphans)
 
 // This function resets the code and output divs, shows the

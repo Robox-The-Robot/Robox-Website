@@ -6,7 +6,7 @@ const systems = [
         "message0": "led state",
         "inputsInline": true,
         "output": null,
-        "colour": 230,
+        "colour": "%{BKY_SYSTEM_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },
@@ -15,7 +15,7 @@ const systems = [
         "message0": "current time",
         "inputsInline": true,
         "output": null,
-        "colour": 230,
+        "colour": "%{BKY_SYSTEM_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },
@@ -32,7 +32,7 @@ const systems = [
         "inputsInline": true,
         "previousStatement": null,
         "nextStatement": null,
-        "colour": 230,
+        "colour": "%{BKY_SYSTEM_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },
@@ -42,7 +42,7 @@ const systems = [
         "inputsInline": true,
         "previousStatement": null,
         "nextStatement": null,
-        "colour": 230,
+        "colour": "%{BKY_SYSTEM_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },
@@ -63,7 +63,7 @@ const systems = [
         "inputsInline": true,
         "previousStatement": null,
         "nextStatement": null,
-        "colour": 230,
+        "colour": "%{BKY_SYSTEM_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },
@@ -80,7 +80,7 @@ const systems = [
         "inputsInline": true,
         "previousStatement": null,
         "nextStatement": null,
-        "colour": 230,
+        "colour": "%{BKY_SYSTEM_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },

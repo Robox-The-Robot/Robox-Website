@@ -1,8 +1,16 @@
 import * as Blockly from 'blockly';
 import Theme from '@blockly/theme-modern';
 
-Blockly.utils.colour.setHsvValue(0.96)
-Blockly.utils.colour.setHsvSaturation(0.63)
+Blockly.Msg.SENSOR_HUE = 0;
+Blockly.Msg.EVENT_HUE = 190;
+Blockly.Msg.MOTOR_HUE = 176;
+Blockly.Msg.SYSTEM_HUE = 42;
+
+
+
+
+
+
 export default Blockly.Theme.defineTheme('themeName', {
     'base': Theme,
     componentStyles: {
@@ -13,43 +21,21 @@ export default Blockly.Theme.defineTheme('themeName', {
     },
     categoryStyles: {
         'sensor_category': {
-            'colour': '#FF90BC'
+            'colour': '%{BKY_SENSOR_HUE}'
         },
         'motor_category': {
-            'colour': '#DFCCFB'
+            'colour': '%{BKY_MOTOR_HUE}'
         },
         "system_category": {
-            'colour': '#E6A573'
+            'colour': '%{BKY_SYSTEM_HUE}'
         },
         "events_category": {
-            'colour': "#D373E6"
+            'colour': '%{BKY_EVENT_HUE}'
         },
-        "logic_category": {
-            'colour': '#7BD3EA'
-        },
-        "loop_category": {
-            'colour': '#E75CF6'
-        },
-        
-        "math_category": {
-            'colour': '#A95CF6'
-        },
-        "text_category": {
-            'colour': '#5C85F6'
-        },
-        "list_category": {
-            'colour': '#5CF6A9'
-        },
-        "colour_category": {
-            'colour': '#DFE673'
-        },
-        "variable_category": {
-            'colour': 'F65C5C'
-        },
-        "procedure_category": {
-            'colour': '#F6E15C'
-        }
-
     },
+    blockStyles: {
+        "sensor_blocks": '%{BKY_SENSOR_HUE}',
+    },
+
     startHats: true
 });

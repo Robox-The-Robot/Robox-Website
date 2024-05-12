@@ -61,7 +61,7 @@ const sensors = [
         "inputsInline": true,
         "previousStatement": null,
         "nextStatement": null,
-        "colour": 230,
+        "colour": "%{BKY_MOTOR_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },
@@ -109,7 +109,7 @@ const sensors = [
         "inputsInline": true,
         "previousStatement": null,
         "nextStatement": null,
-        "colour": 230,
+        "colour": "%{BKY_MOTOR_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },
@@ -142,7 +142,7 @@ const sensors = [
         ],
         "previousStatement": null,
         "nextStatement": null,
-        "colour": 230,
+        "colour": "%{BKY_MOTOR_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },
@@ -151,7 +151,7 @@ const sensors = [
         "message0": "stop motors",
         "previousStatement": null,
         "nextStatement": null,
-        "colour": 230,
+        "colour": "%{BKY_MOTOR_HUE}",
         "tooltip": "",
         "helpUrl": ""
     },
@@ -223,7 +223,7 @@ const sensors = [
         "inputsInline": true,
         "previousStatement": null,
         "nextStatement": null,
-        "colour": 230,
+        "colour": "%{BKY_MOTOR_HUE}",
         "tooltip": "",
         "helpUrl": ""
     }
