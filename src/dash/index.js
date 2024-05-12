@@ -1,4 +1,4 @@
-import * as Blockly from 'blockly/core';
+
 import "./index.css"
 import "../colorvars.css"
 import "./cross.png"
@@ -26,7 +26,7 @@ fileInput.addEventListener("change", (e) => {
 
         reader.addEventListener('load', (event) => {
             // TODO: SAVEBLOCKLYCOMPRESSED REQUIRES FILE VALIDATION
-            saveBlocklyCompressed(file.name.replace(/\.[^/.]+$/, ""), event.target.result);
+            saveBlocklyCompressed(event.target.result);
             refreshProjects()
         });
         reader.readAsText(file);
@@ -71,7 +71,7 @@ function populateProjects() {
 
         }
         for (let item of document.querySelectorAll(".project")) {
-            item.addEventListener("click", dotsMenu)
+            item.addEventListener("click", projectClick)
         }
     }
 }
@@ -79,14 +79,14 @@ function refreshProjects() {
     projectHolder.replaceChildren()
     populateProjects()
 }
-function dotsMenu(e) {
+function projectClick(e) {
     let item = e.target
-    let dots = item.closest(".dots")
-    if (dots === null) { //Checking if it is the dialog being pressed or the dots
-        if (!e.target.classList.contains("project")) item = item.parentNode
+    let dots = item.closest(".dots") //checking if there is the dots object near or above the item
+    if (dots === null) { //If the dialog is clicked it will not have dots (as dots is its child)
+        item = item.closest(".project")
         window.location.assign(`${window.location.href}workspace/${item.id}`)
     }
-    else { //it is the dots
+    else { //if it is the edit menu dots clicked
         let boundingRect = dots.getBoundingClientRect()
         let x = boundingRect["x"] + (boundingRect["width"]) / 2
         let y = boundingRect["y"] + (boundingRect["height"]) / 2

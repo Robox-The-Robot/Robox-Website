@@ -39,14 +39,15 @@ export function saveBlockly(uuid, workspace) {
     projects[uuid]["workspace"] = data
     let projectData = JSON.stringify(projects)
     localStorage.setItem("roboxProjects", projectData)
-    return JSON.stringify(data)
+    return JSON.stringify(projects[uuid])
 }
 
-export function saveBlocklyCompressed(name, data) {
+export function saveBlocklyCompressed(projectRaw) {
     // TODO: SAVEBLOCKLYCOMPRESSED REQUIRES FILE VALIDATION
     let projects = getProjects()
+    let project = JSON.parse(projectRaw)
     let uuid = crypto.randomUUID();
-    projects[uuid] = {time: dayjs(), workspace: JSON.parse(data), name: name}
+    projects[uuid] = project
     let projectData = JSON.stringify(projects)
     localStorage.setItem("roboxProjects", projectData)
 }

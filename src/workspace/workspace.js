@@ -96,11 +96,11 @@ ws.addChangeListener((e) => { // Saving every time block is added
 });
 
 document.getElementById("export").addEventListener("click", (e) => {
-    let fileDownload = saveBlockly(workspaceName, ws);
+    let fileDownload = saveBlockly(workspaceId, ws);
 
     let downloadEl = document.createElement('a');
     downloadEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileDownload));
-    downloadEl.setAttribute('download', workspaceName + '.robox');
+    downloadEl.setAttribute('download', workspaceName.split(" ").join("-") + '.robox');
 
     downloadEl.style.display = 'none';
     document.body.appendChild(downloadEl);
