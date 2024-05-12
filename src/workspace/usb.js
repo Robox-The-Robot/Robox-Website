@@ -1,3 +1,7 @@
+import * as Blockly from 'blockly';
+import { pythonGenerator } from 'blockly/python'
+
+
 const connectButton = document.getElementById("connect")
 const playButton = document.getElementById("play")
 const stopButton = document.getElementById("stop")
@@ -11,12 +15,11 @@ let currentStreamClosed = null
 
 // Code to prefix the script. This includes libraries, etc.
 const scriptDependency = `from machine import Pin, Timer
-led = Pin(25, Pin.OUT)
-timer = Timer()
+import time
 
-def blink(timer):
-    led.toggle()
-timer.init(freq=2.5, mode=Timer.PERIODIC, callback=blink)`
+ENV_LED = Pin(25, Pin.OUT)
+
+`
 
 const piVendorId = 0x2E8A
 
@@ -108,10 +111,12 @@ function reconnectPico() {
 async function restartPico() {
     await currentWriter.write("x069\r")
 }
-
-async function sendCode(code) {
-    console.log("WRITING")
-    await currentWriter.write("x032BEGINUPLD\r" + scriptDependency + "\r\x04\r");
+const ws = Blockly.getMainWorkspace()
+async function sendCode() {
+    let code = pythonGenerator.workspaceToCode(ws);
+    let finalCode = `${scriptDependency}\n${code}\nevent_begin()`
+    console.log(finalCode)
+    await currentWriter.write("x032BEGINUPLD\r" + finalCode + "\r\x04\r");
     await currentWriter.write("x021STARTPROG\r");
     console.log("SENT")
 }

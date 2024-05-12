@@ -713,6 +713,14 @@ export const toolbox = {
       'name': 'System',
       'categorystyle': 'system_category',
       'contents': [
+        {
+          'kind': 'block',
+          'type': 'sleep',
+        },
+        {
+          'kind': 'block',
+          'type': 'led_toggle',
+        },
       ]
     },
     {

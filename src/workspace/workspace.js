@@ -31,6 +31,10 @@ import "../blockly/generators/sensor"
 import "../blockly/blocks/events"
 import "../blockly/generators/events"
 
+import "../blockly/blocks/systems"
+import "../blockly/generators/systems.js"
+
+
 import "./usb.js"
 
 
@@ -64,16 +68,14 @@ ws.addChangeListener(Blockly.Events.disableOrphans)
 // This function resets the code and output divs, shows the
 // generated code from the workspace, and evals the code.
 // In a real application, you probably shouldn't use `eval`.
-const runCode = () => {
-    const code = pythonGenerator.workspaceToCode(ws);
-};
+
 
 const workspacePath = window.location.pathname.split("/")
 const workspaceName = workspacePath[workspacePath.length - 1].split("-").join(" ")
 
 loadBlockly(workspaceName, ws)
 
-runCode();
+
 // blocklyFlyout
 let currentWorkspace = workspaceName
 let renameTitle = document.getElementById("project-name")

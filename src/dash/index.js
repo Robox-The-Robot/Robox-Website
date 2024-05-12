@@ -164,6 +164,37 @@ for (const modal of modals) {
     })
 }
 
+let lastTarget
+const dropzone = document.getElementById("dropzone")
+
+function dropEvent(e) {
+    dropzone.style.display = 'none'
+    e.preventDefault()
+}
+
+
+
+document.addEventListener("dragover", function(e) {
+    e.preventDefault()
+})
+document.addEventListener("dragenter", function(e) {
+    lastTarget = e.target
+    const files = e.dataTransfer.items
+    if (files.length > 0) {
+        dropzone.style.display = "flex"
+        document.addEventListener("drop", dropEvent, {once: true})   
+
+    }
+})
+
+document.addEventListener("dragleave", function (e) {
+    if (e.target === lastTarget && dropzone.style.display === 'flex') {
+        dropzone.style.display = 'none'
+        document.removeEventListener("drop", dropEvent)
+    }
+})
+
+
 
 // const projectCreateForm = document.getElementById("project-create")
 // projectCreateForm.addEventListener("submit", (e) => {

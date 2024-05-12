@@ -212,6 +212,26 @@ body {
     height: 100%;
     margin-left: auto;
 }
+
+#dropzone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 200;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+#dropzone > div {
+    display: inherit;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+}
+
 .project-date {
     font-size: 13px;
     color: gray;
