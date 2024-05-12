@@ -26,7 +26,6 @@ fileInput.addEventListener("change", (e) => {
 
         reader.addEventListener('load', (event) => {
             // TODO: SAVEBLOCKLYCOMPRESSED REQUIRES FILE VALIDATION
-            console.log(event.target.result);
             saveBlocklyCompressed(file.name.replace(/\.[^/.]+$/, ""), event.target.result);
             window.location.reload(); // Refresh the project list instead of the page
         });
@@ -56,7 +55,7 @@ else {
         let time = clone.querySelector(".project-date")
         let projectTime = dayjs(project["time"])
         time.textContent = projectTime.fromNow()
-        title.textContent = projectId
+        title.textContent = project["name"]
         clone.querySelector(".project").id = `${projectId}`
 
         projectHolder.appendChild(clone)
@@ -70,8 +69,7 @@ else {
             let dots = item.closest(".dots")
             if (dots === null) { //Checking if it is the dialog being pressed or the dots
                 if (!e.target.classList.contains("project")) item = item.parentNode
-                const id = item.querySelector(".project-name").textContent.split(" ").join("-")
-                window.location.assign(`${window.location.href}workspace/${id}`)
+                window.location.assign(`${window.location.href}workspace/${item.id}`)
             }
             else { //it is the dots
                 let boundingRect= dots.getBoundingClientRect()
@@ -79,7 +77,6 @@ else {
                 let y = boundingRect["y"] + (boundingRect["height"]) / 2
                 toolbarModal.style.left = `${x}px`
                 toolbarModal.style.top = `${y}px`
-                console.log(item.closest(".project").id)
                 toolbarModal.setAttribute("target", item.closest(".project").id)
                 toolbarModal.showModal()
             }
@@ -88,16 +85,8 @@ else {
 }
 const createProjectButton = document.getElementById("create-project")
 createProjectButton.addEventListener("click", function(e)  {
-    //Check what level of untitled we are
-    let level = 0
-    let exists = true
-    let id = `untitled-project${level}`
-    while (exists !== false) {
-        id = `untitled-project${level === 0 ? "" : "-" + level}`
-        exists = getProject(id)
-        level += 1
-    }
-    createProject(id.split("-").join(" "))
+    let name = `untitled project`
+    let id = createProject(name)
     window.location.assign(`${window.location.href}workspace/${id}`)
 })
 
@@ -106,21 +95,20 @@ createProjectButton.addEventListener("click", function(e)  {
 const editProjectModal = document.querySelector("#edit-project-dialog")
 const editForm = editProjectModal.querySelector("form")
 document.getElementById("edit-button").addEventListener("click", (event) => {
-    let projectName = toolbarModal.getAttribute("target");
-
-    editProjectModal.setAttribute("target", projectName);
-    editProjectModal.querySelector("#editPName").textContent = projectName;
-    editProjectModal.querySelector("#pname").value = projectName;
+    let projectID = toolbarModal.getAttribute("target");
+    let project = getProject(projectID)
+    editProjectModal.setAttribute("target", projectID);
+    editProjectModal.querySelector("#editPName").textContent = project["name"];
+    editProjectModal.querySelector("#pname").value = project["name"];
     editProjectModal.showModal()
     editForm.addEventListener("submit", function(e) {
         let submitterType = e.submitter.getAttribute("baction")
         if (submitterType === "confirm") {
             let newName = document.getElementById("pname").value
             document.querySelector("#pname").value = ""
-            //Check if error
             let checkProject = getProject(newName)
             if (checkProject === false) { //good to go
-                renameProject(projectName, newName)
+                renameProject(projectID, newName)
                 window.location.reload() // Refresh the project list instead of the page
                 //Do something to confirm (thinking popup)
             }
@@ -133,15 +121,16 @@ document.getElementById("edit-button").addEventListener("click", (event) => {
 const deleteProjectModal = document.getElementById("delete-project-dialog")
 const deleteButtons = deleteProjectModal.querySelector("#delete-buttons")
 document.getElementById("delete-button").addEventListener("click", (event) => {
-    let projectName = editProjectModal.getAttribute("target");
+    let projectID = toolbarModal.getAttribute("target");
+    let project = getProject(projectID)
 
     deleteProjectModal.setAttribute("target", toolbarModal.getAttribute("target"))
-    deleteProjectModal.querySelector("#deletePName").textContent = projectName;
+    deleteProjectModal.querySelector("#deletePName").textContent = project["name"];
     deleteProjectModal.showModal()
     deleteButtons.addEventListener("click", function (e) {
         if (e.target.nodeName === "DIV") return
         if (e.target.id === "confirm-delete") {
-            deleteProject(projectName);
+            deleteProject(projectID);
             window.location.reload() // Refresh the project list instead of the page
         }
         else {
@@ -168,6 +157,9 @@ let lastTarget
 const dropzone = document.getElementById("dropzone")
 
 function dropEvent(e) {
+    let file = e.dataTransfer.files[0]
+    let fileName = file.name.split(".")
+
     dropzone.style.display = 'none'
     e.preventDefault()
 }

@@ -71,9 +71,11 @@ ws.addChangeListener(Blockly.Events.disableOrphans)
 
 
 const workspacePath = window.location.pathname.split("/")
-const workspaceName = workspacePath[workspacePath.length - 1].split("-").join(" ")
+const workspaceId = workspacePath[workspacePath.length - 1]
+const project = getProject(workspaceId)
+let workspaceName = project["name"]
 
-loadBlockly(workspaceName, ws)
+loadBlockly(workspaceId, ws)
 
 
 // blocklyFlyout
@@ -83,21 +85,14 @@ renameTitle.value = workspaceName
 renameTitle.addEventListener("blur", function (e) {
     if (renameTitle.value !== currentWorkspace) {
         let newName = renameTitle.value
-        let checkProject = getProject(newName)
-        if (checkProject === false) { //good to go
-            renameProject(currentWorkspace, newName)
-            //Do something to confirm (thinking popup)
-        }
-        else { // Display the error somehow
-
-        }
+        renameProject(workspaceId, newName)
     }
 })
 
 // Save/export workspace
 ws.addChangeListener((e) => { // Saving every time block is added
     if (e.isUiEvent) return;
-    saveBlockly(workspaceName, ws);
+    saveBlockly(workspaceId, ws);
 });
 
 document.getElementById("export").addEventListener("click", (e) => {

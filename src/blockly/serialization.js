@@ -12,57 +12,54 @@ export function getProjects() {
 }
 export function createProject(name) {
     let projects = getProjects()
-    if (projects[name]) throw new Error("Project already exists")
-    projects[name] = { time: dayjs(), workspace: false }
+    let uuid = crypto.randomUUID();
+    projects[uuid] = { name: name, time: dayjs(), workspace: false }
     localStorage.setItem("roboxProjects", JSON.stringify(projects))
+    return uuid
 }
-export function getProject(name, projects = false) {
+export function getProject(uuid, projects = false) {
     if (!projects) {
         projects = getProjects()
     }
-    if (projects[name] === undefined) return false
-    return projects[name]
+    if (projects[uuid] === undefined) return false
+    return projects[uuid]
 }
-export function loadBlockly(name, workspace) {
-    let project = getProject(name)
+export function loadBlockly(uuid, workspace) {
+    let project = getProject(uuid)
     let workspaceData = project.workspace
     if (!workspaceData) return;
     Blockly.Events.disable();
     Blockly.serialization.workspaces.load(workspaceData, workspace, undefined);
     Blockly.Events.enable();
 }
-export function saveBlockly(name, workspace) {
+export function saveBlockly(uuid, workspace) {
     const data = Blockly.serialization.workspaces.save(workspace)
     let projects = getProjects()
-    projects[name] = { time: dayjs(), workspace: data }
-
+    projects[uuid]["time"] = dayjs()
+    projects[uuid]["workspace"] = data
     let projectData = JSON.stringify(projects)
     localStorage.setItem("roboxProjects", projectData)
-
     return JSON.stringify(data)
 }
 
 export function saveBlocklyCompressed(name, data) {
     // TODO: SAVEBLOCKLYCOMPRESSED REQUIRES FILE VALIDATION
     let projects = getProjects()
-    projects[name] = { time: dayjs(), workspace: JSON.parse(data) }
-
+    let uuid = crypto.randomUUID();
+    projects[uuid] = {time: dayjs(), workspace: JSON.parse(data), name: name}
     let projectData = JSON.stringify(projects)
     localStorage.setItem("roboxProjects", projectData)
 }
 
-export function renameProject(oldName, newName) {
+export function renameProject(uuid, newName) {
     let projects = getProjects()
-    if (!projects[oldName]) throw new Error("Project does not exist")
-    if (projects[newName]) throw new Error("Project already exists")
-    projects[newName] = structuredClone(projects[oldName])
-    delete projects[oldName]
-    console.log(1)
+    if (!projects[uuid]) throw new Error("Project does not exist")
+    projects[uuid]["name"] = newName
     localStorage.setItem("roboxProjects", JSON.stringify(projects))
 }
-export function deleteProject(name) {
+export function deleteProject(uuid) {
     let projects = getProjects()
-    if (!projects[name]) throw new Error("Project does not exist")
-    delete projects[name]
+    if (!projects[uuid]) throw new Error("Project does not exist")
+    delete projects[uuid]
     localStorage.setItem("roboxProjects", JSON.stringify(projects))
 }
