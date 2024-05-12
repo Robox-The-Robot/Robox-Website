@@ -48,6 +48,7 @@ export function saveBlocklyCompressed(projectRaw) {
     let project = JSON.parse(projectRaw)
     let uuid = crypto.randomUUID();
     projects[uuid] = project
+    projects[uuid]["time"] = dayjs()
     let projectData = JSON.stringify(projects)
     localStorage.setItem("roboxProjects", projectData)
 }

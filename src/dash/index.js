@@ -176,11 +176,21 @@ let lastTarget
 const dropzone = document.getElementById("dropzone")
 
 function dropEvent(e) {
-    let file = e.dataTransfer.files[0]
-    let fileName = file.name.split(".")
-
-    dropzone.style.display = 'none'
     e.preventDefault()
+    
+    //Loading the files
+    for (let file of e.dataTransfer.files) {
+        let fileName = file.name.split(".")
+        let fileEnd = fileName[fileName.length - 1]
+        if (fileEnd !== "robox") return //not a robox file (error?)
+        let reader = new FileReader();
+        reader.addEventListener('load', (event) => {
+            saveBlocklyCompressed(event.target.result);
+            refreshProjects()
+        });
+        reader.readAsText(file);
+    }
+    dropzone.style.display = 'none'
 }
 
 
