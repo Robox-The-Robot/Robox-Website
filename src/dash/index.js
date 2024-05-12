@@ -42,7 +42,9 @@ const toolbarModal = document.getElementById("toolbar")
 populateProjects()
 function populateProjects() {
     let projects = getProjects()
+
     let projectIds = Object.keys(projects)
+    
     //If no projects may need to update this warning?
     if (projectIds.length === 0) {
         let warning = document.createElement("h1")
@@ -51,8 +53,9 @@ function populateProjects() {
 
     } //if projects
     else {
+        let sortedByTime = projectIds.sort((key1, key2) => dayjs(projects[key2]["time"]).diff(dayjs(projects[key1]["time"])))
         let projectIndex = 0
-        for (const projectId of projectIds) {
+        for (const projectId of sortedByTime) {
             let project = projects[projectId]
             let clone = projectTemplate.content.cloneNode(true)
             let title = clone.querySelector(".project-name")
