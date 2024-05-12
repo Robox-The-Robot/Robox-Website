@@ -27,7 +27,7 @@ fileInput.addEventListener("change", (e) => {
         reader.addEventListener('load', (event) => {
             // TODO: SAVEBLOCKLYCOMPRESSED REQUIRES FILE VALIDATION
             saveBlocklyCompressed(file.name.replace(/\.[^/.]+$/, ""), event.target.result);
-            window.location.reload(); // Refresh the project list instead of the page
+            refreshProjects()
         });
         reader.readAsText(file);
     }
@@ -36,53 +36,65 @@ fileInput.addEventListener("change", (e) => {
 
 const projectTemplate = document.getElementById("template-project")
 const projectHolder = document.getElementById("project-holder")
-let toolbarModal = document.getElementById("toolbar")
-let projects = getProjects()
-let projectIds = Object.keys(projects)
-//If no projects may need to update this warning?
-if (projectIds.length === 0) {
-    let warning = document.createElement("h1")
-    warning.textContent = "No projects created! Please create one"
-    projectHolder.appendChild(warning)
+const toolbarModal = document.getElementById("toolbar")
 
-} //if projects
-else {
-    let projectIndex = 0
-    for (const projectId of projectIds) {
-        let project = projects[projectId]
-        let clone = projectTemplate.content.cloneNode(true)
-        let title = clone.querySelector(".project-name")
-        let time = clone.querySelector(".project-date")
-        let projectTime = dayjs(project["time"])
-        time.textContent = projectTime.fromNow()
-        title.textContent = project["name"]
-        clone.querySelector(".project").id = `${projectId}`
 
-        projectHolder.appendChild(clone)
+populateProjects()
+function populateProjects() {
+    let projects = getProjects()
+    let projectIds = Object.keys(projects)
+    //If no projects may need to update this warning?
+    if (projectIds.length === 0) {
+        let warning = document.createElement("h1")
+        warning.textContent = "No projects created! Please create one"
+        projectHolder.appendChild(warning)
 
-        projectIndex++
+    } //if projects
+    else {
+        let projectIndex = 0
+        for (const projectId of projectIds) {
+            let project = projects[projectId]
+            let clone = projectTemplate.content.cloneNode(true)
+            let title = clone.querySelector(".project-name")
+            let time = clone.querySelector(".project-date")
+            let projectTime = dayjs(project["time"])
+            time.textContent = projectTime.fromNow()
+            title.textContent = project["name"]
+            clone.querySelector(".project").id = `${projectId}`
 
-    }
-    for (let item of document.querySelectorAll(".project")) {
-        item.addEventListener("click", (e) => {
-            let item = e.target
-            let dots = item.closest(".dots")
-            if (dots === null) { //Checking if it is the dialog being pressed or the dots
-                if (!e.target.classList.contains("project")) item = item.parentNode
-                window.location.assign(`${window.location.href}workspace/${item.id}`)
-            }
-            else { //it is the dots
-                let boundingRect= dots.getBoundingClientRect()
-                let x = boundingRect["x"]+(boundingRect["width"])/2
-                let y = boundingRect["y"] + (boundingRect["height"]) / 2
-                toolbarModal.style.left = `${x}px`
-                toolbarModal.style.top = `${y}px`
-                toolbarModal.setAttribute("target", item.closest(".project").id)
-                toolbarModal.showModal()
-            }
-        })
+            projectHolder.appendChild(clone)
+
+            projectIndex++
+
+        }
+        for (let item of document.querySelectorAll(".project")) {
+            item.addEventListener("click", dotsMenu)
+        }
     }
 }
+function refreshProjects() {
+    projectHolder.replaceChildren()
+    populateProjects()
+}
+function dotsMenu(e) {
+    let item = e.target
+    let dots = item.closest(".dots")
+    if (dots === null) { //Checking if it is the dialog being pressed or the dots
+        if (!e.target.classList.contains("project")) item = item.parentNode
+        window.location.assign(`${window.location.href}workspace/${item.id}`)
+    }
+    else { //it is the dots
+        let boundingRect = dots.getBoundingClientRect()
+        let x = boundingRect["x"] + (boundingRect["width"]) / 2
+        let y = boundingRect["y"] + (boundingRect["height"]) / 2
+        toolbarModal.style.left = `${x}px`
+        toolbarModal.style.top = `${y}px`
+        toolbarModal.setAttribute("target", item.closest(".project").id)
+        toolbarModal.showModal()
+    }
+}
+
+
 const createProjectButton = document.getElementById("create-project")
 createProjectButton.addEventListener("click", function(e)  {
     let name = `untitled project`
@@ -109,7 +121,9 @@ document.getElementById("edit-button").addEventListener("click", (event) => {
             let checkProject = getProject(newName)
             if (checkProject === false) { //good to go
                 renameProject(projectID, newName)
-                window.location.reload() // Refresh the project list instead of the page
+                refreshProjects()
+                editProjectModal.close()
+                toolbarModal.close()
                 //Do something to confirm (thinking popup)
             }
             else { // Display the error somehow
@@ -131,7 +145,9 @@ document.getElementById("delete-button").addEventListener("click", (event) => {
         if (e.target.nodeName === "DIV") return
         if (e.target.id === "confirm-delete") {
             deleteProject(projectID);
-            window.location.reload() // Refresh the project list instead of the page
+            refreshProjects()
+            deleteProjectModal.close()
+            toolbarModal.close()
         }
         else {
             deleteProjectModal.close()
