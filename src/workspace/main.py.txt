@@ -1,0 +1,90 @@
+import select
+import sys
+import time
+import _thread
+
+import machine
+led = machine.Pin(25, machine.Pin.OUT)
+
+led.on()
+
+# Polling object
+poll_obj = select.poll()
+poll_obj.register(sys.stdin, select.POLLIN)
+
+# TEST: Check if USB port is connected
+SIE_STATUS=const(0x50110000+0x50)
+CONNECTED=const(1<<16)
+SUSPENDED=const(1<<4)
+def isUSBConnected():
+    return (machine.mem32[SIE_STATUS] & (CONNECTED | SUSPENDED)) == CONNECTED
+
+def protectedProgCall():
+    try:
+        import program
+    except ImportError as e: # Filsys.stdout.write("E")
+        print(e)
+    except: # Program/Misc error
+        sys.stdout.write("ERROR")
+        print("uh oh i did an oopsie")
+    
+    # We may need to do a restart so we can use the program again
+    # machine.soft_reset()
+
+
+
+if isUSBConnected() or True: # Setting to true by default
+    # Boot into program/test mode
+    print("Device is connected: Boot into PROG/TEST mode")
+    
+    readingFile = False
+    outFilename = "program.py" # Name of program file
+
+    while True:
+        poll_results = poll_obj.poll(1) # Delay 1 microsecond before polling
+        
+        if poll_results:
+            # Read the data from stdin (read data coming from PC)
+            data = sys.stdin.readline()
+            dataStripped = data.strip() # Use this to read exact system commands
+            
+            # Program begin
+            if dataStripped == "x021STARTPROG":
+                led.on()
+                sys.stdout.write("TEST ADHAHSD")
+                _thread.start_new_thread(protectedProgCall, ())
+                
+                continue
+            
+            # Program upload
+            if dataStripped == "\x04":
+                # Don't read termination line
+                readingFile = False
+                led.on()
+                
+                # Close file
+                outFile.close()
+            elif dataStripped == "x032BEGINUPLD":
+                open(outFilename, 'w').close() # Clear file
+                outFile = open(outFilename, "a") # Open file for writing
+            elif dataStripped == "x069":
+                machine.reset()
+            else:
+                led.toggle() # Flash LED for debug
+            
+                # Write the data to program file
+                outFile.write(data)
+        else:
+            # No response, check if USB is still alive
+#             if not isUSBConnected():
+#                 machine.soft_reset() # Restart
+            
+            continue
+else:
+    # Immediately run program, if there is one.
+    print("Device not connected: Run program immediately if available")
+    protectedProgCall()
+
+
+
+

@@ -11,11 +11,14 @@ const roboxFace = document.querySelector("#robox-connection > img")
 
 let currentPort = null
 let currentWriter = null
-let currentStreamClosed = null
+let currentWriterStreamClosed = null
+
+let currentReader
+let currentReadableStreamClosed
 
 // Code to prefix the script. This includes libraries, etc.
 const scriptDependency = `from machine import Pin, Timer
-import time
+import tim
 
 ENV_LED = Pin(25, Pin.OUT)
 
@@ -72,8 +75,11 @@ navigator.serial.addEventListener("disconnect", (e) => {
 
 
 async function disconnect() {
+    currentReader.cancel()
+    await currentReadableStreamClosed.catch(() => { /* Ignore the error */ });
+
     currentWriter.close();
-    await currentStreamClosed;
+    await currentWriterStreamClosed;
     await currentPort.close()
     connectButton.style.display = "inline-block"
     playButton.style.display = "none"
@@ -87,7 +93,12 @@ async function connect(port) {
     let textEncoder = new TextEncoderStream();
     currentPort = port
     currentWriter = textEncoder.writable.getWriter();
-    currentStreamClosed = textEncoder.readable.pipeTo(port.writable);
+    currentWriterStreamClosed = textEncoder.readable.pipeTo(port.writable);
+
+    let textDecoder = new TextDecoderStream()
+    currentReadableStreamClosed = currentPort.readable.pipeTo(textDecoder.writable);
+    currentReader = textDecoder.readable.getReader();
+
 
     playButton.style.display = "inline-block"
     connectButton.style.display = "none"
@@ -115,8 +126,19 @@ const ws = Blockly.getMainWorkspace()
 async function sendCode() {
     let code = pythonGenerator.workspaceToCode(ws);
     let finalCode = `${scriptDependency}\n${code}\nevent_begin()`
-    console.log(finalCode)
     await currentWriter.write("x032BEGINUPLD\r" + finalCode + "\r\x04\r");
     await currentWriter.write("x021STARTPROG\r");
-    console.log("SENT")
+    readPico()
+}
+async function readPico() {
+    while (true) {
+        const { value, done } = await currentReader.read();
+        if (done) {
+            currentReader.releaseLock();
+            break;
+        }
+        // value is a string.
+        console.log(value);
+        
+    }
 }
