@@ -1,6 +1,7 @@
 import select
 import sys
 import time
+import json
 import _thread
 
 import machine
@@ -23,15 +24,16 @@ def protectedProgCall():
     try:
         import program
     except ImportError as e: # Filsys.stdout.write("E")
-        print(e)
+        print(generatePrint("error", e))
     except: # Program/Misc error
-        sys.stdout.write("ERROR")
         print("uh oh i did an oopsie")
     
     # We may need to do a restart so we can use the program again
     # machine.soft_reset()
 
-
+def generatePrint(typ, message):
+    jsmessage = {"type": typ, "message": message}
+    return json.dumps(jsmessage)
 
 if isUSBConnected() or True: # Setting to true by default
     # Boot into program/test mode

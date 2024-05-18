@@ -18,9 +18,10 @@ let currentReadableStreamClosed
 
 // Code to prefix the script. This includes libraries, etc.
 const scriptDependency = `from machine import Pin, Timer
-import tim
+import time
 
 ENV_LED = Pin(25, Pin.OUT)
+print("test")
 
 `
 
@@ -137,8 +138,21 @@ async function readPico() {
             currentReader.releaseLock();
             break;
         }
-        // value is a string.
-        console.log(value);
+        try {
+            let parsedValue = JSON.parse(value)
+            let type = parsedValue["type"]
+            console.log(parsedValue, value)
+            if (type === "error") {
+
+            }
+            else if (type === "console") {
+
+            }
+        }
+        catch {
+            console.log(value)
+        }
+        
         
     }
 }
