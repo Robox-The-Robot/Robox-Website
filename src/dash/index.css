@@ -12,6 +12,16 @@ header {
     width: 100%;
     height: 75px;
 }
+
+#toast-holder {
+    position: absolute;
+    width: 220px;
+    height: 50px;
+    bottom: 66px;
+    right: 100px;
+    z-index: 1000;
+}
+
 .button {
     border: none;
     text-align: center;
@@ -168,6 +178,11 @@ header {
     flex-direction: row;
     gap: 20px;
     flex-wrap: wrap;
+}
+.project-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
 }
 .project-image {
     width: 100%;

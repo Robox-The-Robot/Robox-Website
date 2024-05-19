@@ -52,6 +52,7 @@ playButton.addEventListener("click", async function (e) {
 
 stopButton.addEventListener("click", async function (e) {
     stopButton.style.display = 'none'
+    playButton.style.display = "inline-block"
     restartPico()
 })  
 
@@ -127,6 +128,7 @@ const ws = Blockly.getMainWorkspace()
 async function sendCode() {
     let code = pythonGenerator.workspaceToCode(ws);
     let finalCode = `${scriptDependency}\n${code}\nevent_begin()`
+    console.log(finalCode)
     await currentWriter.write("x032BEGINUPLD\r" + finalCode + "\r\x04\r");
     await currentWriter.write("x021STARTPROG\r");
     readPico()

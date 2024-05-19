@@ -25,8 +25,8 @@ def protectedProgCall():
         import program
     except ImportError as e: # Filsys.stdout.write("E")
         print(generatePrint("error", e))
-    except: # Program/Misc error
-        print("uh oh i did an oopsie")
+    except Exception as e: # Program/Misc error
+        print("e")
     
     # We may need to do a restart so we can use the program again
     # machine.soft_reset()

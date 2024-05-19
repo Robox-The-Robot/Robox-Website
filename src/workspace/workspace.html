@@ -13,23 +13,42 @@
         </div>
         
         <div id="floating-body">
-            <div id="connection">
-                <div id="robox-connection">
-                    <img class="sad-face">
-                </div>
-                <div id="connection-text">
-                    Disconnected
+            
+            <div id="toast-holder">
+                <div class="toast positive-toast">
+                    <div class="icon-holder">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div class="toast-text">
+                        <h1>Success something</h1>
+                        <p>Lorem thingy</p>
+                    </div>
                 </div>
             </div>
-            <button class="button floating-button" id="play">
-                <i class="fa-solid fa-play"></i>
-            </button>
-            <button class="button floating-button" id="connect">
-                <i class="fa-solid fa-plug"></i>
-            </button>
-            <button class="button floating-button" id="stop">
-                <i class="fa-solid fa-stop"></i>
-            </button>
+            <div id="connection-managment">
+                <div id="connection">
+                    <div id="robox-connection">
+                        <img class="sad-face">
+                    </div>
+                    <div id="connection-text">
+                        Disconnected
+                    </div>
+                </div>
+                <button class="button floating-button" id="terminal">
+                    <i class="fa-solid fa-terminal"></i>
+                </button>
+                <button class="button floating-button" id="play">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                
+                <button class="button floating-button" id="connect">
+                    <i class="fa-solid fa-plug"></i>
+                </button>
+                <button class="button floating-button" id="stop">
+                    <i class="fa-solid fa-stop"></i>
+                </button>
+            </div>
+            
         </div>
         
         <div id="header">
@@ -52,5 +71,19 @@
         <div id="pageContainer">
             <div id="blocklyDiv"></div>
         </div>
+        <template>
+            <div class="toast">
+                <div class="icon-holder">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                </div>
+                <div class="toast-text">
+                    <h1>Error something</h1>
+                    <p>Lorem thingy</p>
+                </div>
+            </div>
+        </template>
+        <template>
+            
+        </template>
     </body>
 </html>
