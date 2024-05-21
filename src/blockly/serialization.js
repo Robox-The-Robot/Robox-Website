@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import * as Blockly from 'blockly';
-
+import { workspaceToSvg_ } from './screenshotHelper.js';
 
 export function getProjects() {
     let projects = localStorage.getItem("roboxProjects")
@@ -34,13 +34,16 @@ export function loadBlockly(uuid, workspace) {
     Blockly.Events.enable();
 }
 export function saveBlockly(uuid, workspace) {
-    const data = Blockly.serialization.workspaces.save(workspace)
-    let projects = getProjects()
-    projects[uuid]["time"] = dayjs()
-    projects[uuid]["workspace"] = data
-    let projectData = JSON.stringify(projects)
-    localStorage.setItem("roboxProjects", projectData)
-    return JSON.stringify(projects[uuid])
+    workspaceToSvg_(workspace, (thumburi) => {
+        const data = Blockly.serialization.workspaces.save(workspace)
+        let projects = getProjects()
+        projects[uuid]["time"] = dayjs()
+        projects[uuid]["workspace"] = data
+        projects[uuid]["thumbnail"] = thumburi
+        let projectData = JSON.stringify(projects)
+        localStorage.setItem("roboxProjects", projectData)
+        return JSON.stringify(projects[uuid])
+    });
 }
 
 export function saveBlocklyCompressed(projectRaw) {

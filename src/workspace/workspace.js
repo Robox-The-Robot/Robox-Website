@@ -38,7 +38,6 @@ import "../blockly/generators/systems.js"
 import "./usb.js"
 
 
-
 // Set up UI elements and inject Blockly
 const blocklyDiv = document.getElementById('blocklyDiv');
 const ws = Blockly.inject(blocklyDiv, {
@@ -77,6 +76,9 @@ let workspaceName = project["name"]
 
 loadBlockly(workspaceId, ws)
 
+if (!project["thumbnail"]) {
+    saveBlockly(workspaceId, ws);
+}
 
 // blocklyFlyout
 let currentWorkspace = workspaceName

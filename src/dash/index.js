@@ -60,9 +60,11 @@ function populateProjects() {
             let clone = projectTemplate.content.cloneNode(true)
             let title = clone.querySelector(".project-name")
             let time = clone.querySelector(".project-date")
+            let thumbnail = clone.querySelector(".project-image")
             let projectTime = dayjs(project["time"])
             time.textContent = projectTime.fromNow()
             title.textContent = project["name"]
+            thumbnail.src = project["thumbnail"]
             clone.querySelector(".project").id = `${projectId}`
 
             projectHolder.appendChild(clone)
