@@ -33,7 +33,7 @@ export function loadBlockly(uuid, workspace) {
     Blockly.serialization.workspaces.load(workspaceData, workspace, undefined);
     Blockly.Events.enable();
 }
-export function saveBlockly(uuid, workspace) {
+export function saveBlockly(uuid, workspace, callback) {
     workspaceToSvg_(workspace, (thumburi) => {
         const data = Blockly.serialization.workspaces.save(workspace)
         let projects = getProjects()
@@ -42,7 +42,8 @@ export function saveBlockly(uuid, workspace) {
         projects[uuid]["thumbnail"] = thumburi
         let projectData = JSON.stringify(projects)
         localStorage.setItem("roboxProjects", projectData)
-        return JSON.stringify(projects[uuid])
+
+        if (callback) callback(JSON.stringify(projects[uuid]));
     });
 }
 

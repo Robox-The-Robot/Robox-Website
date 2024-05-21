@@ -98,16 +98,16 @@ ws.addChangeListener((e) => { // Saving every time block is added
 });
 
 document.getElementById("export").addEventListener("click", (e) => {
-    let fileDownload = saveBlockly(workspaceId, ws);
+    saveBlockly(workspaceId, ws, (fileDownload) => {
+        let downloadEl = document.createElement('a');
+        downloadEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileDownload));
+        downloadEl.setAttribute('download', workspaceName.split(" ").join("-") + '.robox');
 
-    let downloadEl = document.createElement('a');
-    downloadEl.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileDownload));
-    downloadEl.setAttribute('download', workspaceName.split(" ").join("-") + '.robox');
-
-    downloadEl.style.display = 'none';
-    document.body.appendChild(downloadEl);
-    downloadEl.click();
-    document.body.removeChild(downloadEl);
+        downloadEl.style.display = 'none';
+        document.body.appendChild(downloadEl);
+        downloadEl.click();
+        document.body.removeChild(downloadEl);
+    });
 });
 
 const blocklyFlyout = document.querySelector(".blocklyFlyout")
