@@ -13,15 +13,19 @@ header {
     height: 75px;
 }
 
-#toast-holder {
+#floating-body {
     position: absolute;
-    width: 220px;
-    height: 50px;
-    bottom: 66px;
-    right: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 265px;
+    height: calc(100% - 112.5px - 32px - 40px);
+    top: 112.5px;
+    right: 90px;
     z-index: 1000;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
 }
-
 .button {
     border: none;
     text-align: center;
@@ -37,7 +41,7 @@ header {
 }
 #delete-buttons, #edit-buttons {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     height: 20%;
     width: 100%;
     gap: 20px;

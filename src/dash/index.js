@@ -1,7 +1,9 @@
 
 import "./index.css"
-import "../colorvars.css"
+import "../root.css"
 import "./cross.png"
+
+import { createToast } from "../alerts"
 
 import { createProject, getProject, getProjects, renameProject, deleteProject, saveBlocklyCompressed } from '../blockly/serialization';
 
@@ -26,7 +28,8 @@ fileInput.addEventListener("change", (e) => {
 
         reader.addEventListener('load', (event) => {
             // TODO: SAVEBLOCKLYCOMPRESSED REQUIRES FILE VALIDATION
-            saveBlocklyCompressed(event.target.result);
+            let project = saveBlocklyCompressed(event.target.result);
+            createToast("Project Imported!", `The project '${project["name"]}' has been imported`, "positive")
             refreshProjects()
         });
         reader.readAsText(file);
@@ -120,12 +123,14 @@ document.getElementById("edit-button").addEventListener("click", (event) => {
     editProjectModal.showModal()
     editForm.addEventListener("submit", function(e) {
         let submitterType = e.submitter.getAttribute("baction")
+        console.log(submitterType)
         if (submitterType === "confirm") {
             let newName = document.getElementById("pname").value
             document.querySelector("#pname").value = ""
             let checkProject = getProject(newName)
             if (checkProject === false) { //good to go
                 renameProject(projectID, newName)
+                createToast("Project Changed!", `The project '${project["name"]}' has been renamed to '${newName}'`, "positive")
                 refreshProjects()
                 editProjectModal.close()
                 toolbarModal.close()
@@ -150,6 +155,7 @@ document.getElementById("delete-button").addEventListener("click", (event) => {
         if (e.target.nodeName === "DIV") return
         if (e.target.id === "confirm-delete") {
             deleteProject(projectID);
+            createToast("Project Deleted!", `The project '${project["name"]}' has been deleted`, "negative")
             refreshProjects()
             deleteProjectModal.close()
             toolbarModal.close()
@@ -187,7 +193,8 @@ function dropEvent(e) {
         if (fileEnd !== "robox") return //not a robox file (error?)
         let reader = new FileReader();
         reader.addEventListener('load', (event) => {
-            saveBlocklyCompressed(event.target.result);
+            let project = saveBlocklyCompressed(event.target.result);
+            createToast("Project Imported!", `The project '${project["name"]}' has been imported`, "positive")
             refreshProjects()
         });
         reader.readAsText(file);

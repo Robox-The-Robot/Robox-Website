@@ -8,6 +8,24 @@
     </head> 
     
     <body>
+        <dialog class="input-modal" id="print-modal">
+            <div id="text-container">
+                <div class="console-output">
+                    <p class="console-time">
+                        11:00
+                    </p>
+                    <p class="console-text">testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123</p>
+                </div>
+                <div class="console-output">
+                    <p class="console-time">
+                        11:00
+                    </p>
+                    <p class="console-text">
+                        testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123testing123
+                    </p>
+                </div>
+            </div>
+        </dialog>
         <div id="delete-drag">
             <i class="fa-regular fa-trash-can"></i>
         </div>
@@ -15,15 +33,7 @@
         <div id="floating-body">
             
             <div id="toast-holder">
-                <div class="toast positive-toast">
-                    <div class="icon-holder">
-                        <i class="fa-solid fa-circle-check"></i>
-                    </div>
-                    <div class="toast-text">
-                        <h1>Success something</h1>
-                        <p>Lorem thingy</p>
-                    </div>
-                </div>
+                
             </div>
             <div id="connection-managment">
                 <div id="connection">
@@ -74,16 +84,23 @@
         <template>
             <div class="toast">
                 <div class="icon-holder">
-                    <i class="fa-solid fa-circle-exclamation"></i>
                 </div>
                 <div class="toast-text">
-                    <h1>Error something</h1>
-                    <p>Lorem thingy</p>
+                    <h1></h1>
+                    <p></p>
                 </div>
             </div>
         </template>
-        <template>
-            
+        <template id="toast-template">
+            <div class="toast ">
+                <div class="icon-holder">
+                    
+                </div>
+                <div class="toast-text">
+                    <h1>Success something</h1>
+                    <p>Lorem thingy</p>
+                </div>
+            </div>
         </template>
     </body>
 </html>

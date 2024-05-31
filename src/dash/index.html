@@ -7,18 +7,24 @@
     </head>
 
     <body>
+        <div id="floating-body">
+            
+            <div id="toast-holder">
+            </div>
+        </div>
         <dialog class="input-modal" id="delete-project-dialog">
             <div>
                 <i class="fa-regular fa-trash-can"></i>
                 <h1 class="modal-title" id="delete-title">Are you sure you want to delete '<span id="deletePName">Project</span>'?</h1>
                 <p id="delete-description">It will be deleted forever (a very long time)!</p>
                 <div id="delete-buttons">
-                    <button class="cancel button">
-                        Cancel
-                    </button>
                     <button class="button" id="confirm-delete">
                         Delete
                     </button>
+                    <button class="cancel button">
+                        Cancel
+                    </button>
+                    
                 </div>
             </div>
         </dialog>
@@ -44,12 +50,13 @@
                     <input placeholder="Project Name" type="text" id="pname" name="pname"><br><br>
                 </form>
                 <div id="edit-buttons">
-                    <button type="submit" form="project-edit-form" baction="cancel" class="button cancel">
-                        Cancel
-                    </button>
                     <button type="submit" form="project-edit-form" baction="confirm" class="button" id="confirm-rename">
                         Rename
                     </button>
+                    <button type="submit" form="project-edit-form" baction="cancel" class="button cancel">
+                        Cancel
+                    </button>
+                    
                 </div>
             </div>
         </dialog>
@@ -105,6 +112,17 @@
                     <button class="dots button">
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                     </button>
+                </div>
+            </div>
+        </template>
+        <template id="toast-template">
+            <div class="toast ">
+                <div class="icon-holder">
+        
+                </div>
+                <div class="toast-text">
+                    <h1>Success something</h1>
+                    <p>Lorem thingy</p>
                 </div>
             </div>
         </template>

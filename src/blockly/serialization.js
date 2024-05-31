@@ -56,6 +56,7 @@ export function saveBlocklyCompressed(projectRaw) {
     projects[uuid]["time"] = dayjs()
     let projectData = JSON.stringify(projects)
     localStorage.setItem("roboxProjects", projectData)
+    return projectData
 }
 
 export function renameProject(uuid, newName) {

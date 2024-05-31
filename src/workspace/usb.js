@@ -16,6 +16,8 @@ let currentWriterStreamClosed = null
 let currentReader
 let currentReadableStreamClosed
 
+let restarting = false
+
 // Code to prefix the script. This includes libraries, etc.
 const scriptDependency = `from machine import Pin, Timer
 import time
@@ -83,11 +85,13 @@ async function disconnect() {
     currentWriter.close();
     await currentWriterStreamClosed;
     await currentPort.close()
-    connectButton.style.display = "inline-block"
-    playButton.style.display = "none"
-    connectionText.textContent = "Disconnected"
-    roboxFace.classList.remove("happy-face")
-    roboxFace.classList.add("sad-face")
+    if (restarting) {
+        connectButton.style.display = "inline-block"
+        playButton.style.display = "none"
+        connectionText.textContent = "Disconnected"
+        roboxFace.classList.remove("happy-face")
+        roboxFace.classList.add("sad-face")
+    }
 }
 
 async function connect(port) {
@@ -107,6 +111,7 @@ async function connect(port) {
     connectionText.textContent = "Connected"
     roboxFace.classList.add("happy-face")
     roboxFace.classList.remove("sad-face")
+    if (restarting) restarting = false
 }
 
 function reconnectPico() {
