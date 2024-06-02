@@ -463,6 +463,30 @@ export const toolbox = {
         {
           'kind': 'block',
           'type': 'sleep',
+          "inputs": {
+            'time': {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NUM': 1,
+                },
+              },
+            },
+          }
+        },
+        {
+          'kind': 'block',
+          'type': 'print',
+          "inputs": {
+            'string': {
+              'shadow': {
+                'type': 'text',
+                'fields': {
+                  'TEXT': '',
+                },
+              },
+            },
+          }
         },
         {
           'kind': 'block',

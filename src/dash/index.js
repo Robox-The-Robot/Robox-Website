@@ -123,7 +123,6 @@ document.getElementById("edit-button").addEventListener("click", (event) => {
     editProjectModal.showModal()
     editForm.addEventListener("submit", function(e) {
         let submitterType = e.submitter.getAttribute("baction")
-        console.log(submitterType)
         if (submitterType === "confirm") {
             let newName = document.getElementById("pname").value
             document.querySelector("#pname").value = ""

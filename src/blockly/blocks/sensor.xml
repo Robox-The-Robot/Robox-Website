@@ -1,0 +1,175 @@
+<xml xmlns="https://developers.google.com/blockly/xml"><block type="factory_base" id="WIZl^t,hf[Zf?!!=qAy{" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="LEFT"></mutation>
+    <field name="NAME">distance</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">LEFT</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="(,Yki]pdH6^7YH;-bYgP">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="D$)3z)XiWlItgiypQ)xy">
+            <field name="TEXT">distance</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="5)@3*zp./IFm!J8vBawD" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="v0ZK,]z3M@Gfw]FA5q^N" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="OUTPUTTYPE">
+      <shadow type="type_null" id="f4/jyjpEP_n0/VC)bR=["></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="(jYZmwhy_R!BM,%6-`50">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="-BD#zmV}PNsGq@k2YPIM" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="LEFT"></mutation>
+    <field name="NAME">light_sensor</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">LEFT</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="$e]q7Al2oMKV(c9%RK4}">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="NDgmX`Y|Ogs@P=m`=(j=">
+            <field name="TEXT">light reading from sensor</field>
+            <next>
+              <block type="field_dropdown" id="0SGT*~tCV(o4B,=bp1zQ">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">sensor</field>
+                <field name="USER0">A</field>
+                <field name="CPU0">a</field>
+                <field name="USER1">B</field>
+                <field name="CPU1">b</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="hh,3i%o;-6*bFEXkSO~6" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="h`[]tf1k|%tQLfGHswCR" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="OUTPUTTYPE">
+      <shadow type="type_null" id="Urph9Xrl.NJ^D~wSW{ND"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="]5mw]pVlf%;I^5:b6=+Q">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="W^^R%.!VR[(OBbc@|M{9" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">int_line</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="-gwKS9Da+2$lzo).*h]F">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="v3)_eaX?FCqcKJDcbYe{">
+            <field name="TEXT">define left sensor as</field>
+            <next>
+              <block type="field_dropdown" id="08n-qx1I-Z)315cA_CKv">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">left</field>
+                <field name="USER0">A</field>
+                <field name="CPU0">a</field>
+                <field name="USER1">B</field>
+                <field name="CPU1">b</field>
+                <next>
+                  <block type="field_static" id="r,.Q7Yw,r2=vVv*x#DlD">
+                    <field name="TEXT">define right sensor as</field>
+                    <next>
+                      <block type="field_dropdown" id="yrzp;vEA*wu+elg`zeEM">
+                        <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                        <field name="FIELDNAME">right</field>
+                        <field name="USER0">A</field>
+                        <field name="CPU0">a</field>
+                        <field name="USER1">B</field>
+                        <field name="CPU1">b</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="iZv,Ifa]uB.ZGLwPuDo0" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="5/BE[%r`C]/t]:$QHT6," deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="q-dPJS.{a/w]qCC3Kqih"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="N@sF`GN4U0#v2W+SIXOg"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="I!`.+x4*x7L^KAYqz=BO">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="K*=oqp}Zujc|]_K6cL}C" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="LEFT"></mutation>
+    <field name="NAME">get_line_position</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">LEFT</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="}8EYjEh%`@B%K)i+!3~%">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="GdQXgDOeFE{J!423hgBj">
+            <field name="TEXT">line position</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="Gum-Yp@qzyUCk6AaDlP$" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="r8DUap.J8}sQunUveZ%6" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="OUTPUTTYPE">
+      <shadow type="type_null" id="*hAk$}wRLUXE2b?lH]kR"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="dB,f,D~.|C!J:Ub,5:^P">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block></xml>

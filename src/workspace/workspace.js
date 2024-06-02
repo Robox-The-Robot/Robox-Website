@@ -6,6 +6,8 @@
 
 import * as Blockly from 'blockly';
 import {pythonGenerator} from 'blockly/python'
+import { createToast } from "../alerts"
+
 import "./workspace.css"
 import "../root.css"
 import "./RoboxLogo.png"
@@ -114,7 +116,7 @@ const blocklyFlyout = document.querySelector(".blocklyFlyout")
 const blocklyToolbar = document.querySelector(".blocklyToolboxDiv")
 const deleteIndicator = document.getElementById("delete-drag")
 
-document.querySelector("#print-modal").showModal()
+
 
 ws.addChangeListener((e) => { //On drag show delete menu
     if (e.type !== Blockly.Events.BLOCK_DRAG) return

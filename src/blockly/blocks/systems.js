@@ -48,17 +48,28 @@ const systems = [
     },
     {
         "type": "sleep",
-        "message0": "sleep for %1 %2",
+        "message0": "sleep for %1 seconds",
         "args0": [
             {
                 "type": "input_value",
                 "name": "time"
             },
+        ],
+        "inputsInline": true,
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": "%{BKY_SYSTEM_HUE}",
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "print",
+        "message0": "print %1",
+        "args0": [
             {
-                "type": "field_label_serializable",
-                "name": "time",
-                "text": "seconds"
-            }
+                "type": "input_value",
+                "name": "string"
+            },
         ],
         "inputsInline": true,
         "previousStatement": null,

@@ -1,9 +1,13 @@
 import * as Blockly from 'blockly';
 import { pythonGenerator } from 'blockly/python'
+import { createToast } from "../alerts"
+import dayjs from 'dayjs';
+
 
 
 const connectButton = document.getElementById("connect")
 const playButton = document.getElementById("play")
+const consoleButton = document.getElementById("terminal")
 const stopButton = document.getElementById("stop")
 
 const connectionText = document.getElementById("connection-text")
@@ -21,9 +25,11 @@ let restarting = false
 // Code to prefix the script. This includes libraries, etc.
 const scriptDependency = `from machine import Pin, Timer
 import time
-
+import json
 ENV_LED = Pin(25, Pin.OUT)
-print("test")
+def generatePrint(typ, message):
+    jsmessage = {"type": typ, "message": message}
+    return json.dumps(jsmessage)
 
 `
 
@@ -57,8 +63,24 @@ stopButton.addEventListener("click", async function (e) {
     playButton.style.display = "inline-block"
     restartPico()
 })  
+const terminalModal = document.querySelector("#print-modal")
+consoleButton.addEventListener("click", async function (e) {
+    terminalModal.showModal()
+})  
 
-
+const modals = document.querySelectorAll("dialog")
+for (const modal of modals) {
+    modal.addEventListener("click", (event) => {
+        let rect = event.target.getBoundingClientRect();
+        if (rect.left > event.clientX ||
+            rect.right < event.clientX ||
+            rect.top > event.clientY ||
+            rect.bottom < event.clientY
+        ) {
+            modal.close();
+        }
+    })
+}
 
 
 
@@ -148,18 +170,28 @@ async function readPico() {
         try {
             let parsedValue = JSON.parse(value)
             let type = parsedValue["type"]
-            console.log(parsedValue, value)
             if (type === "error") {
-
+                createToast("Code Error!", parsedValue["message"], "negative")
             }
             else if (type === "console") {
+                printToConsole(parsedValue["message"])
 
             }
         }
-        catch {
-            console.log(value)
+        catch(err) {
+            console.log(err, value)
         }
         
         
     }
+}
+const consoleTemplate = document.querySelector("#console-output-template")
+const consoleElement = document.querySelector("#text-container")
+function printToConsole(message) {
+    const clone = consoleTemplate.content.cloneNode(true)
+    const text = clone.querySelector(".console-text")
+    text.textContent = message
+    const time = clone.querySelector(".console-time")
+    time.textContent = dayjs().format("HH:mm:ss")
+    consoleElement.appendChild(clone)
 }

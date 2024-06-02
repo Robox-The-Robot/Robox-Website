@@ -26,7 +26,11 @@ pythonGenerator.forBlock['led_toggle'] = function (block, generator) {
 };
 pythonGenerator.forBlock['sleep'] = function (block, generator) {
     var value_time = generator.valueToCode(block, 'time', Order.ATOMIC);
-    var field_time = block.getFieldValue('time');
     var code = `time.sleep(${value_time})\n`;
+    return code;
+};
+pythonGenerator.forBlock['print'] = function (block, generator) {
+    var value_time = generator.valueToCode(block, 'string', Order.ATOMIC);
+    var code = `print(generatePrint("console", ${value_time}))\n`;
     return code;
 };

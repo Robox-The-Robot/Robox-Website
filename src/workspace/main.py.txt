@@ -53,7 +53,6 @@ if isUSBConnected() or True: # Setting to true by default
             # Program begin
             if dataStripped == "x021STARTPROG":
                 led.on()
-                sys.stdout.write("TEST ADHAHSD")
                 _thread.start_new_thread(protectedProgCall, ())
                 
                 continue
