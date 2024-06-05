@@ -10,6 +10,9 @@ const playButton = document.getElementById("play")
 const consoleButton = document.getElementById("terminal")
 const stopButton = document.getElementById("stop")
 
+const consoleTemplate = document.querySelector("#console-output-template")
+const consoleElement = document.querySelector("#text-container")
+
 const connectionText = document.getElementById("connection-text")
 const roboxFace = document.querySelector("#robox-connection > img")
 
@@ -153,6 +156,7 @@ async function restartPico() {
 }
 const ws = Blockly.getMainWorkspace()
 async function sendCode() {
+    consoleElement.replaceChildren()
     let code = pythonGenerator.workspaceToCode(ws);
     let finalCode = `${scriptDependency}\n${code}\nevent_begin()`
     console.log(finalCode)
@@ -161,37 +165,58 @@ async function sendCode() {
     readPico()
 }
 async function readPico() {
-    while (true) {
+    //Sometimes messages from pico sends in halves so need to merge the values
+    let error_string = ''
+    usbloop: while (true) {
         const { value, done } = await currentReader.read();
         if (done) {
             currentReader.releaseLock();
             break;
         }
+        let consoleMessages = []
         try {
-            let parsedValue = JSON.parse(value)
-            let type = parsedValue["type"]
+            consoleMessages = [JSON.parse(value)]
+            error_string = ''
+        }
+        catch (err) {
+            error_string += value
+            let rawErrorMessages = error_string.split("\n")
+            let index = 0
+            errorloop: for (const errorMessage of rawErrorMessages) {
+                try {
+                    consoleMessages.push(JSON.parse(errorMessage))
+                }
+                catch (err) {
+                    break errorloop;
+                }
+                index += 1
+            }
+            if (index !== rawErrorMessages.length-1) {
+                rawErrorMessages.splice(0, index+1)
+            }
+            error_string = rawErrorMessages.join("\n")
+
+        }
+        for (const message of consoleMessages) {
+            let type = message["type"]
             if (type === "error") {
-                createToast("Code Error!", parsedValue["message"], "negative")
+                createToast("Code Error!", message["message"], "negative")
             }
             else if (type === "console") {
-                printToConsole(parsedValue["message"])
+                printToConsole(message["message"])
 
             }
         }
-        catch(err) {
-            console.log(err, value)
-        }
-        
-        
     }
 }
-const consoleTemplate = document.querySelector("#console-output-template")
-const consoleElement = document.querySelector("#text-container")
+
+
+
 function printToConsole(message) {
     const clone = consoleTemplate.content.cloneNode(true)
     const text = clone.querySelector(".console-text")
     text.textContent = message
     const time = clone.querySelector(".console-time")
     time.textContent = dayjs().format("HH:mm:ss")
-    consoleElement.appendChild(clone)
+    consoleElement.insertBefore(clone, consoleElement.firstChild)
 }
