@@ -492,6 +492,23 @@ export const toolbox = {
           'kind': 'block',
           'type': 'led_toggle',
         },
+        {
+          'kind': 'block',
+          'type': 'led_bool',
+        },
+        {
+          'kind': 'block',
+          'type': 'get_time',
+        },
+        {
+          'kind': 'block',
+          'type': 'get_led_state',
+        },
+        {
+          'kind': 'block',
+          'type': 'wait_until',
+        },
+        
       ]
     },
     {
@@ -499,6 +516,57 @@ export const toolbox = {
       'name': 'Motors',
       'categorystyle': 'motor_category',
       'contents': [
+        {
+          'kind': 'block',
+          'type': 'define_movement_motors',
+        },
+        {
+          'kind': 'block',
+          'type': 'motor_move',
+        },
+        {
+          'kind': 'block',
+          'type': 'motor_turn',
+        },
+        {
+          'kind': 'block',
+          'type': 'motor_percentage',
+          "inputs": {
+            'left_motor': {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NUM': 50,
+                },
+              },
+            },
+            'right_motor': {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NUM': 50,
+                },
+              },
+            },
+          }
+          
+        },
+        {
+          'kind': 'block',
+          'type': 'motor_single_move',
+          "inputs": {
+            'power': {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NUM': 50,
+                },
+              },
+            },
+          }
+
+        },
+
       ]
     },
     {

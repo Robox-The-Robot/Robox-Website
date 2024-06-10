@@ -1,0 +1,287 @@
+<xml xmlns="https://developers.google.com/blockly/xml"><block type="factory_base" id="G`|l%iUweX^JtpNz38He" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">define_movement_motors</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="|bu33#v{1W:;y=d49)wg">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="2SAhIx7.]LPaOL%;s%qf">
+            <field name="TEXT">define left motor as</field>
+            <next>
+              <block type="field_dropdown" id="*(~GoDEDp?~j1ZUTU!.P">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">left_motor</field>
+                <field name="USER0">A</field>
+                <field name="CPU0">a</field>
+                <field name="USER1">B</field>
+                <field name="CPU1">b</field>
+                <next>
+                  <block type="field_static" id="QDCwaI_JD[Tpm0G$Sb2J">
+                    <field name="TEXT">and right motor as</field>
+                    <next>
+                      <block type="field_dropdown" id="!fAJW?,sJ[OWCvAzAuFj">
+                        <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                        <field name="FIELDNAME">right_motor</field>
+                        <field name="USER0">A</field>
+                        <field name="CPU0">a</field>
+                        <field name="USER1">B</field>
+                        <field name="CPU1">b</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="M(,g-|*`KD+z?:z5c|o4" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="sm=ALo%:H^w5*{hR$1!E" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="EVZY).F:6FR9U=k6]$mC"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="iF0Wh`=;Pcqvp~/#QbR$"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="O2/d0`@1$0|QstS}XV*!">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="s${6veHSRgm;=Z#||7_o" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">motor_move</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="kQ4iEjvc(i#W`P1E7ZO:">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="NcH[K8i$uk%siihR;{K_">
+            <field name="TEXT">move</field>
+            <next>
+              <block type="field_dropdown" id="9FCJP~_H,968Qzb/GhkM">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">direction</field>
+                <field name="USER0">FORWARD</field>
+                <field name="CPU0">100</field>
+                <field name="USER1">BACKWARD</field>
+                <field name="CPU1">-100</field>
+                <field name="USER2">STOP</field>
+                <field name="CPU2">0</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="hVSz}[Ed[[$`zr%vZi`r" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="6zW4j-3o{(KmmUCBKd9$" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="mvHlbc6mn|P7Y@Xqf7gf"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="ZOgD#gZ8Y-ZoOTHz,$Ou"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="4_#^Pq$gZ4ItcTQT76Lf">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="y5rfQB#R*_/%r@nf|qmm" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">motor_turn</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id=")dwq%hZTa}r+ibwx~Xii">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="qi7Y*PvDcRc7)YGhL%8*">
+            <field name="TEXT">turn</field>
+            <next>
+              <block type="field_dropdown" id="F!ZTGt!}Cte-Md0.Bc=#">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">direction</field>
+                <field name="USER0">RIGHT</field>
+                <field name="CPU0">right</field>
+                <field name="USER1">LEFT</field>
+                <field name="CPU1">left</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="tecQ8kDAtD}I,Y*~cGfn" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="VI9rb]pEbi.,%w%akVxs" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="w?SFak?wn|[7pU$`{nks"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="#R_U;U`)Hzh?evz]BS_8"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="I6Z4xV.)+k|o(paOTWEr">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id=")A{e`Ub?D5/w_,mVgnug" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">motor_percentage</field>
+    <field name="INLINE">INT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="5TDoO_QN2F}LN$4P:h+;">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="0NOIi@D0L.ZDN$cUK6;y">
+            <field name="TEXT">set motors at</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="QZ*Ooww2*Af+A^FZ662b">
+            <field name="INPUTNAME">left_motor</field>
+            <field name="ALIGN">LEFT</field>
+            <value name="TYPE">
+              <shadow type="type_null" id="4AGKmVx:sfa+|G_N+*D)"></shadow>
+              <block type="type_number" id="ZGoo+ms~ERD,pa[$_#8q"></block>
+            </value>
+            <next>
+              <block type="input_value" id="}96GXebvsfv3$QJ/Gzuy">
+                <field name="INPUTNAME">right_motor</field>
+                <field name="ALIGN">LEFT</field>
+                <value name="TYPE">
+                  <shadow type="type_null" id="-T=GU.A/!1._,Gq$]9su"></shadow>
+                  <block type="type_number" id="[!NJbUqJ%xqOkb)54S1B"></block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id=")OaV]jB_`UzJ+:D:)KV5" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="I^)}KbKRts|FjdXhXr8L" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="QSa4tokHSLV9ws3|`-7q"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="oOs-/f%s.cM9b|r|7*bV"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="EnOx)%WS4%-sd97|x6z.">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="l3(F,kxWU@=$7-903M81" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">motor_single_move</field>
+    <field name="INLINE">INT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="8eb@|Jf^)Y7RVfe5s+ou">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="spzUspzGbI#[Z24gtfQ!">
+            <field name="TEXT">move motor</field>
+            <next>
+              <block type="field_dropdown" id="/]K-%~p7u%6$V+iRH!m7">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">motor</field>
+                <field name="USER0">A</field>
+                <field name="CPU0">a</field>
+                <field name="USER1">B</field>
+                <field name="CPU1">b</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="k-|4J,c9B/sh(agC1zK@">
+            <field name="INPUTNAME">power</field>
+            <field name="ALIGN">LEFT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="rq}D{whKw#kr@;VD0hzu">
+                <field name="TEXT">at</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <shadow type="type_null" id=")z74O/iq$P^/shS.x%%a"></shadow>
+            </value>
+            <next>
+              <block type="input_dummy" id="(,~*r)%8yqzcr:[2:}ER">
+                <field name="ALIGN">LEFT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="Q!rcFJg5EqgG3(HAbgl_">
+                    <field name="TEXT">%</field>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="9qqep9%m+IEo_cl3+9Z)" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="lfZtq6RqCwR]jE{=?Yak" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="d:^{lsFniHG$iU9IZ],W"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="Pb;AowAuFIx?^{w/i(S|"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="vTX@=cG`KIly?^RX:sTj">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block></xml>

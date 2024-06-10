@@ -34,7 +34,10 @@ import "../blockly/blocks/events"
 import "../blockly/generators/events"
 
 import "../blockly/blocks/systems"
-import "../blockly/generators/systems.js"
+import "../blockly/generators/systems"
+
+import "../blockly/blocks/motors"
+import "../blockly/generators/motors"
 
 
 import "./usb.js"

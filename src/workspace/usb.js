@@ -47,8 +47,7 @@ async function connectToPort(e) {
         connect(connectedPort)
     })
     .catch((error) => { //User did not select a port (or error connecting) show toolbar?
-        // Show a toast/poup saying failed setup
-        console.warn("Could not connect to the Robox device. Please try again.")
+        createToast("Connection Error!", "Could not connect to the Robox device. Please try again.", "negative")
     })
 }
 
@@ -105,7 +104,7 @@ navigator.serial.addEventListener("disconnect", (e) => {
 
 async function disconnect() {
     currentReader.cancel()
-    await currentReadableStreamClosed.catch(() => { /* Ignore the error */ });
+    await currentReadableStreamClosed.catch((e) => { /* Ignore the error */ });
 
     currentWriter.close();
     await currentWriterStreamClosed;
