@@ -1,6 +1,6 @@
-
-import "./index.css"
 import "../root.css"
+import "./index.css"
+
 import "./cross.png"
 
 import { createToast } from "../alerts"
@@ -114,6 +114,8 @@ createProjectButton.addEventListener("click", function(e)  {
 
 const editProjectModal = document.querySelector("#edit-project-dialog")
 const editForm = editProjectModal.querySelector("form")
+
+//TODO: Random error on pressing enter in modal that makes two toasts popup saying that the project was renamed, the project then has no name, cannot recreate
 document.getElementById("edit-button").addEventListener("click", (event) => {
     let projectID = toolbarModal.getAttribute("target");
     let project = getProject(projectID)

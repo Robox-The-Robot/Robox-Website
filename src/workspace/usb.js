@@ -25,6 +25,8 @@ let currentReadableStreamClosed
 
 let restarting = false
 
+let firmware = false
+
 // Code to prefix the script. This includes libraries, etc.
 const scriptDependency = `from machine import Pin, Timer
 import time
@@ -55,6 +57,7 @@ connectButton.addEventListener("click", connectToPort);
 document.getElementById("connection").addEventListener("click", connectToPort);
 
 playButton.addEventListener("click", async function (e) {
+    if (!firmware) createToast("Connecting to pico!", "We are connecting to the pico please wait!", "negative")
     sendCode()
     playButton.style.display = 'none'
     stopButton.style.display = 'flex'
@@ -107,6 +110,7 @@ async function disconnect() {
     await currentReadableStreamClosed.catch((e) => { /* Ignore the error */ });
 
     currentWriter.close();
+    if (roboxFace.classList.contains("rotating-face")) roboxFace.classList.remove("rotating-face")
     await currentWriterStreamClosed;
     await currentPort.close()
     if (restarting) {
@@ -134,9 +138,19 @@ async function connect(port) {
     connectButton.style.display = "none"
     connectionText.textContent = "Connected"
     roboxFace.classList.add("happy-face")
+    roboxFace.classList.remove("rotating-face")
     roboxFace.classList.remove("sad-face")
     if (restarting) restarting = false
+    readPico()
+    await currentWriter.write("x019FIRMCHECK\r")
+    
+    setTimeout(() => {
+        console.log(firmware)
+        firmware = true
+    }, "2000");
 }
+
+
 
 function reconnectPico() {
     navigator.serial.getPorts().then((ports) => {
@@ -158,20 +172,20 @@ async function sendCode() {
     consoleElement.replaceChildren()
     let code = pythonGenerator.workspaceToCode(ws);
     let finalCode = `${scriptDependency}\n${code}\nevent_begin()`
-    console.log(finalCode)
     await currentWriter.write("x032BEGINUPLD\r" + finalCode + "\r\x04\r");
     await currentWriter.write("x021STARTPROG\r");
-    readPico()
 }
 async function readPico() {
     //Sometimes messages from pico sends in halves so need to merge the values
     let error_string = ''
+    console.log(1)
     usbloop: while (true) {
         const { value, done } = await currentReader.read();
         if (done) {
             currentReader.releaseLock();
             break;
         }
+        console.log(value)
         let consoleMessages = []
         try {
             consoleMessages = [JSON.parse(value)]
@@ -203,7 +217,9 @@ async function readPico() {
             }
             else if (type === "console") {
                 printToConsole(message["message"])
-
+            }
+            else if (type === "confirmation") {
+                firmware = true
             }
         }
     }

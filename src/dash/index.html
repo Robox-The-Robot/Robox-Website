@@ -7,12 +7,12 @@
     </head>
 
     <body>
-        <div id="floating-body">
+        <div id="floating-item-holder">
             
             <div id="toast-holder">
             </div>
         </div>
-        <dialog class="input-modal" id="delete-project-dialog">
+        <dialog class="modal" id="delete-project-dialog">
             <div>
                 <i class="fa-regular fa-trash-can"></i>
                 <h1 class="modal-title" id="delete-title">Are you sure you want to delete '<span id="deletePName">Project</span>'?</h1>
@@ -28,21 +28,7 @@
                 </div>
             </div>
         </dialog>
-        <dialog id="toolbar">
-            <div>
-                <button class="toolbar-buttons button" id="edit-button">
-                    <i class="fa-solid fa-pencil"></i>
-                    <span>Edit</span>
-                </button>
-                <hr>
-                <button class=" toolbar-buttons button" id="delete-button">
-                    <i class="fa-regular fa-trash-can"></i>
-                    <span>Delete</span>
-                </button>
-            </div>
-            
-        </dialog>
-        <dialog class="input-modal" id="edit-project-dialog">
+        <dialog class="modal" id="edit-project-dialog">
             <div>
                 <h1 class="modal-title" id="edit-title">Rename '<span id="editPName">Project</span>'</h1>
                 <form id="project-edit-form" method="dialog">
@@ -56,10 +42,26 @@
                     <button type="submit" form="project-edit-form" baction="cancel" class="button cancel">
                         Cancel
                     </button>
-                    
+        
                 </div>
             </div>
         </dialog>
+        
+        <dialog id="toolbar">
+            <div>
+                <button class="toolbar-buttons button" id="edit-button">
+                    <i class="fa-solid fa-pencil"></i>
+                    <span>Edit</span>
+                </button>
+                <hr>
+                <button class="toolbar-buttons button" id="delete-button">
+                    <i class="fa-regular fa-trash-can"></i>
+                    <span>Delete</span>
+                </button>
+            </div>
+            
+        </dialog>
+        
         <div id="dropzone" style="display: none;">
             <div>
                 <i class="fa-solid fa-upload"></i>
@@ -109,7 +111,7 @@
                             Last Opened XXX
                         </time>
                     </div>
-                    <button class="dots button">
+                    <button class="button dots">
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                     </button>
                 </div>

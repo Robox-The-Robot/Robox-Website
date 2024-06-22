@@ -16,7 +16,7 @@ code {
 }
 
 
-#floating-body {
+#floating-item-holder {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -156,16 +156,6 @@ code {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-.button {
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    color: white;
-    background: none;
 }
 #text-container {
     width: 100%;

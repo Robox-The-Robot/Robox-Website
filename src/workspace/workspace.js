@@ -8,8 +8,9 @@ import * as Blockly from 'blockly';
 import {pythonGenerator} from 'blockly/python'
 import { createToast } from "../alerts"
 
-import "./workspace.css"
 import "../root.css"
+import "./workspace.css"
+
 import "./RoboxLogo.png"
 import "./sadRobox.png"
 
