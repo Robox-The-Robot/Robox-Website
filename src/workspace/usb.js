@@ -44,9 +44,9 @@ reconnectPico()
 
 
 async function connectToPort(e) {
-    const port = navigator.serial.requestPort({ filters: [{ usbVendorId: piVendorId }] });
-    port.then(async (connectedPort) => {
-        connect(connectedPort)
+    const port = navigator.serial.requestDevice({ filters: [{ usbVendorId: piVendorId }] });
+    port.then(async (device) => {
+        connect(device)
     })
     .catch((error) => { //User did not select a port (or error connecting) show toolbar?
         createToast("Connection Error!", "Could not connect to the Robox device. Please try again.", "negative")
@@ -93,7 +93,7 @@ for (const modal of modals) {
 navigator.serial.addEventListener("connect", (e) => {
     let portInfo = e.target.getInfo()
     if (portInfo.usbVendorId === piVendorId) {
-        connect(e.target)
+        connect(e.target || e.port)
     }
 });
 
@@ -106,23 +106,41 @@ navigator.serial.addEventListener("disconnect", (e) => {
 
 
 async function disconnect() {
-    currentReader.cancel()
-    await currentReadableStreamClosed.catch((e) => { /* Ignore the error */ });
+    const localPort = currentPort
+    currentPort = undefined
+    if (currentReader) {
+        try {
+            console.log(1)
 
-    currentWriter.close();
+            await currentReader.cancel()
+            await currentReadableStreamClosed.catch((e) => { /* Ignore the error */ });
+            console.log(2)
+        }
+        catch(err) {
+            console.log(err)
+        }
+        
+    }
+    if (currentWriter) {
+        currentWriter.close();
+        await currentWriterStreamClosed;
+    }
+    if (localPort) {
+        await localPort.close()
+    }
     if (roboxFace.classList.contains("rotating-face")) roboxFace.classList.remove("rotating-face")
-    await currentWriterStreamClosed;
-    await currentPort.close()
-    if (restarting) {
+    if (!restarting) {
         connectButton.style.display = "inline-block"
         playButton.style.display = "none"
         connectionText.textContent = "Disconnected"
         roboxFace.classList.remove("happy-face")
         roboxFace.classList.add("sad-face")
+        firmware
     }
 }
 
 async function connect(port) {
+    console.log(1)
     await port.open({ baudRate: 9600 });
     let textEncoder = new TextEncoderStream();
     currentPort = port
@@ -145,11 +163,14 @@ async function connect(port) {
     await currentWriter.write("x019FIRMCHECK\r")
     
     setTimeout(() => {
-        console.log(firmware)
-        firmware = true
-    }, "2000");
+        warnPicoFirmware()
+    }, "1000");
 }
-
+function warnPicoFirmware() {
+    if (!firmware) {
+        //Show modal about issue
+    }
+}
 
 
 function reconnectPico() {
@@ -166,6 +187,7 @@ function reconnectPico() {
 
 async function restartPico() {
     await currentWriter.write("x069\r")
+    restarting = true
 }
 const ws = Blockly.getMainWorkspace()
 async function sendCode() {
@@ -178,51 +200,55 @@ async function sendCode() {
 async function readPico() {
     //Sometimes messages from pico sends in halves so need to merge the values
     let error_string = ''
-    console.log(1)
-    usbloop: while (true) {
-        const { value, done } = await currentReader.read();
-        if (done) {
-            currentReader.releaseLock();
-            break;
-        }
-        console.log(value)
-        let consoleMessages = []
-        try {
-            consoleMessages = [JSON.parse(value)]
-            error_string = ''
-        }
-        catch (err) {
-            error_string += value
-            let rawErrorMessages = error_string.split("\n")
-            let index = 0
-            errorloop: for (const errorMessage of rawErrorMessages) {
-                try {
-                    consoleMessages.push(JSON.parse(errorMessage))
-                }
-                catch (err) {
-                    break errorloop;
-                }
-                index += 1
+    try {
+        usbloop: while (true) {
+            const { value, done } = await currentReader.read()
+            console.log(done, value)
+            if (done) {
+                currentReader.releaseLock();
+                break;
             }
-            if (index !== rawErrorMessages.length-1) {
-                rawErrorMessages.splice(0, index+1)
+            let consoleMessages = []
+            try {
+                consoleMessages = [JSON.parse(value)]
+                error_string = ''
             }
-            error_string = rawErrorMessages.join("\n")
+            catch (err) {
+                error_string += value
+                let rawErrorMessages = error_string.split("\n")
+                let index = 0
+                errorloop: for (const errorMessage of rawErrorMessages) {
+                    try {
+                        consoleMessages.push(JSON.parse(errorMessage))
+                    }
+                    catch (err) {
+                        break errorloop;
+                    }
+                    index += 1
+                }
+                if (index !== rawErrorMessages.length - 1) {
+                    rawErrorMessages.splice(0, index + 1)
+                }
+                error_string = rawErrorMessages.join("\n")
 
+            }
+            for (const message of consoleMessages) {
+                let type = message["type"]
+                if (type === "error") {
+                    createToast("Code Error!", message["message"], "negative")
+                }
+                else if (type === "console") {
+                    printToConsole(message["message"])
+                }
+                else if (type === "confirmation") {
+                    firmware = true
+                    warnPicoFirmware()
+                }
+            }
         }
-        for (const message of consoleMessages) {
-            let type = message["type"]
-            if (type === "error") {
-                createToast("Code Error!", message["message"], "negative")
-            }
-            else if (type === "console") {
-                printToConsole(message["message"])
-            }
-            else if (type === "confirmation") {
-                firmware = true
-            }
-        }
+    } catch(err) {
     }
+    
 }
 
 
