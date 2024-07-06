@@ -21,7 +21,7 @@ code {
     display: flex;
     flex-direction: column;
     width: 265px;
-    height: calc(100% - 112.5px - 32px);
+    height: calc(100% - 112.5px - 32px - 15px);
     top: 112.5px;
     right: 90px;
     z-index: 1000;

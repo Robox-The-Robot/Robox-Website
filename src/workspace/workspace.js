@@ -94,6 +94,7 @@ renameTitle.addEventListener("blur", function (e) {
     if (renameTitle.value !== currentWorkspace) {
         let newName = renameTitle.value
         renameProject(workspaceId, newName)
+        createToast("Project Renamed!", "The project has been renamed", "positive")
     }
 })
 

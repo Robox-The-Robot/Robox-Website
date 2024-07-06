@@ -1,7 +1,9 @@
+import /* webpackFetchPriority: "high" */ "./cross.png"
 import "../root.css"
 import "./index.css"
 
-import "./cross.png"
+
+import "../Robox.svg"
 
 import { createToast } from "../alerts"
 
