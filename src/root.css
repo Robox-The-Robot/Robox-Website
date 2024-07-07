@@ -78,6 +78,7 @@ header >div:last-child {
     text-decoration: underline;
     text-decoration-color: #FDFF9E;
     text-align: center;
+    font-size: 22px;
 }
 #roboxLogoHolder {
     margin-left: 1%;

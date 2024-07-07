@@ -1,4 +1,5 @@
-import /* webpackFetchPriority: "high" */ "./cross.png"
+import(/* webpackPrefetch: true */ "./cross.png");
+
 import "../root.css"
 import "./index.css"
 

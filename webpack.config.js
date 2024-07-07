@@ -24,9 +24,22 @@ module.exports = {
         }),
     ],
     output: {
-        filename: 'public/js/[name].bundle.js',
+        filename: 'public/js/[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
+        clean: true
+    },
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                }
+            }
+        }
     },
     module: {
         rules: [
@@ -38,8 +51,15 @@ module.exports = {
 
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
 
-                type: 'asset/resource',
-
+                type: 'asset',
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 8 * 1024 // 8kb
+                    }
+                },
+                generator: {
+                    filename: 'images/[name].[hash:8][ext]'
+                }
             },
         ],
 
