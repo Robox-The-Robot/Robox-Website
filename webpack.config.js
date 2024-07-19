@@ -6,6 +6,7 @@ module.exports = {
     entry: {
         dash: './src/dash/index.js',
         serialization: "./src/blockly/serialization.js",
+        shop: './src/shop/shop.js',
         workspace: "./src/workspace/workspace.js"
     },
     devtool: 'inline-source-map',
@@ -22,6 +23,12 @@ module.exports = {
             template: './src/workspace/workspace.html',
             chunks: ["workspace"]
         }),
+        new HtmlWebpackPlugin({
+            title: 'Shop',
+            filename: 'view/shop.html',
+            template: './src/shop/shop.html',
+            chunks: ["shop"]
+        }),
     ],
     output: {
         filename: 'public/js/[name].[contenthash].js',
@@ -31,21 +38,16 @@ module.exports = {
     },
     optimization: {
         runtimeChunk: 'single',
-        splitChunks: {
-            cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                    chunks: 'all',
-                }
-            }
-        }
     },
     module: {
         rules: [
             {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
             },
             {
 
@@ -58,7 +60,7 @@ module.exports = {
                     }
                 },
                 generator: {
-                    filename: 'images/[name].[hash:8][ext]'
+                    filename: 'public/images/[name].[hash:8][ext]'
                 }
             },
         ],

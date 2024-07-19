@@ -12,7 +12,7 @@
 
 const ratio = 16/9;
 const padding = 30;
-const finalWidth = 640;
+const finalWidth = 230;
 
 /**
  * Convert an SVG datauri into a PNG datauri.

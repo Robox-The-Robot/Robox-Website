@@ -1,5 +1,5 @@
 body {
-    background-image: url(./cross.png);
+    background-image: url(../cross.png);
     background-color: var(--main-bg-color);
     padding: 0;
     margin: 0;
@@ -155,6 +155,7 @@ body {
 
 #project-holder {
     width: 80%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     gap: 20px;

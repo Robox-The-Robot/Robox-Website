@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import * as Blockly from 'blockly';
+import { Events, serialization } from 'blockly';
 import { workspaceToSvg_ } from './screenshotHelper.js';
 
 export function getProjects() {
@@ -29,13 +29,13 @@ export function loadBlockly(uuid, workspace) {
     let project = getProject(uuid)
     let workspaceData = project.workspace
     if (!workspaceData) return;
-    Blockly.Events.disable();
-    Blockly.serialization.workspaces.load(workspaceData, workspace, undefined);
-    Blockly.Events.enable();
+    Events.disable();
+    serialization.workspaces.load(workspaceData, workspace, undefined);
+    Events.enable();
 }
 export function saveBlockly(uuid, workspace, callback) {
     workspaceToSvg_(workspace, (thumburi) => {
-        const data = Blockly.serialization.workspaces.save(workspace)
+        const data = serialization.workspaces.save(workspace)
         let projects = getProjects()
         projects[uuid]["time"] = dayjs()
         projects[uuid]["workspace"] = data

@@ -1,4 +1,4 @@
-import(/* webpackPrefetch: true */ "./cross.png");
+import(/* webpackPrefetch: true */ "../cross.png");
 
 import "../root.css"
 import "./index.css"
@@ -12,8 +12,8 @@ import { createProject, getProject, getProjects, renameProject, deleteProject, s
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
-import '@fortawesome/fontawesome-free/js/regular'
-import '@fortawesome/fontawesome-free/js/brands'
+// import '@fortawesome/fontawesome-free/js/regular'
+// // import '@fortawesome/fontawesome-free/js/brands'
 import relativeTime from "dayjs/plugin/relativeTime"
 import dayjs from 'dayjs';
 
@@ -43,7 +43,6 @@ fileInput.addEventListener("change", (e) => {
 const projectTemplate = document.getElementById("template-project")
 const projectHolder = document.getElementById("project-holder")
 const toolbarModal = document.getElementById("toolbar")
-
 
 populateProjects()
 function populateProjects() {
