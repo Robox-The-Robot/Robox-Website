@@ -118,7 +118,7 @@ body {
     color: red;
 }
 .toolbar-buttons {
-    background-color: #ECEDCB;
+    background-color: rgb(236, 237, 203);
     justify-content: flex-start;
     display: flex;
     flex-direction: row;

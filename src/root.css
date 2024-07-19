@@ -50,6 +50,7 @@ header {
     justify-content: space-between;
     gap: 50px;
     position: fixed;
+    z-index: 10000;
 
 }
 header > div {
