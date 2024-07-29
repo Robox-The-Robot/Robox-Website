@@ -2,9 +2,22 @@
     --main-bg-color: #a1eebd;
     --primary-card-color: #F6F7C4;
     --secondary-bg-color: #7BD3EA;
+    --header-size: 90px;
     font-family: "Oxanium";
 }
-
+#floating-item-holder {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 265px;
+    background-color: red;
+    right: 90px;
+    height: calc(100% - var(--header-size) - 15px - var(--project-header));
+    z-index: 1000;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+}
 
 .modal::backdrop {
     background: rgba(0, 0, 0, 0.40);
@@ -42,22 +55,22 @@
     background: none;
 }
 
-header {
+nav {
     background-color: var(--secondary-bg-color);
     width: 100%;
-    height: 90px;
+    height: var(--header-size);
     display: flex;
     justify-content: space-between;
     gap: 50px;
-    position: fixed;
+    position: sticky;
     z-index: 10000;
 
 }
-header > div {
+nav > div {
     width: 200px;
     height: 100%;
 }
-header >div:last-child {
+nav > div:last-child {
     flex-grow: 1;
 }
 #logoImage {
@@ -152,6 +165,10 @@ header >div:last-child {
     margin-left: 7px;
     flex-direction: column;
 
+}
+header {
+    display: flex;
+    flex-direction: column;
 }
 .toast-text>* {
     margin: 0;

@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <header>
+        <nav>
             <div id="roboxLogoHolder">
                 <a href="/">
                     <svg width="168" height="85" viewBox="0 0 168 85" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +46,7 @@
                     Contact Us
                 </a>
             </div>
-        </header>
+        </nav>
         <div id="main-content">
             <section class="fullWindow">
                 <button id="heroButton" class="button" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'});">
@@ -57,7 +57,7 @@
                 </div>
             </section>
             <section id="products">
-                <div id="product-holder">
+                <div id="product-holder" tabindex="0">
                     <article class="product">
                         <img class="product-image" src="https://user-images.githubusercontent.com/42506001/221354918-01bf0e89-48be-4df7-85bb-cdf5d0136f2a.png">
                         <h1 class="product-name">ROBOX KIT 1.0</h1>
@@ -76,5 +76,21 @@
                 </div>
             </div>
         </div>
+        <dialog class="modal" id="cart-dialog">
+            <div>
+                <i class="fa-solid fa-bag-shopping"></i>
+                <h1 class="modal-title" id="cart-title">Added item to the cart!</h1>
+                <div id="cart-buttons">
+                    <button class="button" id="cart-button">
+                        View My Cart
+                    </button>
+                    <button class="button" id="continue-button">
+                        Continue Shopping
+                    </button>
+                    
+        
+                </div>
+            </div>
+        </dialog>
     </body>
 </html>

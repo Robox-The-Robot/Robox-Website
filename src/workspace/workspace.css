@@ -1,3 +1,6 @@
+:root {
+    --project-header: 37.5px;
+}
 body {
     margin: 0;
     max-width: 100vw;
@@ -18,13 +21,13 @@ code {
 
 
 #floating-item-holder {
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: column;
     width: 265px;
-    height: calc(100% - 112.5px - 32px - 15px);
-    top: 112.5px;
+    background-color: red;
     right: 90px;
+    height: calc(100% - var(--header-size) - 15px - var(--project-header));
     z-index: 1000;
     justify-content: space-between;
     align-items: center;
@@ -150,6 +153,7 @@ code {
     height: 37.5px;
     display: flex;
     justify-content: center;
+    position: static
 }
 #header-button-container {
     width: 90%;
@@ -238,7 +242,7 @@ code {
 #pageContainer {
     width: 100%;
     max-width: 100vw;
-    height: calc(100vh - 112.5px);
+    height: calc(100vh - var(--header-size) - var(--project-header));
 }
 
 #blocklyDiv {

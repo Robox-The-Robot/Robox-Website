@@ -1,3 +1,6 @@
+:root {
+    --project-header: 0px;
+}
 body {
     background-image: url(../cross.png);
     background-color: var(--main-bg-color);
@@ -8,19 +11,7 @@ body {
 }
 
 
-#floating-item-holder {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    width: 265px;
-    height: calc(100% - 112.5px - 32px - 40px - 15px);
-    top: 112.5px;
-    right: 90px;
-    z-index: 1000;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
-}
+
 
 
 #create-project {

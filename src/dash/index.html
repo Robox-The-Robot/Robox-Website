@@ -7,70 +7,7 @@
     </head>
 
     <body>
-        <div id="floating-item-holder">
-            
-            <div id="toast-holder">
-            </div>
-        </div>
-        <dialog class="modal" id="delete-project-dialog">
-            <div>
-                <i class="fa-regular fa-trash-can"></i>
-                <h1 class="modal-title" id="delete-title">Are you sure you want to delete '<span id="deletePName">Project</span>'?</h1>
-                <p id="delete-description">It will be deleted forever (a very long time)!</p>
-                <div id="delete-buttons">
-                    <button class="button" id="confirm-delete">
-                        Delete
-                    </button>
-                    <button class="cancel button">
-                        Cancel
-                    </button>
-                    
-                </div>
-            </div>
-        </dialog>
-        <dialog class="modal" id="edit-project-dialog">
-            <div>
-                <h1 class="modal-title" id="edit-title">Rename '<span id="editPName">Project</span>'</h1>
-                <form id="project-edit-form" method="dialog">
-                    <label for="pname">Enter a new name for your project:</label><br>
-                    <input placeholder="Project Name" type="text" id="pname" name="pname"><br><br>
-                </form>
-                <div id="edit-buttons">
-                    <button type="submit" form="project-edit-form" baction="confirm" class="button" id="confirm-rename">
-                        Rename
-                    </button>
-                    <button type="submit" form="project-edit-form" baction="cancel" class="button cancel">
-                        Cancel
-                    </button>
-        
-                </div>
-            </div>
-        </dialog>
-        
-        <dialog id="toolbar">
-            <div>
-                <button class="toolbar-buttons button" id="edit-button">
-                    <i class="fa-solid fa-pencil"></i>
-                    <span>Edit</span>
-                </button>
-                <hr>
-                <button class="toolbar-buttons button" id="delete-button">
-                    <i class="fa-regular fa-trash-can"></i>
-                    <span>Delete</span>
-                </button>
-            </div>
-            
-        </dialog>
-        
-        <div id="dropzone" style="display: none;">
-            <div>
-                <i class="fa-solid fa-upload"></i>
-                <h2>
-                    Drop item to import!
-                </h2>
-            </div>
-        </div>
-        <header>
+        <nav>
             <div id="roboxLogoHolder">
                 <a href="/">
                     <svg width="168" height="85" viewBox="0 0 168 85" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,7 +17,8 @@
                         <path
                             d="M3.94136 44.3957V10.0788H20.3041C25.5096 10.0788 28.1124 12.6981 28.1124 17.9368V23.4574C28.1124 27.7014 26.3717 30.1881 22.8903 30.9176L29.1071 43.2518L28.5103 44.3957H24.2331L17.5687 31.2657H8.96457V44.3957H3.94136ZM8.96457 26.6901H20.2543C22.1443 26.6901 23.0892 25.7452 23.0892 23.8553V17.4395C23.0892 15.5827 22.1443 14.6543 20.2543 14.6543H8.96457V26.6901ZM35.3539 36.5376V17.9368C35.3539 12.6981 37.9567 10.0788 43.1622 10.0788H54.7007C59.9062 10.0788 62.509 12.6981 62.509 17.9368V36.5376C62.509 41.7763 59.9062 44.3957 54.7007 44.3957H43.1622C37.9567 44.3957 35.3539 41.7763 35.3539 36.5376ZM40.3771 37.035C40.3771 38.8917 41.322 39.8201 43.2119 39.8201H54.6509C56.5408 39.8201 57.4858 38.8917 57.4858 37.035V17.4395C57.4858 15.5827 56.5408 14.6543 54.6509 14.6543H43.2119C41.322 14.6543 40.3771 15.5827 40.3771 17.4395V37.035Z"
                             fill="#FDFF9E" />
-                        <path d="M72.518 12.6906L61.6403 58.0144" stroke="#FDFF9E" stroke-width="3.6259" stroke-linecap="round" />
+                        <path d="M72.518 12.6906L61.6403 58.0144" stroke="#FDFF9E" stroke-width="3.6259"
+                            stroke-linecap="round" />
                         <circle cx="114.82" cy="38.0719" r="1.81295" fill="#FDFF9E" />
                         <circle cx="122.676" cy="38.0719" r="1.81295" fill="#FDFF9E" />
                         <path
@@ -91,9 +29,9 @@
                             fill="#0A6C85" />
                     </svg>
                 </a>
-                <hr width="3" size="60%"/>
-                
-
+                <hr width="3" size="60%" />
+        
+        
             </div>
             <div id="linkHolders">
                 <a href="/robox">
@@ -109,10 +47,18 @@
                     Contact Us
                 </a>
             </div>
-        </header>
-        <div id="toast-holder">
-            <div class="toast">
-                
+        </nav>
+        <div id="floating-item-holder">
+            
+            <div id="toast-holder">
+            </div>
+        </div>
+        <div id="dropzone" style="display: none;">
+            <div>
+                <i class="fa-solid fa-upload"></i>
+                <h2>
+                    Drop item to import!
+                </h2>
             </div>
         </div>
         <div id="main-content">
@@ -165,5 +111,55 @@
                 </div>
             </div>
         </template>
+        <dialog class="modal" id="delete-project-dialog">
+            <div>
+                <i class="fa-regular fa-trash-can"></i>
+                <h1 class="modal-title" id="delete-title">Are you sure you want to delete '<span
+                        id="deletePName">Project</span>'?</h1>
+                <p id="delete-description">It will be deleted forever (a very long time)!</p>
+                <div id="delete-buttons">
+                    <button class="button" id="confirm-delete">
+                        Delete
+                    </button>
+                    <button class="cancel button">
+                        Cancel
+                    </button>
+        
+                </div>
+            </div>
+        </dialog>
+        <dialog class="modal" id="edit-project-dialog">
+            <div>
+                <h1 class="modal-title" id="edit-title">Rename '<span id="editPName">Project</span>'</h1>
+                <form id="project-edit-form" method="dialog">
+                    <label for="pname">Enter a new name for your project:</label><br>
+                    <input placeholder="Project Name" type="text" id="pname" name="pname"><br><br>
+                </form>
+                <div id="edit-buttons">
+                    <button type="submit" form="project-edit-form" baction="confirm" class="button" id="confirm-rename">
+                        Rename
+                    </button>
+                    <button type="submit" form="project-edit-form" baction="cancel" class="button cancel">
+                        Cancel
+                    </button>
+        
+                </div>
+            </div>
+        </dialog>
+        
+        <dialog id="toolbar">
+            <div>
+                <button class="toolbar-buttons button" id="edit-button">
+                    <i class="fa-solid fa-pencil"></i>
+                    <span>Edit</span>
+                </button>
+                <hr>
+                <button class="toolbar-buttons button" id="delete-button">
+                    <i class="fa-regular fa-trash-can"></i>
+                    <span>Delete</span>
+                </button>
+            </div>
+        
+        </dialog>
     </body>
 </html>

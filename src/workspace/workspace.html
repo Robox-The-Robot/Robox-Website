@@ -8,49 +8,7 @@
     </head> 
     
     <body>
-        <dialog class="modal" id="print-modal">
-            <div>
-                <i class="fa-solid fa-circle-xmark"></i>
-                <h1 class="modal-title" id="delete-title">Pico Firmware issue!</h1>
-            </div>
-            
-        </dialog>
-        <div id="delete-drag">
-            <i class="fa-regular fa-trash-can"></i>
-        </div>
-        
-        <div id="floating-item-holder">
-            
-            <div id="toast-holder">
-                
-            </div>
-            <div id="connection-managment">
-                <div id="connection">
-                    <div id="robox-connection">
-                        <img class="sad-face">
-                    </div>
-                    <div id="connection-text">
-                        Disconnected
-                    </div>
-                </div>
-                <button class="button floating-button" id="terminal">
-                    <i class="fa-solid fa-terminal"></i>
-                </button>
-                <button class="button floating-button" id="play">
-                    <i class="fa-solid fa-play"></i>
-                </button>
-                
-                <button class="button floating-button" id="connect">
-                    <i class="fa-solid fa-plug"></i>
-                </button>
-                <button class="button floating-button" id="stop">
-                    <i class="fa-solid fa-stop"></i>
-                </button>
-            </div>
-            
-        </div>
-        
-        <header>
+        <nav>
             <div id="roboxLogoHolder">
                 <a href="/">
                     <svg width="168" height="85" viewBox="0 0 168 85" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -90,23 +48,67 @@
                     Contact Us
                 </a>
             </div>
-        </header>
+        </nav>
         <div id="headertwo">
             <div id="header-button-container">
                 <a class="button" id="back" href="/">
                     <i class="fa-solid fa-chevron-left"></i>
                 </a>
-                
+        
                 <input type="text" id="project-name" value="Project name">
-
+        
                 <button class="button" id="export">
                     <i class="fa-solid fa-download"></i>
                 </button>
             </div>
+        
+        </div>        
+        <div id="floating-item-holder">
+            
+            <div id="toast-holder">
+                
+            </div>
+            <div id="connection-managment">
+                <div id="connection">
+                    <div id="robox-connection">
+                        <img class="sad-face">
+                    </div>
+                    <div id="connection-text">
+                        Disconnected
+                    </div>
+                </div>
+                <button class="button floating-button" id="terminal">
+                    <i class="fa-solid fa-terminal"></i>
+                </button>
+                <button class="button floating-button" id="play">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                
+                <button class="button floating-button" id="connect">
+                    <i class="fa-solid fa-plug"></i>
+                </button>
+                <button class="button floating-button" id="stop">
+                    <i class="fa-solid fa-stop"></i>
+                </button>
+            </div>
             
         </div>
+
+        
+    
         <div id="pageContainer">
             <div id="blocklyDiv"></div>
+        </div>
+        <dialog class="modal" id="print-modal">
+            <div>
+                <i class="fa-solid fa-circle-xmark"></i>
+                <h1 class="modal-title" id="delete-title">Pico Firmware issue!</h1>
+            </div>
+        
+        </dialog>
+        
+        <div id="delete-drag">
+            <i class="fa-regular fa-trash-can"></i>
         </div>
         <template>
             <div class="toast">
