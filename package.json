@@ -25,6 +25,7 @@
     "@blockly/continuous-toolbox": "^5.0.16",
     "@blockly/theme-modern": "^5.0.6",
     "blockly": "^10.4.3",
-    "dayjs": "^1.11.10"
+    "dayjs": "^1.11.10",
+    "stripe": "^16.5.0"
   }
 }

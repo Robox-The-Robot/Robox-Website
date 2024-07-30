@@ -10,7 +10,6 @@
     display: flex;
     flex-direction: column;
     width: 265px;
-    background-color: red;
     right: 90px;
     height: calc(100% - var(--header-size) - 15px - var(--project-header));
     z-index: 1000;

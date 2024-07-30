@@ -2,11 +2,15 @@ const express = require('express');
 const webpack = require('webpack');
 const path = require('path');
 
+const payment = require("./stripe.js")
+
 const app = express();
 const config = require('./webpack.config.js');
 const compiler = webpack(config);
 
 app.use(express.static('./dist'))
+
+app.use("/shop", payment)
 
 
 app.get("/", function (req, res) {
