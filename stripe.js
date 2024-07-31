@@ -3,8 +3,44 @@ const stripe = require('stripe')('sk_test_51PhrZEKQ7f0SWVUxdLCUYmqXzmCDJ4mjE5bBu
 const express = require('express');
 const paymentRouter = express.Router()
 
+const DOMAIN = "http://localhost:3000";
+
+paymentRouter.use(express.static('./dist'))
+
 paymentRouter.get("/products", async (req, res) => {
     res.send(await getProductList())
+})
+paymentRouter.get("/checkout", async (req, res) => {
+    console.log(1)
+    res.sendFile("view/checkout.html", { root: __dirname + "/dist/" })
+})
+paymentRouter.get("/:productId", async (req, res) => {
+    let productId = req.params["productId"]
+    let product = getProduct()
+    if (!product) res.status(400);
+})
+
+paymentRouter.post("/checkout", async (req, res) => {
+    //Validating the post data
+    // let products = req.data.products
+    // if (!products.length) return res.status(400)
+    // for (const product of products) {
+    //     if (!product["priceID"] || !product["quantity"]) return res.status(400)
+    // }
+    const session = await stripe.checkout.sessions.create({
+        ui_mode: 'embedded',
+        line_items: [
+            {
+                // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                price: 'price_1PhrbiKQ7f0SWVUxBDc9P4Aj',
+                quantity: 2,
+            },
+        ],
+        mode: 'payment',
+        return_url: `${DOMAIN}/return.html?session_id={CHECKOUT_SESSION_ID}`,
+    });
+
+    res.send({ clientSecret: session.client_secret });
 })
 
 async function getAllProducts() {

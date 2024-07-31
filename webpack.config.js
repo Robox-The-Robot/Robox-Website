@@ -7,7 +7,8 @@ module.exports = {
         dash: './src/dash/index.js',
         serialization: "./src/blockly/serialization.js",
         shop: './src/shop/shop.js',
-        workspace: "./src/workspace/workspace.js"
+        workspace: "./src/workspace/workspace.js",
+        checkout: "./src/checkout/checkout.js"
     },
     devtool: 'inline-source-map',
     plugins: [
@@ -22,6 +23,12 @@ module.exports = {
             filename: 'view/workspace.html',
             template: './src/workspace/workspace.html',
             chunks: ["workspace"]
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Checkout',
+            filename: 'view/checkout.html',
+            template: './src/checkout/checkout.html',
+            chunks: ["checkout"]
         }),
         new HtmlWebpackPlugin({
             title: 'Shop',
