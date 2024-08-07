@@ -1,5 +1,9 @@
+import { getCart } from "../payment";
+
 const stripe = Stripe("pk_test_51PhrZEKQ7f0SWVUxH1XgKKNh9FCSnLZpAre95yUs2ip95ktaarscGhTfiw4JQVTyCLrsCaW0xTeXIwcVbOUHFDba00b6ZWj5AT")
 const fetchClientSecret = async() => {
+    let cart = getCart()
+    let { quantity, ...rest } = cart;
     const response = await fetch("/shop/checkout", {
         method: "POST"
     })

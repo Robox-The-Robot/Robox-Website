@@ -60,7 +60,7 @@ nav {
     height: var(--header-size);
     display: flex;
     justify-content: space-between;
-    gap: 50px;
+    gap: 40px;
     position: sticky;
     z-index: 10000;
 

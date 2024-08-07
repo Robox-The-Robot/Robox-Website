@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <title>Robox Dashboard</title>
-        <link href='https://fonts.googleapis.com/css?family=Oxanium' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Oxanium' rel='preconnect'>
     </head>
 
     <body>
@@ -45,37 +45,42 @@
                 <a href="/contact">
                     Contact Us
                 </a>
+                <a href="/shop/checkout" id="cart" style="display: none;">
+                    <p></p>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
             </div>
         </nav>
         <div id="main-content">
             <section class="fullWindow">
-                <button id="heroButton" class="button" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'});">
+                <button id="heroButton" class="button" onclick="document.getElementById('product-header').scrollIntoView({behavior: 'smooth'});">
                     BUY 1.0 KIT NOW!
                 </button>
                 <div id="heroImage">
                     <img draggable="false">
                 </div>
             </section>
+            <h1 id="product-header">
+                Products
+            </h1>
             <section id="products">
                 <div id="product-holder" tabindex="0">
-                    <article class="product">
-                        <img class="product-image" src="https://user-images.githubusercontent.com/42506001/221354918-01bf0e89-48be-4df7-85bb-cdf5d0136f2a.png">
-                        <h1 class="product-name">ROBOX KIT 1.0</h1>
-                        <p class="product-status in-stock">In stock - ready to ship</p>
-                        <h3 class="product-price">$ 10,000</h3>
-                        <button class="product-button">
-                            Add to Cart
-                        </button>
-                    </article>
-                    <div class="product">
-                    
-                    </div>
-                    <div class="product">
-                    
-                    </div>
+
                 </div>
             </div>
         </div>
+        <template id="product-template">
+            <article class="product">
+                <img class="product-image"
+                    src="https://user-images.githubusercontent.com/42506001/221354918-01bf0e89-48be-4df7-85bb-cdf5d0136f2a.png">
+                <h1 class="product-name">ROBOX KIT 1.0</h1>
+                <p class="product-status in-stock">In stock - ready to ship</p>
+                <h3 class="product-price">$ 10,000</h3>
+                <button class="product-button">
+                    Add to Cart
+                </button>
+            </article>
+        </template>
         <dialog class="modal" id="cart-dialog">
             <div>
                 <i class="fa-solid fa-bag-shopping"></i>

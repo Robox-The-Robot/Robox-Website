@@ -7,18 +7,13 @@ const DOMAIN = "http://localhost:3000";
 
 paymentRouter.use(express.static('./dist'))
 
-paymentRouter.get("/products", async (req, res) => {
-    res.send(await getProductList())
-})
+
 paymentRouter.get("/checkout", async (req, res) => {
     console.log(1)
     res.sendFile("view/checkout.html", { root: __dirname + "/dist/" })
 })
-paymentRouter.get("/:productId", async (req, res) => {
-    let productId = req.params["productId"]
-    let product = getProduct()
-    if (!product) res.status(400);
-})
+
+
 
 paymentRouter.post("/checkout", async (req, res) => {
     //Validating the post data
@@ -42,6 +37,17 @@ paymentRouter.post("/checkout", async (req, res) => {
 
     res.send({ clientSecret: session.client_secret });
 })
+
+paymentRouter.get("/products", async (req, res) => {
+    res.send(await getProductList())
+})
+paymentRouter.get("/:productId", async (req, res) => {
+    let productId = req.params["productId"]
+    let product = getProduct()
+    if (!product) res.status(400);
+    res.send(product)
+})
+
 
 async function getAllProducts() {
     const products = await stripe.products.list();
@@ -76,10 +82,6 @@ async function getProduct(id) {
         return false
     }
 }
-async function createPaymentIntent(options) {
-    const paymentIntent = await stripe.paymentIntents.create(options);
-    return paymentIntent;
-}
 async function getProductList() {
     let products = await getAllProducts();
     let prices = await getAllPrices();
@@ -90,19 +92,12 @@ async function getProductList() {
             name: products.data[i].name,
             description: products.data[i].description,
             images: products.data[i].images,
+            price_id: prices.data[i].id,
             price: prices.data[i].unit_amount / 100,
             item_id: products.data[i].id,
+            status: products.data[i].metadata["status"],
         });
     }
     return productList
-}
-async function getPrice(id) {
-    try {
-        let price = await stripe.prices.retrieve(id);
-        return price.unit_amount / 100;
-    }
-    catch (err) {
-        return false
-    }
 }
 module.exports = paymentRouter

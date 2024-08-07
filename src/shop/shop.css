@@ -30,10 +30,8 @@ body {
 }
 #heroButton {
     position: absolute;
-    min-width: 170px;
+    min-width: 250px;
     /* min-height: 130px; */
-    width: 23%;
-    height: 12%;
     font-size: 39px;
     text-align: left;
     border-radius: 20px;
@@ -41,10 +39,26 @@ body {
     color: white;
     left: 5%;
     font-family: "Oxanium";
-    top: 83vh
+    top: 75vh; 
+    padding: 20px;
+}
+#cart:hover {
+    text-decoration: underline !important;
+    text-decoration-color: black;
+}
+#cart {
+    text-decoration: none !important;
+    width: 70px;
+    height: 40px;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-right: 40px;
+    gap: 5px;
+
 }
 #products {
-    padding-top: 10%;
     min-height: 100vh;
     width: 100%;
     display: flex;
