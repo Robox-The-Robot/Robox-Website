@@ -2,7 +2,7 @@
     --project-header: 0px;
 }
 body {
-    background-image: url(../cross.png);
+    background-image: url(../cross.webp);
     background-color: var(--main-bg-color);
     padding: 0;
     margin: 0;
@@ -232,4 +232,9 @@ body {
     gap: 20px;
     justify-content: right;
     margin-top: 20px;
+}
+#actionBar >button {
+    height: 49px;
+    width: 48px;
+    align-self: center;
 }

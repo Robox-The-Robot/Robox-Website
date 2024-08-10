@@ -1,16 +1,21 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: {
-        dash: './src/dash/index.js',
+        dash: {
+            import: ['./src/dash/index.js'],
+        },
         serialization: "./src/blockly/serialization.js",
         shop: './src/shop/shop.js',
         workspace: "./src/workspace/workspace.js",
-        checkout: "./src/checkout/checkout.js"
+        checkout: "./src/checkout/checkout.js",
     },
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Dash',
@@ -36,6 +41,10 @@ module.exports = {
             template: './src/shop/shop.html',
             chunks: ["shop"]
         }),
+        new CompressionPlugin({
+            test: /\.js(\?.*)?$/i,
+        }),
+        new MiniCssExtractPlugin()
     ],
     output: {
         filename: 'public/js/[name].[contenthash].js',
@@ -45,12 +54,20 @@ module.exports = {
     },
     optimization: {
         runtimeChunk: 'single',
+        usedExports: true,
+        splitChunks: {
+            chunks: "all"
+        },
+        minimizer: [
+            `...`,
+            new CssMinimizerPlugin(),
+        ]
     },
     module: {
         rules: [
             {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
@@ -58,7 +75,7 @@ module.exports = {
             },
             {
 
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
 
                 type: 'asset',
                 parser: {

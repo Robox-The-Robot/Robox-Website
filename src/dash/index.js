@@ -1,4 +1,4 @@
-import(/* webpackPrefetch: true */ "../cross.png");
+import "../cross.webp"
 
 import "../root.css"
 import "./index.css"
@@ -10,10 +10,19 @@ import { createToast } from "../alerts"
 
 import { createProject, getProject, getProjects, renameProject, deleteProject, saveBlocklyCompressed } from '../blockly/serialization';
 
-import '@fortawesome/fontawesome-free/js/fontawesome'
-import '@fortawesome/fontawesome-free/js/solid'
-// import '@fortawesome/fontawesome-free/js/regular'
-// // import '@fortawesome/fontawesome-free/js/brands'
+import { library, dom } from "@fortawesome/fontawesome-svg-core";
+
+
+import { faUpload } from "@fortawesome/free-solid-svg-icons/faUpload"
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus"
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons/faEllipsisVertical"
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons/faTrashCan"
+
+
+
+library.add(faUpload, faPlus, faEllipsisVertical, faTrashCan);
+dom.watch()
+
 import relativeTime from "dayjs/plugin/relativeTime"
 import dayjs from 'dayjs';
 
@@ -69,7 +78,7 @@ function populateProjects() {
             let projectTime = dayjs(project["time"])
             time.textContent = projectTime.fromNow()
             title.textContent = project["name"]
-            thumbnail.src = project["thumbnail"]
+            // thumbnail.src = project["thumbnail"]
             clone.querySelector(".project").id = `${projectId}`
 
             projectHolder.appendChild(clone)
