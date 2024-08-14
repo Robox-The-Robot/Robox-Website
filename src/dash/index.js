@@ -17,10 +17,11 @@ import { faUpload } from "@fortawesome/free-solid-svg-icons/faUpload"
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus"
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons/faEllipsisVertical"
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons/faTrashCan"
+import { faSpinner } from "@fortawesome/free-solid-svg-icons/faSpinner"
 
 
 
-library.add(faUpload, faPlus, faEllipsisVertical, faTrashCan);
+library.add(faUpload, faPlus, faEllipsisVertical, faTrashCan, faSpinner);
 dom.watch()
 
 import relativeTime from "dayjs/plugin/relativeTime"
@@ -74,7 +75,6 @@ function populateProjects() {
             let clone = projectTemplate.content.cloneNode(true)
             let title = clone.querySelector(".project-name")
             let time = clone.querySelector(".project-date")
-            let thumbnail = clone.querySelector(".project-image")
             let projectTime = dayjs(project["time"])
             time.textContent = projectTime.fromNow()
             title.textContent = project["name"]
@@ -89,6 +89,19 @@ function populateProjects() {
         for (let item of document.querySelectorAll(".project")) {
             item.addEventListener("click", projectClick)
         }
+    }
+    const projectElements = document.querySelectorAll(".project")
+    for (const projectElement of projectElements) {
+        let projectID = projectElement.id
+        let project = projects[projectID]
+        let thumbnail = projectElement.querySelector(".project-image")
+        let spinner = projectElement.querySelector(".image-spinner")
+        thumbnail.src = project["thumbnail"]
+        spinner.style.display = "none"
+        thumbnail.style.display = "block"
+
+
+        
     }
 }
 function refreshProjects() {

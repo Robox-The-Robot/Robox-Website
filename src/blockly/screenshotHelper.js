@@ -32,7 +32,7 @@ function svgToPng_(data, width, height, callback) {
     img.onload = function () {
         context.drawImage(img, 0, 0, width, height, 0, 0, canvas.width, canvas.height);
         try {
-            var dataUri = canvas.toDataURL('image/webp');
+            var dataUri = canvas.toDataURL('image/png');
             callback(dataUri);
         } catch (err) {
             console.warn('Error converting the workspace svg to a png');

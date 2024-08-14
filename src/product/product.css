@@ -1,0 +1,48 @@
+:root {
+    --project-header: 0px;
+}
+body {
+    background-image: url(../cross.webp);
+    background-color: var(--main-bg-color);
+    padding: 0;
+    margin: 0;
+    font-family: 'Oxanium';
+    font-size: 22px;
+}
+
+#main-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+#starter-info {
+    margin-top: 50px;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+#image-carousel {
+    height: 450px;
+    width: 120px;
+    background-color: #F6F7C4;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 20px;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+#image-carousel > li {
+    width: 115px;
+}
+.temp-image {
+    
+    aspect-ratio: 16/9;
+    background-color: gray;
+}

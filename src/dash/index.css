@@ -159,11 +159,26 @@ body {
 }
 .project-image {
     width: 100%;
-    aspect-ratio: 16/9;
+    height: 100%;
     border-radius: 10px;
     object-fit: cover;
+   
 }
-
+.project-image-holder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-spinner {
+    animation-name: spin;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    font-size: 32px;
+}
 .project {
     width: 230px;
     border-radius: 10px;
@@ -237,4 +252,13 @@ body {
     height: 49px;
     width: 48px;
     align-self: center;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }

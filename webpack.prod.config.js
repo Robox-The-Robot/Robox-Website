@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: {
         dash: {
             import: ['./src/dash/index.js'],
@@ -14,7 +14,6 @@ module.exports = {
         shop: './src/shop/shop.js',
         workspace: "./src/workspace/workspace.js",
         checkout: "./src/checkout/checkout.js",
-        product: "./src/product/product.js"
     },
     // devtool: 'inline-source-map',
     plugins: [
@@ -42,12 +41,10 @@ module.exports = {
             template: './src/shop/shop.html',
             chunks: ["shop"]
         }),
-        new HtmlWebpackPlugin({
-            title: 'Product',
-            filename: 'view/product.html',
-            template: './src/product/product.html',
-            chunks: ["product"]
+        new CompressionPlugin({
+            test: /\.js(\?.*)?$/i,
         }),
+        new MiniCssExtractPlugin()
     ],
     output: {
         filename: 'public/js/[name].[contenthash].js',
@@ -56,13 +53,21 @@ module.exports = {
         clean: true
     },
     optimization: {
-
+        runtimeChunk: 'single',
+        usedExports: true,
+        splitChunks: {
+            chunks: "all"
+        },
+        minimizer: [
+            `...`,
+            new CssMinimizerPlugin(),
+        ]
     },
     module: {
         rules: [
             {
                 test: /\.css$/i,
-                use: ["style-loader", 'css-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,

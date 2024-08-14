@@ -22,6 +22,9 @@ app.get("/shop", function (req, res) {
 app.get("/workspace/:id", function(req, res) {
     res.sendFile("view/workspace.html", { root: __dirname + "/dist/" })
 })
+app.get("/shop/product/:productID", function(req, res) {
+    res.sendFile("view/product.html", { root: __dirname + "/dist/" })
+})
 // Serve the files on port 3000.
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!\n');
