@@ -1,4 +1,8 @@
 const path = require('path');
+const fs = require('fs');
+const nav = fs.readFileSync('./src/partials/nav.html', 'utf8');
+
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -21,6 +25,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Dash',
             filename: 'view/dash.html',
+            nav: nav,
             template: './src/dash/index.html',
             chunks: ["dash"]
         }),
@@ -33,18 +38,21 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Checkout',
             filename: 'view/checkout.html',
+            nav: nav,
             template: './src/checkout/checkout.html',
             chunks: ["checkout"]
         }),
         new HtmlWebpackPlugin({
             title: 'Shop',
             filename: 'view/shop.html',
+            nav: nav,
             template: './src/shop/shop.html',
             chunks: ["shop"]
         }),
         new HtmlWebpackPlugin({
             title: 'Product',
             filename: 'view/product.html',
+            nav: nav,
             template: './src/product/product.html',
             chunks: ["product"]
         }),

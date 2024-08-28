@@ -5,22 +5,15 @@ import '@fortawesome/fontawesome-free/js/solid'
 import "../root.css"
 import "./shop.css"
 import "./shopImage/hero.jpg"
-import {getProducts, addCartItem, getCart} from "../payment"
+import {getProducts, addCartItem, getCart, refreshCart} from "../payment"
 
 
 
-const cart = getCart()
-const cartElement = document.getElementById("cart")
-const cartProducts = cart ? Object.keys(cart) : []
-if (cartProducts.length !== 1) {
-    cartElement.querySelector("p").innerHTML = `<span style=\"color: #FDFF9E; \">(</span>${cart["quantity"]}<span style=\"color: #FDFF9E;\">)</span>`
-    cartElement.style.display = "flex"
-}
 
-
+refreshCart()
 const cartModal = document.getElementById("cart-dialog")
 
-const continueShoppingButton = document.getElementById("continue-button")
+const continueShoppingButton = doccment.getElementById("continue-button")
 continueShoppingButton.addEventListener("click", (event) => {
     cartModal.close()
 })

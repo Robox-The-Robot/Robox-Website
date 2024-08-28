@@ -80,10 +80,41 @@ body {
     background-color: gray;
 }
 #carousel-left-button {
+    left: 16px;
+}
+#carousel-right-button, #carousel-left-button {
     position: absolute;
     top: 250px;
-    left: 16px;
+    width: 40px;
+    background-color: rgba(0, 0, 0, 0.481);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 40px;
     font-size: 18px;
+}
+#carousel-right-button {
+    right: 16px;
+}
+.carousel-button-disabled {
+    color: rgba(255, 255, 255, 0.608) !important;
+    
+}
+.carousel-button-disabled:hover {
+    cursor: default !important;
+}
+#carousel-number {
+    position: absolute;
+    width: 100px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.481);
+    color: white;
+    top: 30px;
+    left: 16px;
 }
 #add-to-cart {
     background-color: #7BD3EA;
@@ -111,6 +142,7 @@ body {
     font-size: 16px;
     font-weight: 500;
 }
+
 #important-info > hr {
     border: 1px black solid;
 }
@@ -137,4 +169,70 @@ body {
     padding: 3px;
     height: 25px;
     width: 25px;
+}
+.small-element {
+    display: none;
+}
+#cart-quantity-button {
+    font-size: 20px;
+    width: 200px;
+    height: 37px;
+    font-family: 'Oxanium';
+    justify-content: space-between;
+    border-radius: 5px;
+    background-color: #F6F7C4;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#decrease-cart-button {
+    border-radius: 5px 0 0 5px;
+}
+#increase-cart-button {
+    border-radius: 0 5px 5px 0;
+}
+#cart-quantity-button > button {
+    width: 30px;
+    border: 2px black solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+#cart-quantity {
+    background-color: rgba(0,0,0,0);
+    border: 0;
+    text-align: center;
+    height: 100%;
+    font-size: 20px;
+    flex-shrink: 1;
+    padding: 0;
+    font-family: 'Oxanium';
+    width: 140px;
+}
+.further-info {
+    cursor: pointer;
+}
+@media only screen and (max-width: 900px) {
+    #starter-info > .vertical-bars {
+        display: none;
+    }
+    #image-carousel {
+        display: none;
+    }
+    #starter-info {
+        flex-direction: column;
+    }
+    .small-element {
+        display: block;
+    }
+    #starter-info > hr {
+        border: 1px black solid;
+        width: 100%;
+        /* background-color: black; */
+    }
+    #hero-image-container {
+        width: 100%;
+    }
+
 }

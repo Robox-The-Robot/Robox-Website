@@ -10,15 +10,30 @@ export function getCart() {
     }
     return (JSON.parse(cart))
 }
+export function refreshCart() {
+    const cart = getCart()
+    const cartElement = document.getElementById("cart")
+    const cartProducts = cart ? Object.keys(cart) : []
+    if (cartProducts.length !== 1) {
+        cartElement.querySelector("p").innerHTML = `<span style=\"color: #FDFF9E; \">(</span>${cart["quantity"]}<span style=\"color: #FDFF9E;\">)</span>`
+        cartElement.style.display = "flex"
+    }
+    else if (cartProducts.style.display === "flex") {
+        cartElement.style.display = "none"
+    }
+
+}
 //expects an object of quantity and id
 export function removeCartItem(product) {
     let cart = JSON.parse(sessionStorage.getItem("cart"))
     cart["quantity"] -= cart[product]
     delete cart[product]
     sessionStorage.setItem("cart", JSON.stringify(cart))
+    refreshCart()
 }
 export function wipeCart() {
     sessionStorage.setItem("cart", "{}")
+    refreshCart()
 }
 export function addCartItem(product, quantity) {
     let cart = JSON.parse(sessionStorage.getItem("cart"))
@@ -32,6 +47,8 @@ export function addCartItem(product, quantity) {
         cart["quantity"] += quantity
     }
     sessionStorage.setItem("cart", JSON.stringify(cart))
+    refreshCart()
+
 }
 export function setCartItem(product, quantity) {
     let cart = JSON.parse(sessionStorage.getItem("cart"))
@@ -45,5 +62,6 @@ export function setCartItem(product, quantity) {
     item = quantity
     
     sessionStorage.setItem("cart", JSON.stringify(cart))
+    refreshCart()
+
 }
-console.log(await getProducts())
