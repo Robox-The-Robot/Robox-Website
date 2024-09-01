@@ -18,7 +18,7 @@ export function refreshCart() {
         cartElement.querySelector("p").innerHTML = `<span style=\"color: #FDFF9E; \">(</span>${cart["quantity"]}<span style=\"color: #FDFF9E;\">)</span>`
         cartElement.style.display = "flex"
     }
-    else if (cartProducts.style.display === "flex") {
+    else if (cartElement.style.display === "flex") {
         cartElement.style.display = "none"
     }
 

@@ -13,7 +13,7 @@ import {getProducts, addCartItem, getCart, refreshCart} from "../payment"
 refreshCart()
 const cartModal = document.getElementById("cart-dialog")
 
-const continueShoppingButton = doccment.getElementById("continue-button")
+const continueShoppingButton = document.getElementById("continue-button")
 continueShoppingButton.addEventListener("click", (event) => {
     cartModal.close()
 })

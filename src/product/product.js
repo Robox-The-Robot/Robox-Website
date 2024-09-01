@@ -95,3 +95,25 @@ function changeHeroImage(number) {
     element.classList.add("selected-carousel")
     currentIndex = number
 }
+const sidebarElement = document.getElementById("menu-sidebar")
+document.getElementById("menu-button").addEventListener("click", (e) => {
+    sidebarElement.showModal()
+})
+
+const modals = document.querySelectorAll("dialog")
+for (const modal of modals) {
+    modal.addEventListener("click", (event) => {
+        let rect = event.target.getBoundingClientRect();
+        if (rect.left > event.clientX ||
+            rect.right < event.clientX ||
+            rect.top > event.clientY ||
+            rect.bottom < event.clientY
+        ) {
+            modal.close();
+        }
+    })
+}
+
+window.matchMedia("(max-width: 900px)").addEventListener("change", (e) => {
+    sidebarElement.close()
+})
