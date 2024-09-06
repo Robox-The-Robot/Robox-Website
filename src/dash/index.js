@@ -16,18 +16,24 @@ import { library, dom } from "@fortawesome/fontawesome-svg-core";
 import { faUpload } from "@fortawesome/free-solid-svg-icons/faUpload"
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus"
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons/faEllipsisVertical"
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons/faTrashCan"
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons/faSpinner"
+import { faPencil } from "@fortawesome/free-solid-svg-icons/faPencil"
 
 
-
-library.add(faUpload, faPlus, faEllipsisVertical, faTrashCan, faSpinner);
+library.add(faUpload, faPlus, faEllipsisVertical, faTrash, faSpinner, faPencil);
 dom.watch()
 
 import relativeTime from "dayjs/plugin/relativeTime"
 import dayjs from 'dayjs';
 
 dayjs.extend(relativeTime)
+
+const editProjectModal = document.querySelector("#edit-project-dialog")
+const editForm = editProjectModal.querySelector("form")
+
+const deleteProjectModal = document.getElementById("delete-project-dialog")
+const deleteButtons = deleteProjectModal.querySelector("#delete-buttons")
 
 
 // Upload tool
@@ -52,7 +58,10 @@ fileInput.addEventListener("change", (e) => {
 
 const projectTemplate = document.getElementById("template-project")
 const projectHolder = document.getElementById("project-holder")
-const toolbarModal = document.getElementById("toolbar")
+let toolbarModal = document.getElementById("toolbar")
+
+//Since the toolbar is using the .show() method it does not have a backdrop, and as thus does not close on click
+
 
 populateProjects()
 function populateProjects() {
@@ -104,11 +113,38 @@ function populateProjects() {
         
     }
 }
+document.addEventListener("click", (event) => {
+    if (toolbarModal.hasAttribute("open") && (!deleteProjectModal.hasAttribute("open") || !editProjectModal.hasAttribute("open"))) {
+        event.preventDefault()
+        console.log("TOOLBAR CLOSE EVENT")
+        event.stopImmediatePropagation()
+        let rect = toolbarModal.getBoundingClientRect();
+
+        if (rect.left > event.clientX ||
+            rect.right < event.clientX ||
+            rect.top > event.clientY ||
+            rect.bottom < event.clientY
+        ) {
+            toolbarModal.close();
+        }
+        let item = event.target
+        console.log(event.target)
+        let dots = item.closest(".dots") 
+        if (dots) {
+            let project = dots.closest(".project")
+            project.appendChild(toolbarModal)
+            toolbarModal = document.getElementById("toolbar")
+            toolbarModal.setAttribute("target", item.closest(".project").id)
+            toolbarModal.show()
+        }
+    }
+})
 function refreshProjects() {
     projectHolder.replaceChildren()
     populateProjects()
 }
 function projectClick(e) {
+    if (toolbarModal.hasAttribute("open") || e.target.closest("#toolbar")) return
     let item = e.target
     let dots = item.closest(".dots") //checking if there is the dots object near or above the item
     if (dots === null) { //If the dialog is clicked it will not have dots (as dots is its child)
@@ -116,15 +152,15 @@ function projectClick(e) {
         window.location.assign(`${window.location.href}workspace/${item.id}`)
     }
     else { //if it is the edit menu dots clicked
-        let boundingRect = dots.getBoundingClientRect()
-        let x = boundingRect["x"] + (boundingRect["width"]) / 2
-        let y = boundingRect["y"] + (boundingRect["height"]) / 2
-        toolbarModal.style.left = `${x}px`
-        toolbarModal.style.top = `${y}px`
+        let project = dots.closest(".project")
+        project.appendChild(toolbarModal)
+        toolbarModal = document.getElementById("toolbar")
         toolbarModal.setAttribute("target", item.closest(".project").id)
-        toolbarModal.showModal()
+        toolbarModal.show()
     }
+    e.stopPropagation()
 }
+
 
 
 const createProjectButton = document.getElementById("create-project")
@@ -136,10 +172,9 @@ createProjectButton.addEventListener("click", function(e)  {
 
 
 
-const editProjectModal = document.querySelector("#edit-project-dialog")
-const editForm = editProjectModal.querySelector("form")
 
-//TODO: Random error on pressing enter in modal that makes two toasts popup saying that the project was renamed, the project then has no name, cannot recreate
+
+
 document.getElementById("edit-button").addEventListener("click", (event) => {
     let projectID = toolbarModal.getAttribute("target");
     let project = getProject(projectID)
@@ -167,8 +202,9 @@ document.getElementById("edit-button").addEventListener("click", (event) => {
         }
     }, {once: true})
 })
-const deleteProjectModal = document.getElementById("delete-project-dialog")
-const deleteButtons = deleteProjectModal.querySelector("#delete-buttons")
+
+
+
 document.getElementById("delete-button").addEventListener("click", (event) => {
     let projectID = toolbarModal.getAttribute("target");
     let project = getProject(projectID)
@@ -202,6 +238,7 @@ for (const modal of modals) {
         ) {
             modal.close();
         }
+        event.stopPropagation()
     })
 }
 
