@@ -11,9 +11,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 module.exports = {
     mode: 'development',
     entry: {
-        dash: {
-            import: ['./src/dash/index.js'],
-        },
+        dash: "./src/dash/index.js",
         serialization: "./src/blockly/serialization.js",
         shop: './src/shop/shop.js',
         workspace: "./src/workspace/workspace.js",
@@ -33,6 +31,7 @@ module.exports = {
             title: 'Workspace',
             filename: 'view/workspace.html',
             template: './src/workspace/workspace.html',
+            nav: nav,
             chunks: ["workspace"]
         }),
         new HtmlWebpackPlugin({
@@ -64,7 +63,9 @@ module.exports = {
         clean: true
     },
     optimization: {
-
+        splitChunks: {
+            chunks: "all"
+        }
     },
     module: {
         rules: [

@@ -27,18 +27,17 @@ import '../blockly/theme/category';
 
 import {toolbox} from '../blockly/toolbox';
 
+await import("../blockly/blocks/sensor")
+import("../blockly/generators/sensor")
 
-import "../blockly/blocks/sensor"
-import "../blockly/generators/sensor"
+await import("../blockly/blocks/motors")
+import("../blockly/generators/motors")
 
-import "../blockly/blocks/events"
-import "../blockly/generators/events"
+await import("../blockly/blocks/events")
+import("../blockly/generators/events")
 
-import "../blockly/blocks/systems"
-import "../blockly/generators/systems"
-
-import "../blockly/blocks/motors"
-import "../blockly/generators/motors"
+await import("../blockly/blocks/systems")
+import("../blockly/generators/systems")
 
 
 import "./usb.js"
