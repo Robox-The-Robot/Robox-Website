@@ -22,6 +22,9 @@ app.get("/shop", function (req, res) {
 app.get("/workspace/:id", function(req, res) {
     res.sendFile("view/workspace.html", { root: __dirname + "/dist/" })
 })
+app.get("/cart/", function(req, res) {
+    res.sendFile("view/cart.html", { root: __dirname + "/dist/" })
+})
 app.get("/shop/product/:productID", function(req, res) {
     res.sendFile("view/product.html", { root: __dirname + "/dist/" })
 })

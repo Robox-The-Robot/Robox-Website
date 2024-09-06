@@ -16,7 +16,8 @@ module.exports = {
         shop: './src/shop/shop.js',
         workspace: "./src/workspace/workspace.js",
         checkout: "./src/checkout/checkout.js",
-        product: "./src/product/product.js"
+        product: "./src/product/product.js",
+        cart: './src/cart/cart.js',
     },
     // devtool: 'inline-source-map',
     plugins: [
@@ -47,6 +48,13 @@ module.exports = {
             nav: nav,
             template: './src/shop/shop.html',
             chunks: ["shop"]
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Cart',
+            filename: 'view/cart.html',
+            nav: nav,
+            template: './src/cart/cart.html',
+            chunks: ["cart"]
         }),
         new HtmlWebpackPlugin({
             title: 'Product',
