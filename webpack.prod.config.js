@@ -18,6 +18,12 @@ module.exports = {
     // devtool: 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
+            title: 'Home',
+            filename: 'home/home.html',
+            template: './src/home/index.html',
+            chunks: ["home"]
+        }),
+        new HtmlWebpackPlugin({
             title: 'Dash',
             filename: 'view/dash.html',
             template: './src/dash/index.html',

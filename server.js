@@ -12,8 +12,10 @@ app.use(express.static('./dist'))
 
 app.use("/shop", payment)
 
-
 app.get("/", function (req, res) {
+    res.sendFile("view/home.html", { root: __dirname + "/dist/" })
+})
+app.get("/workspace", function (req, res) {
     res.sendFile("view/dash.html", { root: __dirname + "/dist/" })
 })
 app.get("/shop", function (req, res) {
