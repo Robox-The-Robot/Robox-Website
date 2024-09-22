@@ -9,7 +9,6 @@ paymentRouter.use(express.static('./dist'))
 
 
 paymentRouter.get("/checkout", async (req, res) => {
-    console.log(1)
     res.sendFile("view/checkout.html", { root: __dirname + "/dist/" })
 })
 
@@ -41,10 +40,11 @@ paymentRouter.post("/checkout", async (req, res) => {
 paymentRouter.get("/products", async (req, res) => {
     res.send(await getProductList())
 })
-paymentRouter.get("/:productId", async (req, res) => {
+paymentRouter.get("/products/:productId", async (req, res) => {
     let productId = req.params["productId"]
-    let product = getProduct()
-    if (!product) res.status(400);
+    if (productId === "quantity") return res.status(200).send(false)
+    let product = await getProduct(productId)
+    if (!product) return res.status(400);
     res.send(product)
 })
 
@@ -75,8 +75,17 @@ async function getAllPrices() {
 }
 async function getProduct(id) {
     try {
+
         let product = await stripe.products.retrieve(id);
-        return product;
+        let price = await stripe.prices.retrieve(product.default_price)
+        return {
+            type: product.metadata.type,
+            name: product.name,
+            description: product.description,
+            images: product.images,
+            price: price.unit_amount / 100,
+            status: product.metadata["status"],
+        }
     }
     catch (err) {
         return false

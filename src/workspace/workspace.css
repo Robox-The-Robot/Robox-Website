@@ -25,9 +25,8 @@ code {
     display: flex;
     flex-direction: column;
     width: 265px;
-    background-color: red;
     right: 90px;
-    height: calc(100% - var(--header-size) - 15px - var(--project-header));
+    height: calc(100% - var(--header-size) - var(--project-header) - 34px);
     z-index: 1000;
     justify-content: space-between;
     align-items: center;
@@ -80,9 +79,9 @@ code {
 }
 
 #delete-drag {
-    margin-top: 112.5px;
-    height: calc(100vh - 112.5px);
+    height: calc(100% - var(--project-header) - var(--header-size));
     width: 100px;
+    top: calc(var(--project-header) + var(--header-size));
     background-color: rgba(184, 0, 0, 0.72);
     z-index: 81;
     position: absolute;
@@ -153,6 +152,7 @@ code {
     height: 37.5px;
     display: flex;
     justify-content: center;
+    align-items: center;
     position: static
 }
 #header-button-container {
@@ -208,7 +208,11 @@ code {
 
 #back{
     height: 20px;
+    text-decoration: none;
+    color: black;
     width: 20px;
+    display: flex;
+    align-items: center;
 }
 
 /* Adds padding around the group of categories and separators. */

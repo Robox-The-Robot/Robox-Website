@@ -87,17 +87,23 @@ body {
     width: 100%;
     height: 100%;
 }
-
+.project:has(> #toolbar)  {
+    z-index: 1000
+}
 #toolbar {
-    background-color: #ECEDCB;
+    background-color: var(--primary-card-color);
     width: 120px;
     height: 70px;
     margin: 0;
+    bottom: -44px;
+    left: 225px;
     border: 0;
     padding: 5px;
+    position: absolute;
     padding-top: 10px;
     border-radius: 10px;
-    filter: drop-shadow(5px 5px 5px black);
+    border: 1px solid black;
+    z-index: 10000;
 }
 #toolbar > div {
     width: 100%;
@@ -109,7 +115,6 @@ body {
     color: red;
 }
 .toolbar-buttons {
-    background-color: rgb(236, 237, 203);
     justify-content: flex-start;
     display: flex;
     flex-direction: row;
@@ -162,6 +167,7 @@ body {
     height: 100%;
     border-radius: 10px;
     object-fit: cover;
+    aspect-ratio: 16/9;
    
 }
 .project-image-holder {

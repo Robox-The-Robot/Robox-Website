@@ -447,11 +447,7 @@ export const toolbox = {
       'contents': [
         {
           'kind': 'block',
-          'type': 'distance',
-        },
-        {
-          'kind': 'block',
-          'type': 'line_position',
+          'type': 'ultrasonic_distance',
         },
       ]
     },

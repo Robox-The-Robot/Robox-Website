@@ -5,6 +5,9 @@
     --header-size: 90px;
     font-family: "Oxanium";
 }
+html {
+    font-family: "Oxanium";
+}
 #floating-item-holder {
     position: fixed;
     display: flex;
@@ -20,6 +23,22 @@
 
 .modal::backdrop {
     background: rgba(0, 0, 0, 0.40);
+}
+#cart:hover {
+    text-decoration: underline !important;
+    text-decoration-color: black;
+}
+#cart {
+    text-decoration: none !important;
+    width: 70px;
+    height: 40px;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-right: 40px;
+    gap: 5px;
+
 }
 .modal {
     background-color: var(--primary-card-color);
@@ -51,6 +70,7 @@
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
+    font-family: "Oxanium";
     background: none;
 }
 
@@ -65,13 +85,11 @@ nav {
     z-index: 10000;
 
 }
-nav > div {
+#roboxLogoHolder {
     width: 200px;
     height: 100%;
 }
-nav > div:last-child {
-    flex-grow: 1;
-}
+
 #logoImage {
     height: 70px;
     overflow: auto;
@@ -88,13 +106,18 @@ nav > div:last-child {
     font-weight: 600;
     font-style: normal;
 } */
-#linkHolders {
+.linkHolders {
     display: flex;
-    justify-content: left;
     align-items: center;
-    gap: 50px
+    gap: 50px;
+    flex-grow: 1;
 }
-#linkHolders > a {
+.linkHolders.big {
+    
+    justify-content: left;
+    
+}
+.linkHolders > * {
     color: black;
     text-decoration: underline;
     text-decoration-color: #FDFF9E;
@@ -180,4 +203,45 @@ header {
     color: rgb(223, 223, 223);
     font-size: 10px;
     text-wrap: wrap;
+}
+
+.smallNav {
+    display: none;
+}
+@media only screen and (max-width: 900px) {
+    .bigNav {
+        display: none;
+    }
+    .smallNav {
+        display: block;
+    }
+    
+}
+#menu-sidebar {
+    margin-left: 0;
+    border-radius: 0;
+    height: 100%;
+    width: 150px;
+    background-color: var(--secondary-bg-color);
+    gap: 0px;
+    
+}
+#menu-sidebar > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+#menu-sidebar > div > hr {
+    margin-bottom: 50px;
+    background-color: red;
+    border: 0;
+    background-color: #FDFF9E;
+    border-radius: 3px;
+    padding: 0;
+    height: 3px;
+}
+.linkHolders.small {
+    flex-direction: column;
 }
