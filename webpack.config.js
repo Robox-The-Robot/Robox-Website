@@ -18,9 +18,17 @@ module.exports = {
         checkout: "./src/checkout/checkout.js",
         product: "./src/product/product.js",
         cart: './src/cart/cart.js',
+        home: './src/home/index.js'
     },
     // devtool: 'inline-source-map',
     plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Home',
+            filename: 'view/home.html',
+            nav: nav,
+            template: './src/home/index.html',
+            chunks: ["home"]
+        }),
         new HtmlWebpackPlugin({
             title: 'Dash',
             filename: 'view/dash.html',

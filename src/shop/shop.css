@@ -23,7 +23,7 @@ body {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    content: url(./shopImage/hero.jpg);
+    content: url(../_images/hero.jpg);
 }
 .fullWindow::-webkit-scrollbar {
     display: none !important;

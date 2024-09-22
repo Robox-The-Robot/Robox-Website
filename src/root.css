@@ -93,7 +93,7 @@ nav {
 #logoImage {
     height: 70px;
     overflow: auto;
-    content: url(./Robox.svg)
+    content: url(./_images/Robox.svg)
 }
 #roboxLogoHolder, #roboxLogoHolder > a {
     display: flex;

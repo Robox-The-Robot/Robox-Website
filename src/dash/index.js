@@ -4,7 +4,7 @@ import "../root.css"
 import "./index.css"
 
 
-import "../Robox.svg"
+import "../_images/Robox.svg"
 
 import { createToast } from "../alerts"
 

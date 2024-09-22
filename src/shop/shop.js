@@ -4,7 +4,6 @@ import '@fortawesome/fontawesome-free/js/solid'
 
 import "../root.css"
 import "./shop.css"
-import "./shopImage/hero.jpg"
 import {getProducts, addCartItem, getCart, refreshCart} from "../payment"
 
 
