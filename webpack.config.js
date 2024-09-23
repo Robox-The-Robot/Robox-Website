@@ -78,7 +78,6 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 { from: "src/resources", to: "resources/" },
-                { from: "src/_images", to: "public/images/" }
             ],
         }),
     ],
@@ -107,14 +106,14 @@ module.exports = {
 
                 test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
 
-                type: 'asset',
+                type: 'asset/resource',
                 parser: {
                     dataUrlCondition: {
                         maxSize: 8 * 1024 // 8kb
                     }
                 },
                 generator: {
-                    filename: 'public/images/[name][ext]'
+                    filename: 'public/images/[name].[ext]'
                 }
             },
         ],

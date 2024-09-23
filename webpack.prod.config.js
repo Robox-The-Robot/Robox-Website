@@ -14,12 +14,13 @@ module.exports = {
         shop: './src/shop/shop.js',
         workspace: "./src/workspace/workspace.js",
         checkout: "./src/checkout/checkout.js",
+        home: "./src/home/index.js"
     },
     // devtool: 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Home',
-            filename: 'home/home.html',
+            filename: 'view/home.html',
             template: './src/home/index.html',
             chunks: ["home"]
         }),
