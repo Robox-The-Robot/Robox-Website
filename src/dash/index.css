@@ -1,0 +1,270 @@
+:root {
+    --project-header: 0px;
+}
+body {
+    background-image: url(../cross.webp);
+    background-color: var(--main-bg-color);
+    padding: 0;
+    margin: 0;
+    font-family: 'Oxanium';
+    
+}
+
+
+
+
+
+#create-project {
+    margin-left: auto;
+}
+#delete-buttons, #edit-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 20%;
+    width: 100%;
+    gap: 20px;
+    margin-top: auto;
+}
+#delete-buttons {
+    justify-content: center;
+}
+#edit-buttons {
+    justify-content: right;
+}
+#confirm-rename {
+    background-color: #0EBA7C;
+}
+#project-edit-form > label {
+    font-size: 20px;
+}
+#project-edit-form {
+    width: 100%;
+}
+#project-edit-form>input {
+    font-size: 20px;
+    width: 100%;
+    border-radius: 5px;
+    border: 0;
+}
+#delete-description, .modal-title {
+    text-align: center;
+}
+#delete-buttons > button, #edit-buttons>button {
+    width: 20%;
+    height: 80%;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Oxanium';
+    font-size: clamp(10px,1.5vw);
+    min-width: 70px;
+    min-height: 30px;
+}
+.cancel {
+    background-color: #8B8B8B;
+}
+#confirm-delete {
+    background-color: #AD0808;
+}
+#content-header {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.modal-title {
+    text-align: center;
+    font-size: 25px;
+}
+/* The trash can */
+#delete-project-dialog>div>svg{
+    font-size: 50px;
+    color: red;
+}
+.modal > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.project:has(> #toolbar)  {
+    z-index: 1000
+}
+#toolbar {
+    background-color: var(--primary-card-color);
+    width: 120px;
+    height: 70px;
+    margin: 0;
+    bottom: -44px;
+    left: 225px;
+    border: 0;
+    padding: 5px;
+    position: absolute;
+    padding-top: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    z-index: 10000;
+}
+#toolbar > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#delete-button {
+    color: red;
+}
+.toolbar-buttons {
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-family: 'Oxanium';
+}
+
+#toolbar>div>hr {
+    width: 100%;
+    
+}
+#toolbar::backdrop {
+    background: rgba(0,0,0,0);
+}
+#main-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#create-project {
+    color: rgb(0, 0, 0);
+    background-color: var(--secondary-bg-color);
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 25px;
+    align-self: center;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+#project-holder {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.project-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+}
+.project-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+   
+}
+.project-image-holder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-spinner {
+    animation-name: spin;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    font-size: 32px;
+}
+.project {
+    width: 230px;
+    border-radius: 10px;
+    background-color: var(--primary-card-color);
+    filter: drop-shadow(5px 5px);
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    cursor: pointer;
+}
+.project:hover {
+    transform: translate(-3px, -3px);
+    filter: drop-shadow(8px 8px);
+}
+
+.project-info {
+    display: flex;
+    flex-direction: row;
+    height: 30%;
+    width: 100%;
+    margin-top: 8px;
+}
+.project-text {
+    width: 80%;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+.dots {
+    background-color: var(--primary-card-color);
+    color: black;
+    width: 10%;
+    font-size: 25px !important;
+    height: 100%;
+    margin-left: auto;
+}
+
+#dropzone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 200;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+#dropzone > div {
+    display: inherit;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+}
+
+.project-date {
+    font-size: 13px;
+    color: gray;
+}
+
+#actionBar {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: right;
+    margin-top: 20px;
+}
+#actionBar >button {
+    height: 49px;
+    width: 48px;
+    align-self: center;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

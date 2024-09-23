@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Robox Dashboard</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <%= htmlWebpackPlugin.options.nav %>
+        <div id="main-content">
+            <section class="fullWindow">
+                <button id="heroButton" class="button" onclick="document.getElementById('product-header').scrollIntoView({behavior: 'smooth'});">
+                    BUY 1.0 KIT NOW!
+                </button>
+                <div id="heroImage">
+                    <img draggable="false" src="/public/images/hero.jpg">
+                </div>
+            </section>
+            <h1 id="product-header">
+                Products
+            </h1>
+            <section id="products">
+                <div id="product-holder" tabindex="0">
+
+                </div>
+            </div>
+        </div>
+        <template id="product-template">
+            <article class="product">
+                <img class="product-image"
+                    src="https://user-images.githubusercontent.com/42506001/221354918-01bf0e89-48be-4df7-85bb-cdf5d0136f2a.png">
+                <h1 class="product-name">ROBOX KIT 1.0</h1>
+                <p class="product-status in-stock">In stock - ready to ship</p>
+                <h3 class="product-price">$ 10,000</h3>
+                <button class="product-button">
+                    Add to Cart
+                </button>
+            </article>
+        </template>
+        <dialog class="modal" id="cart-dialog">
+            <div>
+                <i class="fa-solid fa-bag-shopping"></i>
+                <h1 class="modal-title" id="cart-title">Added item to the cart!</h1>
+                <div id="cart-buttons">
+                    <button class="button" id="cart-button">
+                        View My Cart
+                    </button>
+                    <button class="button" id="continue-button">
+                        Continue Shopping
+                    </button>
+                    
+        
+                </div>
+            </div>
+        </dialog>
+    </body>
+</html>

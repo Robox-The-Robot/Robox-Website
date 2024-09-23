@@ -1,0 +1,316 @@
+:root {
+    --project-header: 37.5px;
+}
+body {
+    margin: 0;
+    max-width: 100vw;
+    font-family: "Oxanium";
+}
+
+pre,
+code {
+    overflow: auto;
+}
+
+.blocklyTreeLabel {
+    font-size: 15px;
+    color: black;
+    margin-left: 2px;
+    font-family: 'Inter';
+}
+
+
+#floating-item-holder {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 265px;
+    right: 90px;
+    height: calc(100% - var(--header-size) - var(--project-header) - 34px);
+    z-index: 1000;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+}
+#connection-managment {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-self: flex-end;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.floating-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    display: flex;
+    pointer-events: auto;
+}
+#connection {
+    width: 140px;
+    height: 100%;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 13px;
+    padding: 1px;
+    padding-left: 6px;
+    padding-right: 6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    pointer-events: auto;
+}
+#connection-text {
+    margin-left: auto;
+    font-family: 10px;
+}
+.connect {
+    font-size: 14px;
+}
+
+.blocklyToolboxDiv { 
+    z-index: 80;
+}
+
+#delete-drag {
+    height: calc(100% - var(--project-header) - var(--header-size));
+    width: 100px;
+    top: calc(var(--project-header) + var(--header-size));
+    background-color: rgba(184, 0, 0, 0.72);
+    z-index: 81;
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+.blocklyBlockDragSurface {
+    z-index: 100;
+}
+#delete-drag > * {
+    font-size: 30px;
+    color: white;
+    text-align: center;
+}
+
+#robox-connection>img, #robox-connection {
+    height: 30px;
+    width: 30px;
+}
+.happy-face {
+    content: url(./RoboxLogo.png);
+}
+.sad-face {
+    content: url(./sadRobox.png);
+}
+#robox-connection>img:hover {
+    filter: none;
+    -webkit-filter: grayscale(0%);
+    -moz-filter: grayscale(0%);
+    -ms-filter: grayscale(0%);
+    -o-filter: grayscale(0%);
+}
+
+#play {
+    background-color: #45B8DC;
+    display: none;
+}
+#terminal {
+    background-color: #0EBA7C;
+}
+#stop {
+    background-color: #AD0808;
+    display: none;
+}
+
+#connect {
+    background-color: #AD0808;
+}
+#hidden {
+    margin-left: auto;
+    visibility: hidden;
+    width: 20px;
+}
+#project-name {
+    background-color: #48A9C2;
+    font-family: 'Oxanium';
+    color: white;
+    text-align: center;
+    border: 0;
+    font-size: 20px;
+}
+#headertwo {
+    background-color: #48A9C2;
+    width: 100%;
+    height: 37.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: static
+}
+#header-button-container {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#text-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: auto;
+}
+.console-output {
+    border-top: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    
+
+}
+.rotating-face {
+    animation-name: faceRotate;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    transform-origin: 50% 50%;
+    animation-duration: 3s;
+}
+@keyframes faceRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.console-output > .console-time {
+    font-size: 14px;
+}
+.console-output > .console-text {
+    font-size: 14px;
+    max-width: calc(100% - 30px - 10px);
+    text-wrap: wrap;
+    word-wrap: break-word;
+}
+
+.blocklyTreeSeparator {
+    border-bottom: solid #000 1px !important;
+    margin-bottom: 13px !important;
+}
+
+#back{
+    height: 20px;
+    text-decoration: none;
+    color: black;
+    width: 20px;
+    display: flex;
+    align-items: center;
+}
+
+/* Adds padding around the group of categories and separators. */
+.blocklyToolboxContents {
+    padding: 0.5em;
+}
+.blocklyTreeRowContentContainer {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+}
+
+.blocklyTreeRow {
+    height: initial;
+}
+.blocklyTreeIcon {
+    display: none !important;
+}
+/* Adds space between the categories, rounds the corners and adds space around the label. */
+.blocklyTreeRow {
+    padding-bottom: 6px;
+    padding-top: 6px;
+    padding-right: 20px;
+    margin-bottom: 0.5em;
+    border-radius: 6px;
+}
+.blocklyToolboxDiv {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#pageContainer {
+    width: 100%;
+    max-width: 100vw;
+    height: calc(100vh - var(--header-size) - var(--project-header));
+}
+
+#blocklyDiv {
+    width: 100%;
+}
+
+
+#run {
+    background-color: blue;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    z-index: 1000000;
+}
+
+
+#delete-drag > svg {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
+}

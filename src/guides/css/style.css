@@ -1,0 +1,50 @@
+/* .content a {
+    color: rgb(255, 216, 178);
+} */
+
+.tutorialContainer {
+    margin: 20vh 10vw;
+}
+
+.articleImg {
+    width: 20vw;
+    min-width: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.tutorialContainer a {
+    color: #00886d;
+}
+
+section > .two-column {
+    margin-bottom: 32px;
+}
+
+#components > .two-column > .column {
+    flex: none;
+}
+
+#howWork .articleImg {
+    width: 100%;
+}
+
+#components .articleImg {
+    /* height: 100%; */
+    aspect-ratio: 1;
+    object-fit: contain;
+}
+
+#components > .two-column {
+    align-items: center;
+}
+
+@media screen and (max-width: 500px) {
+    .tutorialContainer {
+        margin: 20vh 16px;
+    }
+
+    .two-column {
+        gap: 0px;
+    }
+}

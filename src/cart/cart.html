@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>Robox Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <%= htmlWebpackPlugin.options.nav %>
+    <h1>
+        My Cart
+    </h1>
+    <div id="main-content">
+        <div id="cart-items">
+            <section>
+                <h3 class="cart-section-title">
+                    Available Now
+                </h3>
+                <ul class="cart-item-holder">
+                    
+
+                </ul>
+            </section>
+            <section>
+                <h3 class="cart-section-title">
+                    Preorder Now
+                </h3>
+                <ul class="cart-item-holder">
+                    
+
+                </ul>
+            </section>
+        </div>
+        <div id="order-summary">
+
+        </div>
+    </div>
+
+</body>
+<template id="cart-item">
+    <li class="cart-item">
+        <div class="cart-item-photo"></div>
+        <div class="cart-item-info">
+            <div class="cart-item-text-info">
+                <h4 class="cart-item-text-title">ROBOX 1.0 KIT</h4>
+                <p class="cart-item-text-price">$99.99</p>
+            </div>
+            <div class="cart-quantity-button">
+                <button class="button decrease-cart-button">
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+                <input type="number" min="1" value="1" placeholder="1" oninput="this.value = Math.abs(this.value)" class="cart-quantity">
+                    
+                </input>
+                <button class="button increase-cart-button">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <button class="cart-item-delete button">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+    </li>
+    <hr class="cart-item-break">
+
+</template>
+</html>

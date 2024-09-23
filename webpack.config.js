@@ -1,59 +1,123 @@
 const path = require('path');
+const fs = require('fs');
+const nav = fs.readFileSync('./src/partials/nav.html', 'utf8');
+
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
-// Base config that applies to either development or production mode.
-const config = {
-  entry: './src/index.js',
-  output: {
-    // Compile the source files into a bundle.
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    clean: true,
-  },
-  // Enable webpack-dev-server to get hot refresh of the app.
-  devServer: {
-    static: './build',
-  },
-  module: {
-    rules: [
-      {
-        // Load CSS files. They can be imported into JS files.
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-      },
+
+module.exports = {
+    mode: 'development',
+    entry: {
+        dash: "./src/dash/index.js",
+        serialization: "./src/blockly/serialization.js",
+        shop: './src/shop/shop.js',
+        workspace: "./src/workspace/workspace.js",
+        checkout: "./src/checkout/checkout.js",
+        product: "./src/product/product.js",
+        cart: './src/cart/cart.js',
+        home: './src/home/index.js'
+    },
+    // devtool: 'inline-source-map',
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Home',
+            filename: 'view/home.html',
+            nav: nav,
+            template: './src/home/index.html',
+            chunks: ["home"]
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Dash',
+            filename: 'view/dash.html',
+            nav: nav,
+            template: './src/dash/index.html',
+            chunks: ["dash"]
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Workspace',
+            filename: 'view/workspace.html',
+            template: './src/workspace/workspace.html',
+            nav: nav,
+            chunks: ["workspace"]
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Checkout',
+            filename: 'view/checkout.html',
+            nav: nav,
+            template: './src/checkout/checkout.html',
+            chunks: ["checkout"]
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Shop',
+            filename: 'view/shop.html',
+            nav: nav,
+            template: './src/shop/shop.html',
+            chunks: ["shop"]
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Cart',
+            filename: 'view/cart.html',
+            nav: nav,
+            template: './src/cart/cart.html',
+            chunks: ["cart"]
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Product',
+            filename: 'view/product.html',
+            nav: nav,
+            template: './src/product/product.html',
+            chunks: ["product"]
+        }),
+
+        // Files
+        new CopyPlugin({
+            patterns: [
+                { from: "src/resources", to: "resources/" },
+                { from: "src/_images", to: "public/images/" }
+            ],
+        }),
     ],
-  },
-  plugins: [
-    // Generate the HTML index page based on our template.
-    // This will output the same index page with the bundle we
-    // created above added in a script tag.
-    new HtmlWebpackPlugin({
-      template: 'src/index.html',
-    }),
-  ],
-};
+    output: {
+        filename: 'public/js/[name].[contenthash].js',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/',
+        clean: true
+    },
+    optimization: {
+        splitChunks: {
+            chunks: "all"
+        }
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ["style-loader", 'css-loader'],
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+            },
+            {
 
-module.exports = (env, argv) => {
-  if (argv.mode === 'development') {
-    // Set the output path to the `build` directory
-    // so we don't clobber production builds.
-    config.output.path = path.resolve(__dirname, 'build');
+                test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
 
-    // Generate source maps for our code for easier debugging.
-    // Not suitable for production builds. If you want source maps in
-    // production, choose a different one from https://webpack.js.org/configuration/devtool
-    config.devtool = 'eval-cheap-module-source-map';
+                type: 'asset',
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 8 * 1024 // 8kb
+                    }
+                },
+                generator: {
+                    filename: 'public/images/[name][ext]'
+                }
+            },
+        ],
 
-    // Include the source maps for Blockly for easier debugging Blockly code.
-    config.module.rules.push({
-      test: /(blockly\/.*\.js)$/,
-      use: [require.resolve('source-map-loader')],
-      enforce: 'pre',
-    });
-
-    // Ignore spurious warnings from source-map-loader
-    // It can't find source maps for some Closure modules and that is expected
-    config.ignoreWarnings = [/Failed to parse source map/];
-  }
-  return config;
+    },
 };
