@@ -41,7 +41,7 @@ a:hover {
 
 .fullWindowComponent {
     width: 100vw;
-    height: 100vh;
+    min-height: calc(100vh - 60px);
 }
 
 .halfWindowComponent {
@@ -220,10 +220,11 @@ img {
     width: 50%;
     height: 40%;
     min-height: 300px;
-    min-width: 250;
+    min-width: 250px;
     margin-top: auto;
     border-radius: 20px;
     z-index: 100000;
+    padding: 64px;
 }
 .modal-title {
     text-align: center;
@@ -232,9 +233,14 @@ img {
 .modal>div {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 100%;
+}
+.modal .secondaryText {
+    font-size: 17px;
+    color: #404040;
 }
 
 .button {
@@ -406,12 +412,12 @@ header {
         border-radius: 10px;
     }
     
-    .bigNav {
+    /* .bigNav {
         display: none;
     }
     .smallNav {
         display: flex;
         align-items: center;
         gap: 16px;
-    }
+    } */
 }

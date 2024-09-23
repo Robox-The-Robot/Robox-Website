@@ -79,10 +79,13 @@
         </template>
         <dialog class="modal" id="delete-project-dialog">
             <div>
-                <i class="fa-regular fa-trash-can fa-2xl"></i>
-                <h1 class="modal-title" id="delete-title">Are you sure you want to delete '<span
-                        id="deletePName">Project</span>'?</h1>
-                <p id="delete-description">It will be deleted forever (a very long time)!</p>
+                <i class="fa-regular fa-trash-can fa-6x"></i>
+
+                <div>
+                    <h1 class="modal-title" id="delete-title">Are you sure you want to delete '<span id="deletePName">Project</span>'?</h1>
+                    <p class="secondaryText" id="delete-description">It will be deleted forever (a very long time)!</p>
+                </div>
+
                 <div id="delete-buttons">
                     <button class="button" id="confirm-delete">
                         Delete
@@ -90,15 +93,18 @@
                     <button class="cancel button">
                         Cancel
                     </button>
-        
                 </div>
             </div>
         </dialog>
         <dialog class="modal" id="edit-project-dialog">
             <div>
-                <h1 class="modal-title" id="edit-title">Rename '<span id="editPName">Project</span>'</h1>
+                <div id="editTitleCluster">
+                    <i class="fa-solid fa-pen fa-2xl"></i>
+                    <h1 class="modal-title" id="edit-title">Rename '<span id="editPName">Project</span>'</h1>
+                </div>
+
                 <form id="project-edit-form" method="dialog">
-                    <label for="pname">Enter a new name for your project:</label><br>
+                    <label for="pname" class="secondaryText">Enter a new name for your project:</label><br>
                     <input placeholder="Project Name" type="text" id="pname" name="pname"><br><br>
                 </form>
                 <div id="edit-buttons">

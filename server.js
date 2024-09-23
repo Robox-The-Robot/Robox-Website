@@ -30,5 +30,5 @@ app.get("/shop/product/:productID", function(req, res) {
 })
 // Serve the files on port 3000.
 app.listen(3000, function () {
-    console.log('Example app listening on port 3000!\n');
+    console.log('Robox website listening on port 3000!\n');
 }); 
