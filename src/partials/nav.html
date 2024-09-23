@@ -1,34 +1,24 @@
-<div>
-    <nav>
-        <div id="roboxLogoHolder">
-            <a href="/">
-                <img src="<%=require('../_images/Logo.svg')%>" alt="Robox">
-            </a>
-        </div>
-        <div class="linkHolders big">
-            <a class="bigNav" href="/robox">
-                Why Robox
-            </a>
-            <a class="bigNav" href="/shop">
-                Shop
-            </a>
-            <a class="bigNav" href="/customers">
-                Customers
-            </a>
-            <a class="bigNav" href="/contact">
-                Contact Us
-            </a>
-            
-            <button class="smallNav button" id="menu-button">
-                Menu
-                <i class="fa-solid fa-bars"></i>
-            </button>
-            <a href="/shop/checkout" id="cart" style="display: none;">
-                <p></p>
-                <i class="fa-solid fa-cart-shopping"></i>
-            </a>
-        </div>
-    </nav>
+<div class="header">
+    <div class="headerLogo">
+        <a href="/">
+            <img src="/public/images/Robox.svg" alt="Robox">
+        </a>
+    </div>
+    <div class="linkHolders big">
+        <a class="bigNav" href="/#about">About</a>
+        <a class="bigNav" href="/guides/">Resources</a>
+        <a class="bigNav" href="/shop">Shop</a>
+        
+        <button class="smallNav button" id="menu-button">
+            Menu
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <a href="/shop/checkout" id="cart" style="display: none;">
+            <p></p>
+            <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+    </div>
+    
     <dialog class="modal" id="menu-sidebar">
         <div>
             <a href="">
@@ -53,26 +43,15 @@
             </a>
             <hr width="90%" />
             <div class="linkHolders small">
-                <a href="/robox">
-                    Why Robox
-                </a>
-                <a href="/shop">
-                    Shop
-                </a>
-                <a href="/customers">
-                    Customers
-                </a>
-                <a href="/contact">
-                    Contact Us
-                </a>
+                <a href="/#about">About</a>
+                <a href="/guides/">Resources</a>
+                <a href="/shop">Shop</a>
+
                 <a href="/shop/checkout" id="small-cart" style="display: none;">
                     <p></p>
                     <i class="fa-solid fa-cart-shopping"></i>
                 </a>
             </div>
         </div>
-        
-        
-
     </dialog>
 </div>

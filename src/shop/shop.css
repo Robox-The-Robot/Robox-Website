@@ -4,7 +4,7 @@ body {
     padding: 0;
     margin: 0;
     font-family: 'Oxanium';
-    font-size: 22px;
+    
 }
 .fullWindow {
     width: 100vw;
@@ -23,7 +23,6 @@ body {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    content: url(../_images/hero.jpg);
 }
 .fullWindow::-webkit-scrollbar {
     display: none !important;

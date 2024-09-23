@@ -8,7 +8,9 @@ const app = express();
 const config = require('./webpack.config.js');
 const compiler = webpack(config);
 
-app.use(express.static('./dist'))
+app.use("/public", express.static('./dist/public'))
+app.use("/resources", express.static('./dist/resources'))
+app.use("/guides", express.static("./src/guides")) // TODO: Publish via webpack?
 
 app.use("/shop", payment)
 

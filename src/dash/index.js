@@ -3,9 +3,6 @@ import "../cross.webp"
 import "../root.css"
 import "./index.css"
 
-
-import "../_images/Robox.svg"
-
 import { createToast } from "../alerts"
 
 import { createProject, getProject, getProjects, renameProject, deleteProject, saveBlocklyCompressed } from '../blockly/serialization';
@@ -149,7 +146,7 @@ function projectClick(e) {
     let dots = item.closest(".dots") //checking if there is the dots object near or above the item
     if (dots === null) { //If the dialog is clicked it will not have dots (as dots is its child)
         item = item.closest(".project")
-        window.location.assign(`${window.location.href}workspace/${item.id}`)
+        window.location.href = `/workspace/${item.id}`
     }
     else { //if it is the edit menu dots clicked
         let project = dots.closest(".project")
@@ -167,7 +164,7 @@ const createProjectButton = document.getElementById("create-project")
 createProjectButton.addEventListener("click", function(e)  {
     let name = `untitled project`
     let id = createProject(name)
-    window.location.assign(`${window.location.href}workspace/${id}`)
+    window.location.href = `/workspace/${id}`
 })
 
 
@@ -285,15 +282,3 @@ document.addEventListener("dragleave", function (e) {
         document.removeEventListener("drop", dropEvent)
     }
 })
-
-
-
-// const projectCreateForm = document.getElementById("project-create")
-// projectCreateForm.addEventListener("submit", (e) => {
-//     const nameInput = projectCreateForm.getElementById("project-name")
-
-//     const name = nameInput.value
-//     nameInput.value = ""
-//     createProject(name)
-//     window.location.reload() // Refresh the project list instead of the page
-// })

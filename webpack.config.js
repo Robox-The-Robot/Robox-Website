@@ -7,6 +7,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
+
 
 module.exports = {
     mode: 'development',
@@ -71,6 +73,14 @@ module.exports = {
             template: './src/product/product.html',
             chunks: ["product"]
         }),
+
+        // Files
+        new CopyPlugin({
+            patterns: [
+                { from: "src/resources", to: "resources/" },
+                { from: "src/_images", to: "public/images/" }
+            ],
+        }),
     ],
     output: {
         filename: 'public/js/[name].[contenthash].js',
@@ -104,7 +114,7 @@ module.exports = {
                     }
                 },
                 generator: {
-                    filename: 'public/images/[name].[hash:8][ext]'
+                    filename: 'public/images/[name][ext]'
                 }
             },
         ],
