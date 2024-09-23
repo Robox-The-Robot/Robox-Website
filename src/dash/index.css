@@ -6,8 +6,6 @@ body {
     background-color: var(--main-bg-color);
     padding: 0;
     margin: 0;
-    font-family: 'Oxanium';
-    
 }
 
 
@@ -54,7 +52,6 @@ body {
     height: 80%;
     border-radius: 10px;
     color: white;
-    font-family: 'Oxanium';
     font-size: clamp(10px,1.5vw);
     min-width: 70px;
     min-height: 30px;
@@ -119,7 +116,6 @@ body {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    font-family: 'Oxanium';
 }
 
 #toolbar>div>hr {

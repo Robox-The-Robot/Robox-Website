@@ -4,14 +4,14 @@ import "../root.css"
 import "./cart.css"
 import {getProducts, addCartItem, getCart, refreshCart} from "../payment"
 
-import { library, dom } from "@fortawesome/fontawesome-svg-core";
+// import { library, dom } from "@fortawesome/fontawesome-svg-core";
 
-import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash"
-import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus"
-import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus"
+// import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash"
+// import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus"
+// import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus"
 
-library.add(faTrash, faPlus, faMinus);
-dom.watch()
+// library.add(faTrash, faPlus, faMinus);
+// dom.watch()
 
 let cart = getCart()
 const productIds = Object.keys(cart)

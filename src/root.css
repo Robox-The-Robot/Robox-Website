@@ -244,7 +244,6 @@ img {
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
-    font-family: "Oxanium";
     background: none;
 }
 
@@ -411,6 +410,8 @@ header {
         display: none;
     }
     .smallNav {
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 16px;
     }
 }

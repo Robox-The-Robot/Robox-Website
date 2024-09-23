@@ -4,24 +4,24 @@ import "../cross.webp"
 import "../root.css"
 import "./product.css"
 
-import { library, dom } from "@fortawesome/fontawesome-svg-core";
+// import { library, dom } from "@fortawesome/fontawesome-svg-core";
 
 
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons/faAngleLeft"
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight"
-import { faBookOpen } from "@fortawesome/free-solid-svg-icons/faBookOpen";
-import { faTruckFast } from "@fortawesome/free-solid-svg-icons/faTruckFast";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight"
-import { faBars } from "@fortawesome/free-solid-svg-icons/faBars"
-import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
-import {faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import {faCartShopping } from "@fortawesome/free-solid-svg-icons/faCartShopping";
+// import { faAngleLeft } from "@fortawesome/free-solid-svg-icons/faAngleLeft"
+// import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight"
+// import { faBookOpen } from "@fortawesome/free-solid-svg-icons/faBookOpen";
+// import { faTruckFast } from "@fortawesome/free-solid-svg-icons/faTruckFast";
+// import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight"
+// import { faBars } from "@fortawesome/free-solid-svg-icons/faBars"
+// import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
+// import {faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+// import {faCartShopping } from "@fortawesome/free-solid-svg-icons/faCartShopping";
 
 import {getProducts, addCartItem, getCart, refreshCart} from "../payment"
 refreshCart()
 
-library.add(faAngleLeft, faArrowRight, faTruckFast, faBookOpen, faAngleRight, faBars, faMinus, faPlus, faCartShopping);
-dom.watch()
+// library.add(faAngleLeft, faArrowRight, faTruckFast, faBookOpen, faAngleRight, faBars, faMinus, faPlus, faCartShopping);
+// dom.watch()
 
 const carouselImages = document.querySelectorAll(".carousel-image")
 const heroImage = document.querySelector("#hero-image")

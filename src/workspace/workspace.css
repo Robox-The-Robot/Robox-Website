@@ -4,7 +4,6 @@
 body {
     margin: 0;
     max-width: 100vw;
-    font-family: "Oxanium";
 }
 
 pre,
@@ -140,7 +139,6 @@ code {
 }
 #project-name {
     background-color: #48A9C2;
-    font-family: 'Oxanium';
     color: white;
     text-align: center;
     border: 0;

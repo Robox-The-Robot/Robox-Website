@@ -113,7 +113,7 @@ module.exports = {
                     }
                 },
                 generator: {
-                    filename: 'public/images/[name].[ext]'
+                    filename: 'public/images/[name][ext]'
                 }
             },
         ],

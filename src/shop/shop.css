@@ -3,7 +3,6 @@ body {
     background-color: var(--main-bg-color);
     padding: 0;
     margin: 0;
-    font-family: 'Oxanium';
     
 }
 .fullWindow {
@@ -37,7 +36,6 @@ body {
     background-color: #3C7EFF;
     color: white;
     left: 5%;
-    font-family: "Oxanium";
     top: 75vh; 
     padding: 20px;
 }
@@ -106,7 +104,6 @@ body {
     border-radius: 10px;
     cursor: pointer;
     border: 0;
-    font-family: 'Oxanium';
 
 }
 
@@ -115,7 +112,6 @@ body {
     height: 80%;
     border-radius: 10px;
     color: white;
-    font-family: 'Oxanium';
     font-size: clamp(10px, 1.5vw);
     min-width: 70px;
     min-height: 30px;

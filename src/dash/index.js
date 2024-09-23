@@ -7,19 +7,19 @@ import { createToast } from "../alerts"
 
 import { createProject, getProject, getProjects, renameProject, deleteProject, saveBlocklyCompressed } from '../blockly/serialization';
 
-import { library, dom } from "@fortawesome/fontawesome-svg-core";
+// import { library, dom } from "@fortawesome/fontawesome-svg-core";
 
 
-import { faUpload } from "@fortawesome/free-solid-svg-icons/faUpload"
-import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus"
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons/faEllipsisVertical"
-import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash"
-import { faSpinner } from "@fortawesome/free-solid-svg-icons/faSpinner"
-import { faPencil } from "@fortawesome/free-solid-svg-icons/faPencil"
+// import { faUpload } from "@fortawesome/free-solid-svg-icons/faUpload"
+// import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus"
+// import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons/faEllipsisVertical"
+// import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash"
+// import { faSpinner } from "@fortawesome/free-solid-svg-icons/faSpinner"
+// import { faPencil } from "@fortawesome/free-solid-svg-icons/faPencil"
 
 
-library.add(faUpload, faPlus, faEllipsisVertical, faTrash, faSpinner, faPencil);
-dom.watch()
+// library.add(faUpload, faPlus, faEllipsisVertical, faTrash, faSpinner, faPencil);
+// dom.watch()
 
 import relativeTime from "dayjs/plugin/relativeTime"
 import dayjs from 'dayjs';
