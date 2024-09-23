@@ -95,10 +95,6 @@ function changeHeroImage(number) {
     element.classList.add("selected-carousel")
     currentIndex = number
 }
-const sidebarElement = document.getElementById("menu-sidebar")
-document.getElementById("menu-button").addEventListener("click", (e) => {
-    sidebarElement.showModal()
-})
 
 const modals = document.querySelectorAll("dialog")
 for (const modal of modals) {

@@ -278,7 +278,7 @@ img {
 .linkHolders {
     display: flex;
     align-items: flex-end;
-    gap: 10%;
+    gap: 16px;
     width: 20%;
 }
 .linkHolders.big {

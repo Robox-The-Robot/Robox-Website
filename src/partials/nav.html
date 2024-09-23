@@ -54,4 +54,13 @@
             </div>
         </div>
     </dialog>
+
+    <script>
+        (() => {
+            const sidebarElement = document.getElementById("menu-sidebar")
+            document.getElementById("menu-button").addEventListener("click", (e) => {
+                sidebarElement.showModal()
+            })
+        })()
+    </script>
 </div>
