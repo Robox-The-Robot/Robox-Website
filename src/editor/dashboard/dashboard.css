@@ -2,7 +2,7 @@
     --project-header: 0px;
 }
 body {
-    background-image: url(../cross.webp);
+    background-image: url(../../_images/cross.webp);
     background-color: var(--main-bg-color);
     padding: 0;
     margin: 0;

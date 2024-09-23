@@ -13,10 +13,10 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
     mode: 'development',
     entry: {
-        dash: "./src/dash/index.js",
-        serialization: "./src/blockly/serialization.js",
+        dash: "./src/editor/dashboard/dashboard.js",
+        workspace: "./src/editor/workspace/workspace.js",
+        serialization: "./src/editor/blockly/serialization.js",
         shop: './src/shop/shop.js',
-        workspace: "./src/workspace/workspace.js",
         checkout: "./src/checkout/checkout.js",
         product: "./src/product/product.js",
         cart: './src/cart/cart.js',
@@ -32,16 +32,16 @@ module.exports = {
             chunks: ["home"]
         }),
         new HtmlWebpackPlugin({
-            title: 'Dash',
-            filename: 'view/dash.html',
+            title: 'Editor Dashboard',
+            filename: 'view/editor/dashboard.html',
             nav: nav,
-            template: './src/dash/index.html',
+            template: './src/editor/dashboard/dashboard.html',
             chunks: ["dash"]
         }),
         new HtmlWebpackPlugin({
-            title: 'Workspace',
-            filename: 'view/workspace.html',
-            template: './src/workspace/workspace.html',
+            title: 'Editor Workspace',
+            filename: 'view/editor/workspace.html',
+            template: './src/editor/workspace/workspace.html',
             nav: nav,
             chunks: ["workspace"]
         }),

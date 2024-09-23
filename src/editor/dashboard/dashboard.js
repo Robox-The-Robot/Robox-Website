@@ -1,25 +1,9 @@
-import "../cross.webp"
+import "../../root.css"
+import "./dashboard.css"
 
-import "../root.css"
-import "./index.css"
-
-import { createToast } from "../alerts"
+import { createToast } from "../workspace/alerts"
 
 import { createProject, getProject, getProjects, renameProject, deleteProject, saveBlocklyCompressed } from '../blockly/serialization';
-
-// import { library, dom } from "@fortawesome/fontawesome-svg-core";
-
-
-// import { faUpload } from "@fortawesome/free-solid-svg-icons/faUpload"
-// import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus"
-// import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons/faEllipsisVertical"
-// import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash"
-// import { faSpinner } from "@fortawesome/free-solid-svg-icons/faSpinner"
-// import { faPencil } from "@fortawesome/free-solid-svg-icons/faPencil"
-
-
-// library.add(faUpload, faPlus, faEllipsisVertical, faTrash, faSpinner, faPencil);
-// dom.watch()
 
 import relativeTime from "dayjs/plugin/relativeTime"
 import dayjs from 'dayjs';
@@ -146,7 +130,7 @@ function projectClick(e) {
     let dots = item.closest(".dots") //checking if there is the dots object near or above the item
     if (dots === null) { //If the dialog is clicked it will not have dots (as dots is its child)
         item = item.closest(".project")
-        window.location.href = `/workspace/${item.id}`
+        window.location.href = `/editor/workspace/${item.id}`
     }
     else { //if it is the edit menu dots clicked
         let project = dots.closest(".project")
@@ -164,7 +148,7 @@ const createProjectButton = document.getElementById("create-project")
 createProjectButton.addEventListener("click", function(e)  {
     let name = `untitled project`
     let id = createProject(name)
-    window.location.href = `/workspace/${id}`
+    window.location.href = `/editor/workspace/${id}`
 })
 
 

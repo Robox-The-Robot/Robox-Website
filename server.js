@@ -13,14 +13,14 @@ app.use("/shop", payment)
 app.get("/", function (req, res) {
     res.sendFile("view/home.html", { root: __dirname + "/dist/" })
 })
-app.get("/workspace", function (req, res) {
-    res.sendFile("view/dash.html", { root: __dirname + "/dist/" })
+app.get("/editor", function (req, res) {
+    res.sendFile("view/editor/dashboard.html", { root: __dirname + "/dist/" })
+})
+app.get("/editor/workspace/:id", function(req, res) {
+    res.sendFile("view/editor/workspace.html", { root: __dirname + "/dist/" })
 })
 app.get("/shop", function (req, res) {
     res.sendFile("view/shop.html", { root: __dirname + "/dist/" })
-})
-app.get("/workspace/:id", function(req, res) {
-    res.sendFile("view/workspace.html", { root: __dirname + "/dist/" })
 })
 app.get("/shop/cart", function(req, res) {
     res.sendFile("view/cart.html", { root: __dirname + "/dist/" })

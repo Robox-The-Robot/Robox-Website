@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly';
 import { pythonGenerator } from 'blockly/python'
-import { createToast } from "../alerts"
+import { createToast } from "./alerts"
 import dayjs from 'dayjs';
 
 

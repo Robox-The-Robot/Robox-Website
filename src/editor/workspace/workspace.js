@@ -5,39 +5,33 @@
  */
 
 import * as Blockly from 'blockly';
-import {pythonGenerator} from 'blockly/python'
-import { createToast } from "../alerts"
+import { createToast } from "./alerts.js"
 
-import "../root.css"
+import "../../root.css"
 import "./workspace.css"
 
 import "./RoboxLogo.png"
 import "./sadRobox.png"
 
-// import '@fortawesome/fontawesome-free/js/fontawesome'
-// import '@fortawesome/fontawesome-free/js/solid'
-// import '@fortawesome/fontawesome-free/js/regular'
-// import '@fortawesome/fontawesome-free/js/brands'
+import { renameProject, loadBlockly, saveBlockly, getProject } from '../blockly/serialization.js';
 
-import { renameProject, loadBlockly, saveBlockly, getProject } from '../blockly/serialization';
-
-import theme from '../blockly/theme/theme';
-import '../blockly/theme/category';
+import theme from '../blockly/theme/theme.js';
+import '../blockly/theme/category.js';
 
 
-import {toolbox} from '../blockly/toolbox';
+import {toolbox} from '../blockly/toolbox.js';
 
-await import("../blockly/blocks/sensor")
-import("../blockly/generators/sensor")
+await import("../blockly/blocks/sensor.js")
+import("../blockly/generators/sensor.js")
 
-await import("../blockly/blocks/motors")
-import("../blockly/generators/motors")
+await import("../blockly/blocks/motors.js")
+import("../blockly/generators/motors.js")
 
-await import("../blockly/blocks/events")
-import("../blockly/generators/events")
+await import("../blockly/blocks/events.js")
+import("../blockly/generators/events.js")
 
-await import("../blockly/blocks/systems")
-import("../blockly/generators/systems")
+await import("../blockly/blocks/systems.js")
+import("../blockly/generators/systems.js")
 
 
 import "./usb.js"
