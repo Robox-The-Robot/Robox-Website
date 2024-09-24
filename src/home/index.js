@@ -1,4 +1,4 @@
-import "../root.css"
+import "../pages/root.css"
 function importAll(r) {
     r.keys().forEach(r);
 }

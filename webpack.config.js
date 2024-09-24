@@ -13,13 +13,13 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
     mode: 'development',
     entry: {
-        dash: "./src/editor/dashboard/dashboard.js",
-        workspace: "./src/editor/workspace/workspace.js",
-        serialization: "./src/editor/blockly/serialization.js",
-        shop: './src/shop/shop.js',
-        checkout: "./src/checkout/checkout.js",
-        product: "./src/product/product.js",
-        cart: './src/cart/cart.js',
+        dash: "./src/pages/editor/dashboard/dashboard.js",
+        workspace: "./src/pages/editor/workspace/workspace.js",
+        serialization: "./src/pages/editor/blockly/serialization.js",
+        shop: './src/pages/shop/shop.js',
+        checkout: "./src/pages/checkout/checkout.js",
+        product: "./src/pages/product/product.js",
+        cart: './src/pages/cart/cart.js',
         home: './src/home/index.js'
     },
     // devtool: 'inline-source-map',
@@ -35,13 +35,13 @@ module.exports = {
             title: 'Editor Dashboard',
             filename: 'view/editor/dashboard.html',
             nav: nav,
-            template: './src/editor/dashboard/dashboard.html',
+            template: './src/pages/editor/dashboard/dashboard.html',
             chunks: ["dash"]
         }),
         new HtmlWebpackPlugin({
             title: 'Editor Workspace',
             filename: 'view/editor/workspace.html',
-            template: './src/editor/workspace/workspace.html',
+            template: './src/pages/editor/workspace/workspace.html',
             nav: nav,
             chunks: ["workspace"]
         }),
@@ -49,28 +49,28 @@ module.exports = {
             title: 'Checkout',
             filename: 'view/checkout.html',
             nav: nav,
-            template: './src/checkout/checkout.html',
+            template: './src/pages/checkout/checkout.html',
             chunks: ["checkout"]
         }),
         new HtmlWebpackPlugin({
             title: 'Shop',
             filename: 'view/shop.html',
             nav: nav,
-            template: './src/shop/shop.html',
+            template: './src/pages/shop/shop.html',
             chunks: ["shop"]
         }),
         new HtmlWebpackPlugin({
             title: 'Cart',
             filename: 'view/cart.html',
             nav: nav,
-            template: './src/cart/cart.html',
+            template: './src/pages/cart/cart.html',
             chunks: ["cart"]
         }),
         new HtmlWebpackPlugin({
             title: 'Product',
             filename: 'view/product.html',
             nav: nav,
-            template: './src/product/product.html',
+            template: './src/pages/product/product.html',
             chunks: ["product"]
         }),
 
