@@ -13,6 +13,11 @@ app.use("/shop", payment)
 app.get("/", function (req, res) {
     res.sendFile("view/home.html", { root: __dirname + "/dist/" })
 })
+app.get("/guides", function(req, res) {
+    res.sendFile("view/guide.html", { root: __dirname + "/dist/" })
+})
+
+
 app.get("/editor", function (req, res) {
     res.sendFile("view/editor/dashboard.html", { root: __dirname + "/dist/" })
 })
@@ -25,6 +30,7 @@ app.get("/shop", function (req, res) {
 app.get("/shop/cart", function(req, res) {
     res.sendFile("view/cart.html", { root: __dirname + "/dist/" })
 })
+
 app.get("/shop/product/:productID", function(req, res) {
     res.sendFile("view/product.html", { root: __dirname + "/dist/" })
 })
