@@ -19,6 +19,7 @@
     --main-bg-color: #a1eebd;
     --primary-card-color: #F6F7C4;
     --secondary-bg-color: #7BD3EA;
+    --header-size: 60px;
 }
 
 * {
@@ -41,7 +42,7 @@ a:hover {
 
 .fullWindowComponent {
     width: 100vw;
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - var(--header-size));
 }
 
 .halfWindowComponent {
@@ -78,16 +79,8 @@ a:hover {
     font-weight: lighter;
 }
 
-#downloads {
-    background-color: #1f9dbc;
-}
-
-#guides {
-    background-color: rgb(187, 77, 77)
-}
-
-#blockCode {
-    background-color: rgb(79, 158, 45);
+#about {
+    padding-top: var(--header-size);
 }
 
 .largeButton {
@@ -178,7 +171,7 @@ img {
 }
 
 .content {
-    margin-top: 100px;
+    margin-top: 40px;
     padding: 0 50px;
 }
 
@@ -260,7 +253,7 @@ img {
     justify-content: space-between;
     padding: 0 30px;
     width: 100vw;
-    height: 60px;
+    height: var(--header-size);
     background-color: var(--secondary-bg-color);
     align-items: center;
     z-index: 999;
@@ -283,12 +276,10 @@ img {
 
 .linkHolders {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: right;
     gap: 16px;
     width: 20%;
-}
-.linkHolders.big {
-    justify-content: right;
 }
 .linkHolders > * {
     color: rgb(62, 71, 105);
@@ -343,7 +334,6 @@ img {
 }
 header {
     display: flex;
-    flex-direction: column;
 }
 .toast-text>* {
     margin: 0;
@@ -356,39 +346,6 @@ header {
     color: rgb(223, 223, 223);
     font-size: 10px;
     text-wrap: wrap;
-}
-
-.smallNav {
-    display: none;
-}
-
-#menu-sidebar {
-    margin-left: 0;
-    border-radius: 0;
-    height: 100%;
-    width: 150px;
-    background-color: var(--secondary-bg-color);
-    gap: 0px;
-    
-}
-#menu-sidebar > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-#menu-sidebar > div > hr {
-    margin-bottom: 50px;
-    background-color: red;
-    border: 0;
-    background-color: #FDFF9E;
-    border-radius: 3px;
-    padding: 0;
-    height: 3px;
-}
-.linkHolders.small {
-    flex-direction: column;
 }
 
 
@@ -411,13 +368,4 @@ header {
         background-color: rgba(0, 0, 0, 0.5);
         border-radius: 10px;
     }
-    
-    /* .bigNav {
-        display: none;
-    }
-    .smallNav {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    } */
 }

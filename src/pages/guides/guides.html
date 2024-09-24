@@ -1,43 +1,16 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Robox Guides</title>
-        <link rel="shortcut icon" href="/img/favicon.png">
+        <link rel="shortcut icon" href="/public/images/favicon.png">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="/css/style.css">
-        <link rel="stylesheet" href="/css/header.css">
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
-
-        <!-- Header -->
-        <div class="header">
-            <div class="headerLogo">
-                <a href="/">
-                    <img src="/img/Logo.svg" alt="Robox">
-                </a>
-            </div>
-
-            <p style="color:rgb(255, 0, 0);font-weight:bold;font-family:monospace;background-color:white;">
-                !PROTOTYPE!
-            </p>
-            
-            <div class="headerAction">
-                <a href="/#about">About</a>
-                <a href="/guides/">Resources</a>
-            </div>
-        </div>
+        <%= htmlWebpackPlugin.options.nav %>
 
         <div class="content">
             <h1>Resources</h1>
@@ -51,16 +24,16 @@
 
             <div class="tutorialCardGrid">
                 <div class="tutorialCard">
-                    <img class="cardThumbnail" src="/img/hero.jpg" />
+                    <img class="cardThumbnail" src="/public/images/hero.jpg" />
                     <div>
                         <h1 class="cardTitle">Building your own Robox</h1>
                         <p class="cardDesc">Let's get started! This guide will show you how to build your own Robox.</p>
                     </div>
-                    <a class="tutorialAction" href="t/building-your-robox.html">Go</a>
+                    <a class="tutorialAction" href="/guides/tutorials/building-your-robox.html">Go</a>
                 </div>
 
                 <div class="tutorialCard">
-                    <img class="cardThumbnail" src="/img/cutout.png" />
+                    <img class="cardThumbnail" src="/public/images/cutout.png" />
                     <div>
                         <h1 class="cardTitle">Robox Cutout and Part List</h1>
                         <p class="cardDesc">Don't have a kit? No worries! Make your own Robox using this cutout print!</p>
@@ -69,7 +42,7 @@
                 </div>
 
                 <div class="tutorialCard">
-                    <img class="cardThumbnail" src="/img/python.png" />
+                    <img class="cardThumbnail" src="/public/images/python.png" />
                     <div>
                         <h1 class="cardTitle">Robox Python Library</h1>
                         <p class="cardDesc">Use this Python library to help you out with coding your own Robox!</p>
@@ -78,7 +51,7 @@
                 </div>
 
                 <div class="tutorialCard">
-                    <img class="cardThumbnail" src="/img/tilesThumb.png" />
+                    <img class="cardThumbnail" src="/public/images/tilesThumb.png" />
                     <div>
                         <h1 class="cardTitle">Tile Printouts</h1>
                         <p class="cardDesc">Print these A3 tiles to test out your Robox!</p>

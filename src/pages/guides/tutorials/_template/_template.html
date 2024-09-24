@@ -10,22 +10,11 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <div class="header">
-        <div class="headerLogo">
-            <a href="/">
-                <img src="/img/Logo.svg" alt="Robox">
-            </a>
-        </div>
-        
-        <div class="headerAction">
-            <a href="/#about">About</a>
-            <a href="/guides/">Resources</a>
-        </div>
-    </div>
+    <%= htmlWebpackPlugin.options.nav %>
 
-    <div class="content">
-        <h1>Building your Robox</h1>
-        <p></p>
+    <main class="content">
+        <h1>Article Title</h1>
+        <p>Description</p>
     
         <nav>
             <ul>
@@ -35,7 +24,7 @@
             </ul>
         </nav>
     
-        <main>
+        <article>
             <section id="section1">
                 <h2>Section 1</h2>
                 <p>This is the content of section 1.</p>
@@ -50,7 +39,7 @@
                 <h2>Section 3</h2>
                 <p>This is the content of section 3.</p>
             </section>
-        </main>
-    </div>
+        </article>
+    </main>
 </body>
 </html>

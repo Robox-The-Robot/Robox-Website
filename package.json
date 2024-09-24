@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx webpack",
     "start": "npx webpack && node server.js",
-    "deploy": "npx webpack --config webpack.prod.config.js && node server.js"
+    "deploy": "npx webpack && node server.js"
   },
   "keywords": [],
   "author": "",

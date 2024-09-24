@@ -1,7 +1,3 @@
-/* .content a {
-    color: rgb(255, 216, 178);
-} */
-
 .tutorialContainer {
     margin: 20vh 10vw;
 }
@@ -15,6 +11,11 @@
 
 .tutorialContainer a {
     color: #00886d;
+}
+
+section {
+    padding-top: var(--header-size);
+    margin-top: calc(var(--header-size)*-1);
 }
 
 section > .two-column {

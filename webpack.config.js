@@ -4,11 +4,7 @@ const nav = fs.readFileSync('./src/partials/nav.html', 'utf8');
 
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-
 
 module.exports = {
     mode: 'development',
@@ -20,7 +16,9 @@ module.exports = {
         checkout: "./src/pages/checkout/checkout.js",
         product: "./src/pages/product/product.js",
         cart: './src/pages/cart/cart.js',
-        home: './src/home/index.js'
+        home: './src/home/index.js',
+        guides: './src/pages/guides/guides.js',
+        tutorial: './src/pages/guides/tutorials/tutorial.js'
     },
     // devtool: 'inline-source-map',
     plugins: [
@@ -73,13 +71,29 @@ module.exports = {
             template: './src/pages/product/product.html',
             chunks: ["product"]
         }),
+        new HtmlWebpackPlugin({
+            title: 'Guides',
+            filename: 'view/guides/index.html',
+            nav: nav,
+            template: './src/pages/guides/guides.html',
+            chunks: ["guides"]
+        }),
+
+        // Tutorials
+        ...fs.readdirSync('./src/pages/guides/tutorials/').filter(f => path.extname(f) == ".html").map(file => new HtmlWebpackPlugin({
+            filename: `view/guides/tutorials/${path.basename(file, '.html')}.html`,
+            template: `./src/pages/guides/tutorials/${path.basename(file, '.html')}.html`,
+            nav: nav,
+            chunks: ["tutorial"]
+        })),
 
         // Files
         new CopyPlugin({
             patterns: [
-                { from: "src/resources", to: "resources/" },
+                { from: "./src/resources", to: "resources/" },
+                { from: "./src/_images", to: "public/images/" },
             ],
-        }),
+        })
     ],
     output: {
         filename: 'public/js/[name].[contenthash].js',
@@ -103,8 +117,10 @@ module.exports = {
                 type: 'asset/resource',
             },
             {
-
                 test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
+                exclude: [
+                  path.resolve(__dirname, './src/_images/')
+                ],
 
                 type: 'asset/resource',
                 parser: {

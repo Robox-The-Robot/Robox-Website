@@ -6,7 +6,7 @@ const app = express();
 
 app.use("/public", express.static('./dist/public'))
 app.use("/resources", express.static('./dist/resources'))
-app.use("/guides", express.static("./src/guides")) // TODO: Publish via webpack?
+app.use("/guides", express.static("./dist/view/guides"))
 
 app.use("/shop", payment)
 
