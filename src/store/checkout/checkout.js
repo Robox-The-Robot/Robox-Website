@@ -4,7 +4,7 @@ const stripe = Stripe("pk_test_51PhrZEKQ7f0SWVUxH1XgKKNh9FCSnLZpAre95yUs2ip95kta
 const fetchClientSecret = async() => {
     let cart = getCart()
     let { quantity, ...rest } = cart;
-    const response = await fetch("/shop/checkout", {
+    const response = await fetch("/api/store/checkout", {
         method: "POST"
     })
     const { clientSecret } = await response.json()

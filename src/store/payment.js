@@ -1,5 +1,5 @@
 export async function getProducts() {
-    return await (await fetch("/shop/products")).json()
+    return await (await fetch("/api/store/products")).json()
 }
 export function getCart() {
     let cart = sessionStorage.getItem("cart")

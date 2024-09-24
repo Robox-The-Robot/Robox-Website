@@ -7,7 +7,6 @@
 import * as Blockly from 'blockly';
 import { createToast } from "./alerts.js"
 
-import "../../root.css"
 import "./workspace.css"
 
 import "./RoboxLogo.png"
@@ -67,9 +66,8 @@ ws.addChangeListener(Blockly.Events.disableOrphans)
 // generated code from the workspace, and evals the code.
 // In a real application, you probably shouldn't use `eval`.
 
-
-const workspacePath = window.location.pathname.split("/")
-const workspaceId = workspacePath[workspacePath.length - 1]
+const urlParams = new URLSearchParams(window.location.search);
+const workspaceId = urlParams.get('id')
 const project = getProject(workspaceId)
 let workspaceName = project["name"]
 

@@ -1,4 +1,3 @@
-import "../root.css"
 import "./product.css"
 
 import {getProducts, addCartItem, getCart, refreshCart} from "../payment"

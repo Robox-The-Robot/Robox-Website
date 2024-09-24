@@ -1,4 +1,3 @@
-import "../root.css"
 import "./cart.css"
 import {getProducts, addCartItem, getCart, refreshCart} from "../payment"
 
@@ -29,7 +28,7 @@ for (const quantityButton of quantityButtons) {
 }
 async function getItemData() {
     const promises = productIds.map((productId) =>
-        fetch(`http://localhost:3000/shop/products/${productId}`).then(async (response) => [productId, await response.json()])
+        fetch(`${window.location.origin}/api/store/products?id=${productId}`).then(async (response) => [productId, await response.json()])
     );
 
     const data = await Promise.all(promises);

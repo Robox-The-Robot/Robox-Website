@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const nav = fs.readFileSync('./src/partials/nav.html', 'utf8');
+const nav = fs.readFileSync('./src/_partials/nav.html', 'utf8');
 
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,88 +9,88 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
     mode: 'development',
     entry: {
-        dash: "./src/pages/editor/dashboard/dashboard.js",
-        workspace: "./src/pages/editor/workspace/workspace.js",
-        serialization: "./src/pages/editor/blockly/serialization.js",
-        shop: './src/pages/shop/shop.js',
-        checkout: "./src/pages/checkout/checkout.js",
-        product: "./src/pages/product/product.js",
-        cart: './src/pages/cart/cart.js',
-        home: './src/home/index.js',
-        guides: './src/pages/guides/guides.js',
-        tutorial: './src/pages/guides/tutorials/tutorial.js'
+        root: './src/_root/root.js',
+
+        dash: "./src/editor/dashboard/dashboard.js",
+        workspace: "./src/editor/workspace/workspace.js",
+        serialization: "./src/editor/blockly/serialization.js",
+        shop: './src/store/shop/shop.js',
+        checkout: "./src/store/checkout/checkout.js",
+        product: "./src/store/product/product.js",
+        cart: './src/store/cart/cart.js',
+        tutorial: './src/guides/tutorials/tutorial.js'
     },
     // devtool: 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Home',
-            filename: 'view/home.html',
+            filename: 'index.html',
             nav: nav,
             template: './src/home/index.html',
-            chunks: ["home"]
+            chunks: ["root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Editor Dashboard',
-            filename: 'view/editor/dashboard.html',
+            filename: 'editor/index.html',
             nav: nav,
-            template: './src/pages/editor/dashboard/dashboard.html',
-            chunks: ["dash"]
+            template: './src/editor/dashboard/dashboard.html',
+            chunks: ["dash", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Editor Workspace',
-            filename: 'view/editor/workspace.html',
-            template: './src/pages/editor/workspace/workspace.html',
+            filename: 'editor/workspace/index.html',
+            template: './src/editor/workspace/workspace.html',
             nav: nav,
-            chunks: ["workspace"]
+            chunks: ["workspace", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Checkout',
-            filename: 'view/checkout.html',
+            filename: 'store/checkout/index.html',
             nav: nav,
-            template: './src/pages/checkout/checkout.html',
-            chunks: ["checkout"]
+            template: './src/store/checkout/checkout.html',
+            chunks: ["checkout", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Shop',
-            filename: 'view/shop.html',
+            filename: 'store/index.html',
             nav: nav,
-            template: './src/pages/shop/shop.html',
-            chunks: ["shop"]
+            template: './src/store/shop/shop.html',
+            chunks: ["shop", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Cart',
-            filename: 'view/cart.html',
+            filename: 'store/cart/index.html',
             nav: nav,
-            template: './src/pages/cart/cart.html',
-            chunks: ["cart"]
+            template: './src/store/cart/cart.html',
+            chunks: ["cart", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Product',
-            filename: 'view/product.html',
+            filename: 'store/product/index.html',
             nav: nav,
-            template: './src/pages/product/product.html',
-            chunks: ["product"]
+            template: './src/store/product/product.html',
+            chunks: ["product", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Guides',
-            filename: 'view/guides/index.html',
+            filename: 'guides/index.html',
             nav: nav,
-            template: './src/pages/guides/guides.html',
-            chunks: ["guides"]
+            template: './src/guides/guides.html',
+            chunks: ["guides", "root"]
         }),
 
         // Tutorials
-        ...fs.readdirSync('./src/pages/guides/tutorials/').filter(f => path.extname(f) == ".html").map(file => new HtmlWebpackPlugin({
-            filename: `view/guides/tutorials/${path.basename(file, '.html')}.html`,
-            template: `./src/pages/guides/tutorials/${path.basename(file, '.html')}.html`,
+        ...fs.readdirSync('./src/guides/tutorials/').filter(f => path.extname(f) == ".html").map(file => new HtmlWebpackPlugin({
+            filename: `guides/tutorials/${path.basename(file, '.html')}.html`,
+            template: `./src/guides/tutorials/${path.basename(file, '.html')}.html`,
             nav: nav,
-            chunks: ["tutorial"]
+            chunks: ["root", "tutorial"]
         })),
 
         // Files
         new CopyPlugin({
             patterns: [
-                { from: "./src/resources", to: "resources/" },
+                { from: "./src/_resources", to: "resources/" },
                 { from: "./src/_images", to: "public/images/" },
             ],
         })

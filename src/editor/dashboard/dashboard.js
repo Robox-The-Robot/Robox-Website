@@ -1,4 +1,3 @@
-import "../../root.css"
 import "./dashboard.css"
 
 import { createToast } from "../workspace/alerts"
@@ -130,7 +129,7 @@ function projectClick(e) {
     let dots = item.closest(".dots") //checking if there is the dots object near or above the item
     if (dots === null) { //If the dialog is clicked it will not have dots (as dots is its child)
         item = item.closest(".project")
-        window.location.href = `/editor/workspace/${item.id}`
+        window.location.href = `/editor/workspace?id=${item.id}`
     }
     else { //if it is the edit menu dots clicked
         let project = dots.closest(".project")
@@ -148,7 +147,7 @@ const createProjectButton = document.getElementById("create-project")
 createProjectButton.addEventListener("click", function(e)  {
     let name = `untitled project`
     let id = createProject(name)
-    window.location.href = `/editor/workspace/${id}`
+    window.location.href = `/editor/workspace?id=${id}`
 })
 
 
