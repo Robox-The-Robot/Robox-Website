@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const nav = fs.readFileSync('./src/_partials/nav.html', 'utf8');
+const headMeta = fs.readFileSync('./src/_partials/headMeta.html', 'utf8');
 
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -26,6 +27,7 @@ module.exports = {
             title: 'Home',
             filename: 'index.html',
             nav: nav,
+            headMeta: headMeta,
             template: './src/home/index.html',
             chunks: ["root"]
         }),
@@ -33,6 +35,7 @@ module.exports = {
             title: 'Editor Dashboard',
             filename: 'editor/index.html',
             nav: nav,
+            headMeta: headMeta,
             template: './src/editor/dashboard/dashboard.html',
             chunks: ["dash", "root"]
         }),
@@ -41,12 +44,14 @@ module.exports = {
             filename: 'editor/workspace/index.html',
             template: './src/editor/workspace/workspace.html',
             nav: nav,
+            headMeta: headMeta,
             chunks: ["workspace", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Checkout',
             filename: 'store/checkout/index.html',
             nav: nav,
+            headMeta: headMeta,
             template: './src/store/checkout/checkout.html',
             chunks: ["checkout", "root"]
         }),
@@ -54,6 +59,7 @@ module.exports = {
             title: 'Shop',
             filename: 'store/index.html',
             nav: nav,
+            headMeta: headMeta,
             template: './src/store/shop/shop.html',
             chunks: ["shop", "root"]
         }),
@@ -61,6 +67,7 @@ module.exports = {
             title: 'Cart',
             filename: 'store/cart/index.html',
             nav: nav,
+            headMeta: headMeta,
             template: './src/store/cart/cart.html',
             chunks: ["cart", "root"]
         }),
@@ -68,6 +75,7 @@ module.exports = {
             title: 'Product',
             filename: 'store/product/index.html',
             nav: nav,
+            headMeta: headMeta,
             template: './src/store/product/product.html',
             chunks: ["product", "root"]
         }),
@@ -75,6 +83,7 @@ module.exports = {
             title: 'Guides',
             filename: 'guides/index.html',
             nav: nav,
+            headMeta: headMeta,
             template: './src/guides/guides.html',
             chunks: ["guides", "root"]
         }),
@@ -84,6 +93,7 @@ module.exports = {
             filename: `guides/tutorials/${path.basename(file, '.html')}.html`,
             template: `./src/guides/tutorials/${path.basename(file, '.html')}.html`,
             nav: nav,
+            headMeta: headMeta,
             chunks: ["root", "tutorial"]
         })),
 
