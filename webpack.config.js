@@ -1,29 +1,29 @@
 const path = require('path');
 const fs = require('fs');
-const nav = fs.readFileSync('./src/partials/nav.html', 'utf8');
+const nav = fs.readFileSync('./src/_partials/nav.html', 'utf8');
+const headMeta = fs.readFileSync('./src/_partials/headMeta.html', 'utf8');
 
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-
 const CopyPlugin = require("copy-webpack-plugin");
 
 
 module.exports = {
     mode: 'development',
     entry: {
-        dash: "./src/pages/editor/dashboard/dashboard.js",
-        workspace: "./src/pages/editor/workspace/workspace.js",
-        serialization: "./src/pages/editor/blockly/serialization.js",
-        shop: './src/pages/shop/shop.js',
-        checkout: "./src/pages/checkout/checkout.js",
-        product: "./src/pages/product/product.js",
-        cart: './src/pages/cart/cart.js',
-        home: './src/home/index.js',
-        root: "./src/pages/root.js",
+        root: './src/_root/root.js',
 
+        dash: "./src/editor/dashboard/dashboard.js",
+        workspace: "./src/editor/workspace/workspace.js",
+        serialization: "./src/editor/blockly/serialization.js",
+        shop: './src/store/shop/shop.js',
+        checkout: "./src/store/checkout/checkout.js",
+        product: "./src/store/product/product.js",
+        cart: './src/store/cart/cart.js',
+        tutorial: './src/guides/tutorials/tutorial.js'
     },
     // devtool: 'inline-source-map',
     plugins: [
@@ -38,60 +38,81 @@ module.exports = {
 
         new HtmlWebpackPlugin({
             title: 'Home',
-            filename: 'view/home.html',
+            filename: 'index.html',
             nav: nav,
+            headMeta: headMeta,
             template: './src/home/index.html',
-            chunks: ["root", "home"]
+            chunks: ["home"]
         }),
         new HtmlWebpackPlugin({
             title: 'Editor Dashboard',
-            filename: 'view/editor/dashboard.html',
+            filename: 'editor/index.html',
             nav: nav,
             template: './src/pages/editor/dashboard/dashboard.html',
-            chunks: ["root", "dash"]
+            chunks: ["dash"]
         }),
         new HtmlWebpackPlugin({
             title: 'Editor Workspace',
-            filename: 'view/editor/workspace.html',
-            template: './src/pages/editor/workspace/workspace.html',
+            filename: 'editor/workspace/index.html',
+            template: './src/editor/workspace/workspace.html',
             nav: nav,
-            chunks: ["root", "workspace"]
+            chunks: ["workspace"]
         }),
         new HtmlWebpackPlugin({
             title: 'Checkout',
-            filename: 'view/checkout.html',
+            filename: 'store/checkout/index.html',
             nav: nav,
             template: './src/pages/checkout/checkout.html',
-            chunks: ["root", "checkout"]
+            chunks: ["checkout"]
         }),
         new HtmlWebpackPlugin({
             title: 'Shop',
-            filename: 'view/shop.html',
+            filename: 'store/index.html',
             nav: nav,
             template: './src/pages/shop/shop.html',
-            chunks: ["root", "shop"]
+            chunks: ["shop"]
         }),
         new HtmlWebpackPlugin({
             title: 'Cart',
-            filename: 'view/cart.html',
+            filename: 'store/cart/index.html',
             nav: nav,
             template: './src/pages/cart/cart.html',
-            chunks: ["root", "cart"]
+            chunks: ["cart"]
         }),
         new HtmlWebpackPlugin({
             title: 'Product',
-            filename: 'view/product.html',
+            filename: 'store/product/index.html',
+            nav: nav,
+            headMeta: headMeta,
+            template: './src/store/product/product.html',
+            chunks: ["product", "root"]
+        }),
+        new HtmlWebpackPlugin({
+            title: 'Guides',
+            filename: 'guides/index.html',
+            nav: nav,
+            headMeta: headMeta,
+            template: './src/guides/guides.html',
+            chunks: ["guides", "root"]
+        }),
+        new HtmlWebpackPlugin({
+            title: '404',
+            filename: '404.html',
             nav: nav,
             template: './src/pages/product/product.html',
-            chunks: ["root", "product"]
+            chunks: ["product"]
         }),
 
         // Files
         new CopyPlugin({
             patterns: [
-                { from: "src/resources", to: "resources/" },
+                { from: "./src/_resources", to: "resources/" },
+                { from: "./src/_images", to: "public/images/" },
             ],
         }),
+
+        // CSS Anti-FOUC
+        new MiniCssExtractPlugin()
     ],
     output: {
         filename: 'public/js/[name].[contenthash].js',
@@ -108,7 +129,7 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/i,
-                use: ["style-loader", 'css-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader'], //"style-loader"
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
@@ -137,8 +158,10 @@ module.exports = {
                 },
               },
             {
-
                 test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
+                exclude: [
+                  path.resolve(__dirname, './src/_images/')
+                ],
 
                 type: 'asset/resource',
                 parser: {

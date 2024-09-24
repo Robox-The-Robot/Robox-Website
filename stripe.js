@@ -5,16 +5,9 @@ const paymentRouter = express.Router()
 
 const DOMAIN = "http://localhost:3000";
 
-paymentRouter.use(express.static('./dist'))
+// paymentRouter.use(express.static('./dist'))
 
-
-paymentRouter.get("/checkout", async (req, res) => {
-    res.sendFile("view/checkout.html", { root: __dirname + "/dist/" })
-})
-
-
-
-paymentRouter.post("/checkout", async (req, res) => {
+paymentRouter.post("/api/store/checkout", async (req, res) => {
     //Validating the post data
     // let products = req.data.products
     // if (!products.length) return res.status(400)
@@ -37,10 +30,10 @@ paymentRouter.post("/checkout", async (req, res) => {
     res.send({ clientSecret: session.client_secret });
 })
 
-paymentRouter.get("/products", async (req, res) => {
+paymentRouter.get("/api/store/products", async (req, res) => {
     res.send(await getProductList())
 })
-paymentRouter.get("/products/:productId", async (req, res) => {
+paymentRouter.get("/api/store/products?id=:productId", async (req, res) => {
     let productId = req.params["productId"]
     if (productId === "quantity") return res.status(200).send(false)
     let product = await getProduct(productId)

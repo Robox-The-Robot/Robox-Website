@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%= htmlWebpackPlugin.options.headMeta %>
+    <title>Building your own Robox</title>
+<<<<<<<< HEAD:src/guides/building-your-own-robox/building-your-own-robox.html
+</head>
+<body>
+    <div class="header">
+        <div class="headerLogo">
+            <a href="/">
+                <img src="/public/images/Logo.svg" alt="Robox">
+            </a>
+        </div>
+========
+    <meta name="description" content="">
+</head>
+<body>
+    <%= htmlWebpackPlugin.options.nav %>
+>>>>>>>> robox/duck:src/guides/tutorials/building-your-robox.html
+
+    <main class="content tutorialContainer">
+        <h1>Building your own Robox</h1>
+        <p>
+            This guide will show you everything you need to build your own Robox from scratch.
+            <br><br>
+            (TODO: Update guide.)
+        </p>
+    
+        <nav>
+            <ul>
+                <li><a href="#components">Components</a></li>
+                <li><a href="#howWork">How does Robox work?</a></li>
+                <li><a href="#assembly">Putting Robox together</a></li>
+            </ul>
+        </nav>
+    
+        <article>
+            <section id="components">
+                <h2>Components</h2>
+
+                <div class="two-column">
+                    <div class="column">
+<<<<<<<< HEAD:src/guides/building-your-own-robox/building-your-own-robox.html
+                        <img class="articleImg" src="../public/images/building-your-robox/robox.png">
+========
+                        <img class="articleImg" src="/public/images/building-your-robox/robox.png">
+>>>>>>>> robox/duck:src/guides/tutorials/building-your-robox.html
+                    </div>
+
+                    <div class="column">
+                        <p>Here are a list of components required to build your own Robox:</p>
+                        <ul>
+                            <li><a href="https://www.aliexpress.com/item/33012645746.html" target="_blank">1x L298n Motor Driver</a></li>
+                            <li><a href="https://www.aliexpress.com/item/1005006362867936.html" target="_blank">2x TT DC Motor</a></li>
+                            <li><a href="https://www.aliexpress.com/item/1005001622236950.html" target="_blank">1x RCWL-1601 Ultrasonic Sensor</a></li>
+                            <li><a href="https://www.aliexpress.com/item/1005004964161973.html" target="_blank">1x 3AAA Battery Holder</a></li>
+                            <li><a href="https://www.aliexpress.com/item/32832150144.html" target="_blank">2x IR Reflectance Sensor</a></li>
+                            <li><a href="https://www.aliexpress.com/item/1005006196003039.html" target="_blank">1x Raspberry Pi Pico</a></li>
+                            <li>A set of <a href="https://www.aliexpress.com/item/1005004647016228.html" target="_blank">Male-Female, Female-Female and Male-Male</a> wires</li>
+                        </ul>
+                        <p>Additionally, you will also need some other items around the house:</p>
+                        <ul>
+                            <li>1x Small flathead screwdriver</li>
+                            <li>5x Plastic bottle caps</li>
+                            <li>2x Rubber bands</li>
+                            <li>1x Toothpick</li>
+                            <li>1x Roll of tape (preferably double sided)</li>
+                        </ul>
+                        <p>You can find this component list, and Robox cutouts <a href="/resources/Cutout.pdf" target="_blank">here</a>.<p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="howWork">
+                <h2>How does Robox work?</h2>
+
+                <div class="two-column">
+                    <div class="column">
+<<<<<<<< HEAD:src/guides/building-your-own-robox/building-your-own-robox.html
+                        <img class="articleImg" src="../public/images/building-your-robox/ttMotor.jpg">
+========
+                        <img class="articleImg" src="/public/images/building-your-robox/ttMotor.jpg">
+>>>>>>>> robox/duck:src/guides/tutorials/building-your-robox.html
+
+                        <p>Robox is a line-following robot, which means it follows a black line on the ground. Since it has to move, we need motors which can spin the wheels!</p>
+                        <p>The motor has red and black wires, which are used for electricity to flow through. When electricity goes through the motors, it will start spinning.</p>
+                    </div>
+
+                    <div class="column">
+<<<<<<<< HEAD:src/guides/building-your-own-robox/building-your-own-robox.html
+                        <img class="articleImg" src="../public/images/building-your-robox/l298nMotorDriver.jpg">
+========
+                        <img class="articleImg" src="/public/images/building-your-robox/l298nMotorDriver.jpg">
+>>>>>>>> robox/duck:src/guides/tutorials/building-your-robox.html
+                        
+                        <p>But how do we control the motors? We need to use a motor driver, which can deliver the electricity to the motor. We have to send a pulse to the motor driver from a microcontroller (small robotics computer) to the driver to tell it to start moving the motors.</p>
+                        <p><em>More to come soon!</em></p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="assembly">
+                <h2>Putting Robox together</h2>
+                <p><em>More to come soon! This will be a detailed step-by-step guide on how to build the robot.</em></p>
+            </section>
+        </article>
+    </main>
+
+    <div class="footer"></div>
+</body>
+</html>
