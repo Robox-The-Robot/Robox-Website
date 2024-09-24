@@ -87,6 +87,14 @@ module.exports = {
             template: './src/guides/guides.html',
             chunks: ["guides", "root"]
         }),
+        new HtmlWebpackPlugin({
+            title: '404',
+            filename: '404.html',
+            nav: nav,
+            headMeta: headMeta,
+            template: './src/404/404.html',
+            chunks: ["root"]
+        }),
 
         // Tutorials
         ...fs.readdirSync('./src/guides/tutorials/').filter(f => path.extname(f) == ".html").map(file => new HtmlWebpackPlugin({
