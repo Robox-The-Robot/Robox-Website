@@ -6,6 +6,7 @@ const headMeta = fs.readFileSync('./src/_partials/headMeta.html', 'utf8');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     mode: 'development',
@@ -111,7 +112,10 @@ module.exports = {
                 { from: "./src/_resources", to: "resources/" },
                 { from: "./src/_images", to: "public/images/" },
             ],
-        })
+        }),
+
+        // CSS Anti-FOUC
+        new MiniCssExtractPlugin()
     ],
     output: {
         filename: 'public/js/[name].[contenthash].js',
@@ -128,7 +132,7 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/i,
-                use: ["style-loader", 'css-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader'], //"style-loader"
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
