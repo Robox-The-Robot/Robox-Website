@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <%~ include('src/_partials/headMeta.html') %>
+        <script src="index.js" defer="defer"></script>
+        <link href="index.css" rel="stylesheet" />
+        <title>Robox Dashboard</title>
+        <meta name="description" content="">
+    </head>
+
+    <body>
+        <%~ include('src/_partials/nav.html') %>
+        <div id="floating-item-holder">
+            
+            <div id="toast-holder">
+            </div>
+        </div>
+        <div id="dropzone" style="display: none;">
+            <div>
+                <i class="fa-solid fa-upload"></i>
+                <h2>
+                    Drop item to import!
+                </h2>
+            </div>
+        </div>
+        <div id="main-content">
+            <div id="content-header">
+                <h1>
+                    Projects
+                </h1>
+
+                <div id="actionBar">
+                    <button class="button" id="upload-project">
+                        <input type="file" hidden accept=".robox" id="fileInput" style="display:none;">
+                        <i class="fa-solid fa-upload"></i>
+                    </button>
+                    <button class="button" id="create-project">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="project-holder">
+                
+            </div>
+        </div>
+        <template id="template-project">
+            <div class="project" tabindex="0">
+                <div class="project-image-holder">
+                    <img class="project-image" style="display: none;">
+                    <i class="fa-solid fa-spinner image-spinner"></i>
+                </div>
+                
+                <div class="project-info">
+                    <div class="project-text">
+                        <div class="project-name">
+                            Project
+                        </div>
+                        <time class="project-date">
+                            Last Opened XXX
+                        </time>
+                    </div>
+                    <button class="button dots">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+                </div>
+            </div>
+        </template>
+        <template id="toast-template">
+            <div class="toast ">
+                <div class="icon-holder">
+        
+                </div>
+                <div class="toast-text">
+                    <h1>Success something</h1>
+                    <p>Lorem thingy</p>
+                </div>
+            </div>
+        </template>
+        <dialog class="modal" id="delete-project-dialog">
+            <div>
+                <i class="fa-regular fa-trash-can fa-6x"></i>
+
+                <div>
+                    <h1 class="modal-title" id="delete-title">Are you sure you want to delete '<span id="deletePName">Project</span>'?</h1>
+                    <p class="secondaryText" id="delete-description">It will be deleted forever (a very long time)!</p>
+                </div>
+
+                <div id="delete-buttons">
+                    <button class="button" id="confirm-delete">
+                        Delete
+                    </button>
+                    <button class="cancel button">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </dialog>
+        <dialog class="modal" id="edit-project-dialog">
+            <div>
+                <div id="editTitleCluster">
+                    <i class="fa-solid fa-pen fa-2xl"></i>
+                    <h1 class="modal-title" id="edit-title">Rename '<span id="editPName">Project</span>'</h1>
+                </div>
+
+                <form id="project-edit-form" method="dialog">
+                    <label for="pname" class="secondaryText">Enter a new name for your project:</label><br>
+                    <input placeholder="Project Name" type="text" id="pname" name="pname"><br><br>
+                </form>
+                <div id="edit-buttons">
+                    <button type="submit" form="project-edit-form" baction="confirm" class="button" id="confirm-rename">
+                        Rename
+                    </button>
+                    <button type="submit" form="project-edit-form" baction="cancel" class="button cancel">
+                        Cancel
+                    </button>
+        
+                </div>
+            </div>
+        </dialog>
+        
+        <dialog id="toolbar">
+            <div>
+                <button class="toolbar-buttons button" id="edit-button">
+                    <i class="fa-solid fa-pencil"></i>
+                    <span>Edit</span>
+                </button>
+                <hr>
+                <button class="toolbar-buttons button" id="delete-button">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>Delete</span>
+                </button>
+            </div>
+        
+        </dialog>
+    </body>
+</html>

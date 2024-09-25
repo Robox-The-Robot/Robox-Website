@@ -1,0 +1,109 @@
+<!-- <!DOCTYPE html> -->
+
+<html lang="en">
+    <head>
+        <%~ include('src/_partials/headMeta.html') %>
+        <script src="index.js" defer="defer"></script>
+        <link href="index.css" rel="stylesheet" />
+        <title>Robox Workspace</title>
+        <meta name="description" content="">
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    </head> 
+    
+    <body>
+        <%~ include('src/_partials/nav.html') %>
+        
+        <div id="headertwo">
+            <div id="header-button-container">
+                <a class="button" id="back" href="/editor/">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </a>
+        
+                <input type="text" id="project-name" value="Project name">
+        
+                <button class="button" id="export">
+                    <i class="fa-solid fa-download"></i>
+                </button>
+            </div>
+        
+        </div>        
+        <div id="floating-item-holder">
+            
+            <div id="toast-holder">
+                
+            </div>
+            <div id="connection-managment">
+                <div id="connection">
+                    <div id="robox-connection">
+                        <img class="sad-face">
+                    </div>
+                    <div id="connection-text">
+                        Disconnected
+                    </div>
+                </div>
+                <button class="button floating-button" id="terminal">
+                    <i class="fa-solid fa-terminal"></i>
+                </button>
+                <button class="button floating-button" id="play">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                
+                <button class="button floating-button" id="connect">
+                    <i class="fa-solid fa-plug"></i>
+                </button>
+                <button class="button floating-button" id="stop">
+                    <i class="fa-solid fa-stop"></i>
+                </button>
+            </div>
+            
+        </div>
+
+        
+    
+        <div id="pageContainer">
+            <div id="blocklyDiv"></div>
+        </div>
+        <dialog class="modal" id="print-modal">
+            <div>
+                <i class="fa-solid fa-circle-xmark"></i>
+                <h1 class="modal-title" id="delete-title">Pico Firmware issue!</h1>
+            </div>
+        
+        </dialog>
+        
+        <div id="delete-drag">
+            <i class="fa-regular fa-trash-can"></i>
+        </div>
+        <template>
+            <div class="toast">
+                <div class="icon-holder">
+                </div>
+                <div class="toast-text">
+                    <h1></h1>
+                    <p></p>
+                </div>
+            </div>
+        </template>
+        <template id="toast-template">
+            <div class="toast ">
+                <div class="icon-holder">
+                    
+                </div>
+                <div class="toast-text">
+                    <h1>Success something</h1>
+                    <p>Lorem thingy</p>
+                </div>
+            </div>
+        </template>
+        <template id="console-output-template">
+            <div class="console-output">
+                <p class="console-time">
+                    
+                </p>
+                <p class="console-text">
+                    
+                </p>
+            </div>
+        </template>
+    </body>
+</html>
