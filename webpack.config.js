@@ -3,13 +3,14 @@ const fs = require('fs');
 const nav = fs.readFileSync('./src/_partials/nav.html', 'utf8');
 const headMeta = fs.readFileSync('./src/_partials/headMeta.html', 'utf8');
 
+const partialList = {
+    headMeta: headMeta,
+    nav: nav,
+}
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
-
 
 module.exports = {
     mode: 'development',
@@ -28,56 +29,52 @@ module.exports = {
     // devtool: 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Guide',
-            filename: 'view/guide.html',
-            nav: nav,
-            template: './src/pages/guides/guide.html',
-            chunks: ["root", "guide"]
-        }),
-
-
-        new HtmlWebpackPlugin({
             title: 'Home',
             filename: 'index.html',
             nav: nav,
             headMeta: headMeta,
             template: './src/home/index.html',
-            chunks: ["home"]
+            chunks: ["root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Editor Dashboard',
             filename: 'editor/index.html',
             nav: nav,
-            template: './src/pages/editor/dashboard/dashboard.html',
-            chunks: ["dash"]
+            headMeta: headMeta,
+            template: './src/editor/dashboard/dashboard.html',
+            chunks: ["dash", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Editor Workspace',
             filename: 'editor/workspace/index.html',
             template: './src/editor/workspace/workspace.html',
             nav: nav,
-            chunks: ["workspace"]
+            headMeta: headMeta,
+            chunks: ["workspace", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Checkout',
             filename: 'store/checkout/index.html',
             nav: nav,
-            template: './src/pages/checkout/checkout.html',
-            chunks: ["checkout"]
+            headMeta: headMeta,
+            template: './src/store/checkout/checkout.html',
+            chunks: ["checkout", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Shop',
             filename: 'store/index.html',
             nav: nav,
-            template: './src/pages/shop/shop.html',
-            chunks: ["shop"]
+            headMeta: headMeta,
+            template: './src/store/shop/shop.html',
+            chunks: ["shop", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Cart',
             filename: 'store/cart/index.html',
             nav: nav,
-            template: './src/pages/cart/cart.html',
-            chunks: ["cart"]
+            headMeta: headMeta,
+            template: './src/store/cart/cart.html',
+            chunks: ["cart", "root"]
         }),
         new HtmlWebpackPlugin({
             title: 'Product',
@@ -99,9 +96,19 @@ module.exports = {
             title: '404',
             filename: '404.html',
             nav: nav,
-            template: './src/pages/product/product.html',
-            chunks: ["product"]
+            headMeta: headMeta,
+            template: './src/404/404.html',
+            chunks: ["root"]
         }),
+
+        // Tutorials
+        ...fs.readdirSync('./src/guides/tutorials/').filter(f => path.extname(f) == ".html").map(file => new HtmlWebpackPlugin({
+            filename: `guides/tutorials/${path.basename(file, '.html')}.html`,
+            template: `./src/guides/tutorials/${path.basename(file, '.html')}.html`,
+            nav: nav,
+            headMeta: headMeta,
+            chunks: ["root", "tutorial"]
+        })),
 
         // Files
         new CopyPlugin({
@@ -117,7 +124,7 @@ module.exports = {
     output: {
         filename: 'public/js/[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
-        assetModuleFilename: "[name][ext]",
+        publicPath: '/',
         clean: true
     },
     optimization: {
@@ -136,28 +143,6 @@ module.exports = {
                 type: 'asset/resource',
             },
             {
-                test: /\.html$/i,
-                loader: "html-loader",
-                options: {
-                    sources: {
-                        urlFilter: (attribute, value, resourcePath) => {
-                            if (/public/.test(value)) {
-                                return false;
-                            }
-            
-                            return true;
-                        },
-                    },
-                },
-            },
-            {
-                test: /\.html$/,
-                type: "asset/resource",
-                generator: {
-                  filename: "[name][ext]",
-                },
-              },
-            {
                 test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
                 exclude: [
                   path.resolve(__dirname, './src/_images/')
@@ -170,10 +155,32 @@ module.exports = {
                     }
                 },
                 generator: {
-                    filename: 'public/images/[name][ext]',
-                    publicPath: "images"
+                    filename: 'public/images/[name][ext]'
                 }
             },
+            {
+                test: /\.html$/i,
+                loader: 'html-loader',
+                options: {
+                    preprocessor: (content, loaderContext) => {
+                        const partials = content.match(/\{\{(.*?)\}\}/g, content)
+                        if (!partials) return content
+                        for (const match of partials) {
+                            content = content.replace(match, partialList[match.slice(2, match.length-2).trim()])
+                        }
+                        return content
+                    },
+                    sources: {
+                        urlFilter: (attribute, value, resourcePath) => {
+                            if (/public/.test(value)) {
+                                return false;
+                            }
+            
+                            return true;
+                        },
+                    },
+                }
+            }
         ],
 
     },

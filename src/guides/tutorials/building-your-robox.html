@@ -1,24 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%= htmlWebpackPlugin.options.headMeta %>
+    {{headMeta }}
     <title>Building your own Robox</title>
-<<<<<<<< HEAD:src/guides/building-your-own-robox/building-your-own-robox.html
 </head>
-<body>
-    <div class="header">
-        <div class="headerLogo">
-            <a href="/">
-                <img src="/public/images/Logo.svg" alt="Robox">
-            </a>
-        </div>
-========
-    <meta name="description" content="">
-</head>
-<body>
-    <%= htmlWebpackPlugin.options.nav %>
->>>>>>>> robox/duck:src/guides/tutorials/building-your-robox.html
 
+<body>
+    {{nav}}
     <main class="content tutorialContainer">
         <h1>Building your own Robox</h1>
         <p>
@@ -41,11 +29,9 @@
 
                 <div class="two-column">
                     <div class="column">
-<<<<<<<< HEAD:src/guides/building-your-own-robox/building-your-own-robox.html
-                        <img class="articleImg" src="../public/images/building-your-robox/robox.png">
-========
-                        <img class="articleImg" src="/public/images/building-your-robox/robox.png">
->>>>>>>> robox/duck:src/guides/tutorials/building-your-robox.html
+
+                        <img class="articleImg" src="./robox.png">
+
                     </div>
 
                     <div class="column">
@@ -77,22 +63,15 @@
 
                 <div class="two-column">
                     <div class="column">
-<<<<<<<< HEAD:src/guides/building-your-own-robox/building-your-own-robox.html
-                        <img class="articleImg" src="../public/images/building-your-robox/ttMotor.jpg">
-========
-                        <img class="articleImg" src="/public/images/building-your-robox/ttMotor.jpg">
->>>>>>>> robox/duck:src/guides/tutorials/building-your-robox.html
+
+                        <img class="articleImg" src="./ttMotor.jpg">
 
                         <p>Robox is a line-following robot, which means it follows a black line on the ground. Since it has to move, we need motors which can spin the wheels!</p>
                         <p>The motor has red and black wires, which are used for electricity to flow through. When electricity goes through the motors, it will start spinning.</p>
                     </div>
 
                     <div class="column">
-<<<<<<<< HEAD:src/guides/building-your-own-robox/building-your-own-robox.html
-                        <img class="articleImg" src="../public/images/building-your-robox/l298nMotorDriver.jpg">
-========
-                        <img class="articleImg" src="/public/images/building-your-robox/l298nMotorDriver.jpg">
->>>>>>>> robox/duck:src/guides/tutorials/building-your-robox.html
+                        <img class="articleImg" src="./l298nMotorDriver.jpg">
                         
                         <p>But how do we control the motors? We need to use a motor driver, which can deliver the electricity to the motor. We have to send a pulse to the motor driver from a microcontroller (small robotics computer) to the driver to tell it to start moving the motors.</p>
                         <p><em>More to come soon!</em></p>
