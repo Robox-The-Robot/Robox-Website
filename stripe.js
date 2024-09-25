@@ -1,9 +1,11 @@
 const stripe = require('stripe')('sk_test_51PhrZEKQ7f0SWVUxdLCUYmqXzmCDJ4mjE5bBu2NtBUSn2hNG59ENIPCjYaol05OdJricajkdzKJeqoR9xuo7tC5E002AxPFEn1');
+const cache = require('memory-cache');
 
 const express = require('express');
 const paymentRouter = express.Router()
 
 const DOMAIN = "http://localhost:3000";
+const PRODUCT_CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
 
 // paymentRouter.use(express.static('./dist'))
 
@@ -37,9 +39,13 @@ paymentRouter.get("/api/store/products", async (req, res) => {
         let product = await getProduct(productId)
         if (!product) return res.status(400);
         res.send(product)
-    }
-    else {
-        return res.send(await getProductList())
+    } else {
+        let cachedProducts = cache.get('products');
+        if (cachedProducts) return res.send(cachedProducts);
+
+        let products = await getProductList();
+        cache.put('products', products, PRODUCT_CACHE_DURATION);
+        return res.send(products)
     } 
 })
 
