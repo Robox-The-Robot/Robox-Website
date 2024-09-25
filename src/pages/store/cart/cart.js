@@ -4,13 +4,47 @@ import {getProducts, addCartItem, getCart, refreshCart} from "../payment"
 let cart = getCart()
 const productIds = Object.keys(cart)
 const productData = await getItemData()
-console.log(productData)
+
+const availableHolder = document.querySelector("#available-section")
+const preorderHolder = document.querySelector("#preorder-section")
+
+const cartItemElement = document.querySelector("#cart-item")
+
 for (const productId of productIds) {
+
     const product = productData[productId]
+    if (!product) continue
+
+    let clone = cartItemElement.content.cloneNode(true)
+
     let price = product["price"]
     let name = product["name"]
     let image = product["image"]
-    let type = product["image"]
+    let status = product["status"]
+    let quantity = cart[productId]
+
+
+    let titleElement = clone.querySelector(".cart-item-text-title")
+    let priceElement = clone.querySelector(".cart-item-text-price")
+    let quantityInput = clone.querySelector(".cart-quantity")
+    let imageElement = clone.querySelector(".cart-item-photo")
+    
+    imageElement.src = image
+
+
+    titleElement.textContent = name.toUpperCase()
+    priceElement.textContent = `$ ${price}`   
+    
+    quantityInput = Number(quantity)
+
+    let productElement = clone.querySelector(".cart-item")
+    productElement.id = product["item_id"]
+    productElement.setAttribute("price-id", product["price_id"])
+    if (status === "in-stock") availableHolder.querySelector(".cart-item-holder").appendChild(clone)
+    else preorderHolder.querySelector(".cart-item-holder").appendChild(clone)
+    
+
+
 }
 
 

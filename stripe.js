@@ -31,15 +31,18 @@ paymentRouter.post("/api/store/checkout", async (req, res) => {
 })
 
 paymentRouter.get("/api/store/products", async (req, res) => {
-    res.send(await getProductList())
+    if (req.query["id"]) {
+        let productId = req.query["id"]
+        if (productId === "quantity") return res.status(200).send(false)
+        let product = await getProduct(productId)
+        if (!product) return res.status(400);
+        res.send(product)
+    }
+    else {
+        return res.send(await getProductList())
+    } 
 })
-paymentRouter.get("/api/store/products?id=:productId", async (req, res) => {
-    let productId = req.params["productId"]
-    if (productId === "quantity") return res.status(200).send(false)
-    let product = await getProduct(productId)
-    if (!product) return res.status(400);
-    res.send(product)
-})
+
 
 
 async function getAllProducts() {
@@ -68,7 +71,7 @@ async function getAllPrices() {
 }
 async function getProduct(id) {
     try {
-
+        if (id === "quantity") return false
         let product = await stripe.products.retrieve(id);
         let price = await stripe.prices.retrieve(product.default_price)
         return {

@@ -22,16 +22,21 @@ body {
     background-color: var(--primary-card-color);
     width: 80vw;
     flex-grow: 1;
-    height: 725px;
+    height: 675px;
     flex-shrink: 1;
     border-radius: 10px;
 }
 #order-summary {
-    background-color: black;
+    background-color: var(--primary-card-color);
     width: 300px;
-    height: 725px;
+    height: 675px;
     flex-grow: 0;
+    border-radius: 10px;
+
     flex-shrink: 0;
+}
+section:has(> .cart-item-holder:empty) {
+    display: none;
 }
 .cart-section-title {
     background-color: var(--secondary-bg-color);
@@ -150,4 +155,12 @@ input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button { 
     -webkit-appearance: none;
     margin: 0;
+}
+@media only screen and (max-width: 900px) {
+    #main-content {
+        flex-direction: column;
+    }
+    #order-summary {
+        width: 80vw;
+    }
 }
