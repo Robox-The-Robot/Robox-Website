@@ -1,0 +1,234 @@
+:root {
+    --project-header: 0px;
+}
+body {
+    background-image: url(@images/cross.webp);
+    background-color: var(--main-bg-color);
+    padding: 0;
+    margin: 0;
+    
+}
+
+#main-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+#starter-info {
+    margin: 25px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: calc(100% - 50px) ;
+}
+.selected-carousel {
+    border: 3px var(--secondary-bg-color) solid;
+    margin: -3px;
+}
+.carousel-image {
+    cursor: pointer;
+}
+#image-carousel {
+    flex-grow: 0;
+    height: 450px;
+    width: 120px;
+    min-height: 450px;
+    min-width: 120px;
+    background-color: #F6F7C4;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 25px;
+    overflow-y: auto;
+    border-radius: 10px;
+    overflow-x: hidden;
+}
+#image-carousel > li {
+    width: 115px;
+    height: 65px;
+}
+#hero-image-container {
+    height: 500px;
+    width: 50vw;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.hero-image {
+    width: 100%;
+    max-height: 500px;
+    aspect-ratio: 9/16 !important;
+    object-fit: contain;
+}
+.carousel-image > img {
+    object-fit: contain;
+    max-width: 115px;;
+}
+.status {
+    font-size: 16px;
+    color: #45B8DC;
+}
+.temp-image {
+    aspect-ratio: 16/9;
+    background-color: gray;
+}
+#carousel-left-button {
+    left: 16px;
+}
+#carousel-right-button, #carousel-left-button {
+    position: absolute;
+    top: 250px;
+    width: 40px;
+    background-color: rgba(0, 0, 0, 0.481);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 40px;
+    font-size: 18px;
+}
+#carousel-right-button {
+    right: 16px;
+}
+.carousel-button-disabled {
+    color: rgba(255, 255, 255, 0.608) !important;
+    
+}
+.carousel-button-disabled:hover {
+    cursor: default !important;
+}
+#carousel-number {
+    position: absolute;
+    width: 100px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.481);
+    color: white;
+    top: 30px;
+    left: 16px;
+}
+#add-to-cart {
+    background-color: #7BD3EA;
+    text-align: center;
+    border: 0;
+    font-size: 20px;
+    padding: 6px;
+    width: 200px;
+    border-radius: 5px;
+}
+#important-info > * {
+    margin: 0;
+}
+.price {
+    font-size: 25px;
+}
+#important-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.warning {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#important-info > hr {
+    border: 1px black solid;
+}
+.further-info {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+}
+.further-info > h5 {
+    width: max-content;
+    margin-left: 20px
+}
+.further-info >svg:first-child {
+    font-size: 30px;
+}
+.further-info > svg {
+    align-self: center;
+}
+.further-info > .fa-arrow-right {
+    margin-left: auto;
+    border-radius: 50%;
+    border: 3px black solid;
+    padding: 3px;
+    height: 25px;
+    width: 25px;
+}
+.small-element {
+    display: none;
+}
+#cart-quantity-button {
+    font-size: 20px;
+    width: 200px;
+    height: 37px;
+    justify-content: space-between;
+    border-radius: 5px;
+    background-color: #F6F7C4;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#decrease-cart-button {
+    border-radius: 5px 0 0 5px;
+}
+#increase-cart-button {
+    border-radius: 0 5px 5px 0;
+}
+#cart-quantity-button > button {
+    width: 30px;
+    border: 2px black solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+#cart-quantity {
+    background-color: rgba(0,0,0,0);
+    border: 0;
+    text-align: center;
+    height: 100%;
+    font-size: 20px;
+    flex-shrink: 1;
+    padding: 0;
+    width: 140px;
+}
+.further-info {
+    cursor: pointer;
+}
+@media only screen and (max-width: 900px) {
+    #starter-info > .vertical-bars {
+        display: none;
+    }
+    #image-carousel {
+        display: none;
+    }
+    #starter-info {
+        flex-direction: column;
+    }
+    .small-element {
+        display: block;
+    }
+    #starter-info > hr {
+        border: 1px black solid;
+        width: 100%;
+        /* background-color: black; */
+    }
+    #hero-image-container {
+        width: 100%;
+    }
+
+}
