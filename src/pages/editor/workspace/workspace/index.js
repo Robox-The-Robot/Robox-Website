@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as Blockly from 'blockly';
+import {inject, Events} from 'blockly';
 import { createToast } from "../alerts.js"
 
 
@@ -35,7 +35,7 @@ import "../usb.js"
 
 // Set up UI elements and inject Blockly
 const blocklyDiv = document.getElementById('blocklyDiv');
-const ws = Blockly.inject(blocklyDiv, {
+const ws = inject(blocklyDiv, {
     toolbox: toolbox,
     grid: {
         spacing: 32,
@@ -57,7 +57,7 @@ const ws = Blockly.inject(blocklyDiv, {
 });
 
 
-ws.addChangeListener(Blockly.Events.disableOrphans)
+ws.addChangeListener(Events.disableOrphans)
 
 // This function resets the code and output divs, shows the
 // generated code from the workspace, and evals the code.
@@ -112,7 +112,7 @@ const deleteIndicator = document.getElementById("delete-drag")
 
 
 ws.addChangeListener((e) => { //On drag show delete menu
-    if (e.type !== Blockly.Events.BLOCK_DRAG) return
+    if (e.type !== Events.BLOCK_DRAG) return
     let width = blocklyFlyout.style.display === "none" ? blocklyToolbar.getBoundingClientRect()["width"] : blocklyFlyout.getBoundingClientRect()["right"] 
     
     if (e.isStart) {

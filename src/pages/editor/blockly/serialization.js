@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import { Events, serialization } from 'blockly';
+import { Events, serialization } from 'blockly/core';
+
 import { workspaceToSvg_ } from './screenshotHelper.js';
 
 export function getProjects() {
