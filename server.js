@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express'
 const app = express();
 
-const payment = require("./stripe.js")
+import payment from "./shop.js"
 app.use(payment);
 
 app.use("/", express.static("./dist"))

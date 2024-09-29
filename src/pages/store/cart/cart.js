@@ -1,5 +1,5 @@
 
-import {getProducts, addCartItem, getCart, refreshCart} from "../payment"
+import {getProducts, addCartItem, getCart, refreshCart} from "../payment.js"
 
 let cart = getCart()
 const productIds = Object.keys(cart)
