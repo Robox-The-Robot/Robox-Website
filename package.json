@@ -2,6 +2,7 @@
   "name": "blocklyfinal",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "sideEffects": [
     "*.css"
   ],
@@ -10,8 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx webpack --mode=development --config webpack.dev.js && node server.js",
     "prod": "npx webpack --mode=production --config webpack.prod.js && node server.js",
-    "start": "nodemon --ignore ./dist/ -e html,css,js --exec npm run dev",
-    "deploy": "nodemon --ignore ./dist/ -e html,css,js --exec npm run prod"
+    "start": "nodemon --ignore ./dist/ --ignore TEMPLATE_*.html -e html,css,js,ejs --exec npm run dev",
+    "deploy": "nodemon --ignore ./dist/ --ignore TEMPLATE_*.html -e html,css,js,ejs --exec npm run prod"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "compression-webpack-plugin": "^11.1.0",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
     "html-bundler-webpack-plugin": "^4.0.0",
     "style-loader": "^4.0.0",
@@ -36,6 +38,7 @@
     "blockly": "^11.1.1",
     "css-minimizer-webpack-plugin": "^7.0.0",
     "dayjs": "^1.11.10",
+    "memory-cache": "^0.2.0",
     "stripe": "^16.5.0"
   }
 }

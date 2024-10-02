@@ -1,3 +1,4 @@
+refreshCart()
 export async function getProducts() {
     return await (await fetch("/api/store/products")).json()
 }
@@ -9,6 +10,10 @@ export function getCart() {
 
     }
     return (JSON.parse(cart))
+}
+export function getItem(product) {
+    let cart = getCart()
+    return cart[product]
 }
 export function refreshCart() {
     const cart = getCart()
@@ -59,7 +64,7 @@ export function setCartItem(product, quantity) {
     else {
         cart["quantity"] += (quantity - item)
     }
-    item = quantity
+    cart[product] = quantity
     
     sessionStorage.setItem("cart", JSON.stringify(cart))
     refreshCart()

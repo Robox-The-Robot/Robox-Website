@@ -26,7 +26,18 @@
                 </h1>
                 <section id="products">
                     <div id="product-holder" tabindex="0">
-    
+                        <% products.forEach(function(product) { %>
+                            <article class="product" id=<%= product.item_id %> price-id=<%= product.price_id %> onclick="window.location.href ='/store/product/<%= product.name.replaceAll(" ", "-").toLowerCase() %>.html'">
+                                <img class="product-image"
+                                    src="https://user-images.githubusercontent.com/42506001/221354918-01bf0e89-48be-4df7-85bb-cdf5d0136f2a.png">
+                                <h1 class="product-name"><%= product.name.toUpperCase() %></h1>
+                                <p class="product-status in-stock">In stock - ready to ship</p>
+                                <h3 class="product-price">$<%= product.price %></h3>
+                                <button class="product-button">
+                                    Add to Cart
+                                </button>
+                            </article>
+                        <% }) %>
                     </div>
                 </div>
             </div>
@@ -48,7 +59,7 @@
                 <i class="fa-solid fa-bag-shopping fa-4x"></i>
                 <h1 class="modal-title" id="cart-title">Added item to the cart!</h1>
                 <div id="cart-buttons">
-                    <button class="button" id="cart-button">
+                    <button class="button" id="cart-button" onclick="location.href='/store/cart/cart.html'" >
                         View My Cart
                     </button>
                     <button class="button" id="continue-button">
