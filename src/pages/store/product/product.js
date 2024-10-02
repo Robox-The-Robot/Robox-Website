@@ -4,6 +4,9 @@ import {getProducts, addCartItem, getCart, refreshCart} from "../payment.js"
 
 try { //VERY HACKY FIX BUT I NEED TO IMPORT THE FOLDER AND FOR SOME REASON THIS WORKS BUT ERRORS ON THE FRONT END
     import(`./robox-kit-1.0/${image}`)
+    import(`./robox-kit-2.0/${image}`)
+
+    
 }
 catch(err) {}
 refreshCart()

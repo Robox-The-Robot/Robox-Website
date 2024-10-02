@@ -1,7 +1,8 @@
-const { merge } = require('webpack-merge');
-const common = require('./webpack.config.js');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const CompressionPlugin = require("compression-webpack-plugin");
+import { merge } from 'webpack-merge'
+
+import common from "./webpack.config.js"
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
+import CompressionPlugin from "compression-webpack-plugin"
 
 
 const mergedConfig = merge(common, {
@@ -60,4 +61,4 @@ mergedConfig.module.rules = [
     },
 ]
 
-module.exports = mergedConfig
+export default mergedConfig

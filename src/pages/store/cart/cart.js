@@ -45,8 +45,7 @@ function renderCart() {
 for (const productId of productIds) {
 
     const product = productData[productId]
-    if (!product) continue
-
+    if (!product || productId == "") continue
     let clone = cartItemElement.content.cloneNode(true)
 
     let price = product["price"]
@@ -55,7 +54,7 @@ for (const productId of productIds) {
     let status = product["status"]
     let quantity = cart[productId]
 
-
+    console.log(product)
     let titleElement = clone.querySelector(".cart-item-text-title")
     let priceElement = clone.querySelector(".cart-item-text-price")
     let quantityInput = clone.querySelector(".cart-quantity")
