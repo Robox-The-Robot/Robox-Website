@@ -35,7 +35,9 @@ export async function getProduct(id) {
             name: product.name,
             description: product.description,
             images: product.images,
+            price_id: price.id,
             price: price.unit_amount / 100,
+            item_id: product.id,
             status: product.metadata["status"],
         }
     }

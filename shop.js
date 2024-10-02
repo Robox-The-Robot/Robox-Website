@@ -37,8 +37,11 @@ paymentRouter.get("/api/store/products", async (req, res) => {
     if (req.query["id"]) {
         let productId = req.query["id"]
         if (productId === "quantity") return res.status(200).send(false)
+        let cachedProduct = cache.get(productId)
+        if (cachedProduct) return res.send(cachedProduct)
         let product = await getProduct(productId)
         if (!product) return res.status(400);
+        cache.put(productId, product, PRODUCT_CACHE_DURATION);
         res.send(product)
     } else {
         let cachedProducts = cache.get('products');

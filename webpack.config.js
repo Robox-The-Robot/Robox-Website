@@ -7,11 +7,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-const productPage = fs.readFileSync('./src/pages/store/product/template.ejs', 'utf8');
-const products = await getAllProducts()
-for (const product of products.data) {
-    fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${product.name.replaceAll(" ", "-").toLowerCase()}.html`, productPage);
-}
+// const productPage = fs.readFileSync('./src/pages/store/product/template.ejs', 'utf8');
+// const products = await getAllProducts()
+// for (const product of products.data) {
+//     fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${product.name.replaceAll(" ", "-").toLowerCase()}.html`, productPage);
+// }
 
 
 
@@ -59,7 +59,7 @@ export default {
                 return '[name].html';
             },
             data: {
-                products
+                // products
             },
         }),
 
