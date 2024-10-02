@@ -54,8 +54,12 @@ mergedConfig.module.rules = [
                     },
                 },
                 generator: {
-                    filename: 'assets/img/[name].[hash:8][ext]',
-                },
+                    filename:({ filename }) => {
+                        let splitname = filename.split("/")
+                        if (splitname[splitname.length-3] === "product") return `public/images/${splitname[splitname.length-2]}/[name][ext][query]`
+                        else return "public/images/[hash][ext][query]"
+                    }
+                }
             },
         ],
     },
