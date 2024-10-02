@@ -1,17 +1,16 @@
 
 
 import {getProducts, addCartItem, getCart, refreshCart} from "../payment.js"
-refreshCart()
 
-const carouselImages = document.querySelectorAll(".carousel-image")
+try { //VERY HACKY FIX BUT I NEED TO IMPORT THE FOLDER AND FOR SOME REASON THIS WORKS BUT ERRORS ON THE FRONT END
+    import(`./robox-kit-1.0/${image}`)
+}
+catch(err) {}
+refreshCart()
+let carouselImages = document.querySelectorAll(".carousel-image")
 const heroImage = document.querySelector("#hero-image")
 
-for (const carouselImage of carouselImages) {
-    carouselImage.addEventListener("click", (e) => {
-        let liElement = e.target.closest("li")
-        changeHeroImage(Array.prototype.indexOf.call(liElement.parentNode.children, liElement))
-    })
-}
+
 
 const heroNumber = document.getElementById("carousel-number")
 const rightCarouselButton = document.getElementById("carousel-right-button")
@@ -59,9 +58,33 @@ addToCartButton.addEventListener("click", (e) => {
     
 })
 
+document.addEventListener("DOMContentLoaded", (event) => {
+    const productName = document.querySelector("#product-name")
+    productName.textContent = currentProduct["name"].toUpperCase()
+    const productPrice = document.getElementById("price")
+    productPrice.textContent = `$${currentProduct["price"]}`
+    const imageCarousel = document.querySelector("#image-carousel")
+    for (const image of images) {
+        let listItem = document.createElement("li")
+        listItem.classList.add("temp-image", "carousel-image")
+        listItem.appendChild(image)
+        imageCarousel.appendChild(listItem)
+
+    }
+    carouselImages = document.querySelectorAll(".carousel-image")
+    changeHeroImage(currentIndex)
+    for (const carouselImage of carouselImages) {
+        carouselImage.addEventListener("click", (e) => {
+            let liElement = e.target.closest("li")
+            changeHeroImage(Array.prototype.indexOf.call(liElement.parentNode.children, liElement))
+        })
+    }
+});
+
 let currentIndex = 0
-changeHeroImage(currentIndex)
+
 function changeHeroImage(number) {
+
     if (number === 0) leftCarouselButton.classList.add("carousel-button-disabled")
     else if (leftCarouselButton.classList.contains("carousel-button-disabled")) leftCarouselButton.classList.remove("carousel-button-disabled")
     if (number === carouselImages.length-1) rightCarouselButton.classList.add("carousel-button-disabled")

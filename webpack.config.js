@@ -1,5 +1,5 @@
 import path from 'path'
-import { getAllProducts } from './stripe.js';
+import { getAllProducts, getProductList } from './stripe.js';
 import fs from "fs"
 import { fileURLToPath } from 'url';
 
@@ -7,11 +7,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-// const productPage = fs.readFileSync('./src/pages/store/product/template.ejs', 'utf8');
-// const products = await getAllProducts()
-// for (const product of products.data) {
-//     fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${product.name.replaceAll(" ", "-").toLowerCase()}.html`, productPage);
-// }
+const productPage = fs.readFileSync('./src/pages/store/product/template.ejs', 'utf8');
+const products = await getProductList()
+for (const product of products) {
+    fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${product.name.replaceAll(" ", "-").toLowerCase()}.html`, productPage);
+}
 
 
 
@@ -48,10 +48,8 @@ export default {
                     splitname = splitname.join("/")
                     return `${splitname}.html`;
                 }
-                console.log(splitname[splitname.length-1].slice(0,9))
                 if (splitname[splitname.length-1].slice(0,9) === "TEMPLATE_") {
                     splitname[splitname.length-1] = splitname[splitname.length-1].slice(9)
-                    console.log(splitname)
                     splitname = splitname.join("/")
                     return `${splitname}.html`
                 }
@@ -59,7 +57,10 @@ export default {
                 return '[name].html';
             },
             data: {
-                // products
+                products,
+                imageMap: {
+                    "robox-kit-1.0": fs.readdirSync("./src/pages/store/product/robox-kit-1.0")
+                }
             },
         }),
 
@@ -89,6 +90,13 @@ export default {
             {
                 test: /\.(ico|png|jp?g|svg)/,
                 type: 'asset/resource',
+                generator: {
+                    filename:({ filename }) => {
+                        let splitname = filename.split("/")
+                        if (splitname[splitname.length-3] === "product") return `public/images/${splitname[splitname.length-2]}/[name][ext][query]`
+                        else return "public/images/[hash][ext][query]"
+                    }
+                }
             },
         ],
 
