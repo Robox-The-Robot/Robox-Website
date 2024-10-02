@@ -59,7 +59,8 @@ export default {
             data: {
                 products,
                 imageMap: {
-                    "robox-kit-1.0": fs.readdirSync("./src/pages/store/product/robox-kit-1.0")
+                    "robox-kit-1.0": fs.readdirSync("./src/pages/store/product/robox-kit-1.0"),
+                    "robox-kit-2.0": fs.readdirSync("./src/pages/store/product/robox-kit-2.0")
                 }
             },
         }),
