@@ -1,4 +1,7 @@
 refreshCart()
+//TODO: Remake this system (cache the product cost and get rid of weird funky quantity key)
+
+
 export async function getProducts() {
     return await (await fetch("/api/store/products")).json()
 }
@@ -17,6 +20,13 @@ export function getItem(product) {
 }
 export function refreshCart() {
     const cart = getCart()
+    let quantity = 0
+    for (const product of Object.keys(cart)) {
+        if (product === "quantity") continue
+        if (product == "" || !product) delete cart[product]
+        else quantity += cart[product]
+    }
+    cart["quantity"] = quantity
     const cartElement = document.getElementById("cart")
     const cartProducts = cart ? Object.keys(cart) : []
     if (cartProducts.length !== 1) {

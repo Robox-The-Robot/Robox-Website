@@ -9,7 +9,6 @@ try { //VERY HACKY FIX BUT I NEED TO IMPORT THE FOLDER AND FOR SOME REASON THIS 
     
 }
 catch(err) {}
-refreshCart()
 let carouselImages = document.querySelectorAll(".carousel-image")
 const heroImage = document.querySelector("#hero-image")
 
