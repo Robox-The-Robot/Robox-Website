@@ -154,10 +154,10 @@ body {
     width: max-content;
     margin-left: 20px
 }
-.further-info >i:first-child {
+.further-info > *:first-child {
     font-size: 30px;
 }
-.further-info > i {
+.further-info > * {
     align-self: center;
 }
 .further-info > .fa-arrow-right {

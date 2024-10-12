@@ -16,13 +16,12 @@
         currentProductName = currentProductName[currentProductName.length-1].slice(0, -5)
         var images = imageMap[currentProductName]
         let currentProduct = allProducts.filter((product) => product.name.replaceAll(" ", "-").toLowerCase() === currentProductName)[0]
-        images = images.map((url) => {
+        images = images.map(url => {
             let image = document.createElement("img")
             image.src = `/public/images/${currentProductName}/${url}`
+            image.setAttribute("loading", "lazy")
             return image
-        });
-        
-        
+        })
         
     </script>
 </head>
@@ -92,5 +91,12 @@
     </div>
 
 </body>
-
+<script>
+    const productName = document.querySelector("#product-name")
+    productName.textContent = currentProduct["name"].toUpperCase()
+    const productPrice = document.getElementById("price")
+    productPrice.textContent = `$${currentProduct["price"]}`
+    const imageCarousel = document.querySelector("#image-carousel")
+    
+</script>
 </html>

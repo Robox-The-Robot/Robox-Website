@@ -58,17 +58,11 @@ addToCartButton.addEventListener("click", (e) => {
 })
 
 document.addEventListener("DOMContentLoaded", (event) => {
-    const productName = document.querySelector("#product-name")
-    productName.textContent = currentProduct["name"].toUpperCase()
-    const productPrice = document.getElementById("price")
-    productPrice.textContent = `$${currentProduct["price"]}`
-    const imageCarousel = document.querySelector("#image-carousel")
     for (const image of images) {
         let listItem = document.createElement("li")
         listItem.classList.add("temp-image", "carousel-image")
         listItem.appendChild(image)
         imageCarousel.appendChild(listItem)
-
     }
     carouselImages = document.querySelectorAll(".carousel-image")
     changeHeroImage(currentIndex)
