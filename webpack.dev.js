@@ -6,5 +6,5 @@ import common from "./webpack.config.js"
 
 export default merge(common, {
     mode: 'development',
-    devtool: 'eval',
+    devtool: false,
 });

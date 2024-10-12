@@ -29,8 +29,8 @@ import("../../blockly/generators/events.js")
 await import("../../blockly/blocks/systems.js")
 import("../../blockly/generators/systems.js")
 
+import("../usb.js") 
 
-import "../usb.js"
 
 
 // Set up UI elements and inject Blockly
