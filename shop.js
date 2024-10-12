@@ -17,10 +17,10 @@ paymentRouter.post("/create", async (req, res) => {
     let expected_price = req.body.expected_price
     if (!products) return res.status(400).send({error: "Products is not defined"})
     let verifiedServerCost = 0
-    for (const productId of Object.keys(products)) {
+    for (const productId in products) {
         if (productId === "quantity") continue
         let product = verifiedProducts.filter((product) => product["item_id"] === productId)[0]
-        let quantity = products[productId]
+        let quantity = products[productId]["quantity"]
         if (!product) return res.status(400).send({
             error: "Product sent does not exist"
         })

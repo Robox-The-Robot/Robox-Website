@@ -1,0 +1,40 @@
+#main-content {
+    padding-left: 30px;
+    padding-right: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 50px;
+    flex-direction: row;
+}
+#order-summary {
+    background-color: var(--primary-card-color);
+    width: 300px;
+    height: 675px;
+    flex-grow: 0;
+    flex-direction: column;
+    border-radius: 10px;
+    display: flex;
+    flex-shrink: 0;
+}
+.section-title {
+    background-color: var(--secondary-bg-color);
+    margin: 0;
+    border-radius: 10px 10px 0 0;
+    padding: 10px;
+    color: black;
+}
+#payment-card {
+    background-color: var(--primary-card-color);
+    width: 80vw;
+    flex-grow: 1;
+    height: 675px;
+    display: flex;
+    flex-shrink: 1;
+    border-radius: 10px;
+}
+#payment-form {
+    padding: 10px;
+    height: auto;
+    
+}

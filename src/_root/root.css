@@ -199,11 +199,10 @@ img {
     text-decoration: none !important;
     width: 70px;
     height: 40px;
-    margin-left: auto;
     display: flex;
     align-items: center;
     flex-direction: row;
-    margin-right: 40px;
+
     gap: 5px;
 
 }

@@ -2,7 +2,7 @@
 import {getProducts, addCartItem, getCart, refreshCart, setCartItem, getItem} from "../payment.js"
 
 let cart = getCart()
-const products = cart["products"]
+let products = cart["products"]
 const productData = await getItemData()
 
 const availableHolder = document.querySelector("#available-section")
@@ -19,7 +19,8 @@ const shippingCost = 100
 
 //Calc is short for calculator chat
 function renderCart() {
-    let cart = getCart()
+    cart = getCart()
+    products = cart["products"]
     orderValueLabel.textContent = `Order value (${cart["quantity"]}) items:`
     
     let cost = 0
@@ -30,11 +31,14 @@ function renderCart() {
     for (const productId in products) {
         let product = productData[productId]
         if (!product) continue;
-        let price = product.price//
-        let quantity = getItem(productId)["quantity"]
+        let price = product.price
+        let quantity = products[productId]["quantity"]
         let cloneProductNode = productItemisationNode.cloneNode(true)
         cloneProductNode.firstChild.textContent = `${quantity} x ${product["name"].toUpperCase()}`
         cloneProductNode.lastChild.textContent = `$${price*quantity}`
+        if (quantity === 0) {
+            continue;
+        }
         itemisedList.appendChild(cloneProductNode)
         cost += price*quantity
     }
@@ -52,7 +56,7 @@ for (const productId in products) {
     let name = product["name"]
     let image = product["image"]
     let status = product["status"]
-    let quantity = cart[productId]["quantity"]
+    let quantity = products[productId]["quantity"]
 
     let titleElement = clone.querySelector(".cart-item-text-title")
     let priceElement = clone.querySelector(".cart-item-text-price")
@@ -72,9 +76,6 @@ for (const productId in products) {
     productElement.setAttribute("price-id", product["price_id"])
     if (status === "in-stock") availableHolder.querySelector(".cart-item-holder").appendChild(clone)
     else preorderHolder.querySelector(".cart-item-holder").appendChild(clone)
-    
-
-
 }
 
 renderCart()
@@ -105,7 +106,7 @@ function updateCart(product, quantity) {
 
 
 async function getItemData() {
-    const promises = productIds.map((productId) =>
+    const promises = Object.keys(products).map((productId) =>
         fetch(`${window.location.origin}/api/store/products?id=${productId}`).then(async (response) => [productId, await response.json()])
     );
 

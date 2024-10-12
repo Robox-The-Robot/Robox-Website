@@ -1,7 +1,5 @@
- refreshCart()
 //TODO: Remake this system (cache the product cost and get rid of weird funky quantity key)
 
-export const dataEvent = new EventTarget();
 
 
 
@@ -31,8 +29,7 @@ export function refreshCart() {
     }
     cart["quantity"] = quantity
     const cartElement = document.getElementById("cart")
-    const cartProducts = cart ? Object.keys(products) : []
-    if (cartProducts.length !== 1) {
+    if (cart["quantity"] > 0) {
         cartElement.querySelector("p").innerHTML = `<span style=\"color: #FDFF9E; \">(</span>${cart["quantity"]}<span style=\"color: #FDFF9E;\">)</span>`
         cartElement.style.display = "flex"
     }
@@ -52,14 +49,14 @@ export function wipeCart() {
     sessionStorage.setItem("cart", JSON.stringify({quantity: 0, products: {}}))
     refreshCart()
 }
-export function addCartItem(product, quantity) {
+export function addCartItem(product, quantity, cache) {
     let cart = JSON.parse(sessionStorage.getItem("cart"))
     let item = cart["products"][product]
-    if (item) item["quantity"] = item + quantity
+    if (item) item["quantity"] += quantity
     else {
-        item = {"quantity": 0, "data": {}}
-        item["quantity"] = quantity
+        cart["products"][product] = {"quantity": quantity, "data": {}}
     }
+    cart["products"][product]["cache"] = cache
     cart["quantity"] += quantity
     sessionStorage.setItem("cart", JSON.stringify(cart))
     refreshCart()
@@ -68,9 +65,13 @@ export function setCartItem(product, quantity) {
     let cart = getCart()
     let item = cart["products"][product]
     if (!item) {
-        item = {"quantity": 0, "data": {}}
+        item = {"quantity": quantity, "data": {}}
     }
-    item["quantity"] = quantity
+    else {
+        cart["quantity"] -= item["quantity"]
+        item["quantity"] = quantity
+    }
+    cart["quantity"] += quantity
     sessionStorage.setItem("cart", JSON.stringify(cart))
     refreshCart()
 }

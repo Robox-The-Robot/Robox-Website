@@ -2,15 +2,12 @@ import { getCart } from "../payment.js";
 import {loadStripe} from '@stripe/stripe-js';
 
 const stripe = await loadStripe('pk_test_51PhrZEKQ7f0SWVUxH1XgKKNh9FCSnLZpAre95yUs2ip95ktaarscGhTfiw4JQVTyCLrsCaW0xTeXIwcVbOUHFDba00b6ZWj5AT');
-const elements = stripe.elements({
-    mode: 'payment',
-    amount: 200,
-    currency: 'aud',
-})
-const addressElement = elements.create('address', {mode: "shipping"});
-addressElement.mount('#address-element');
-const paymentElement = elements.create('payment');
-paymentElement.mount('#payment-element');
+
+
+const appearance = {
+    theme: "flat",
+}
+
 
 const cart = getCart()
 const products = cart["products"]
@@ -27,17 +24,20 @@ for (const productId in products) {
 }
 totalCost *= 100
 
-const appearance = {
 
-}
 
 
 
 const clientSecret = await getPaymentIntent()
 const options = {
     clientSecret: clientSecret,
+    appearance: appearance
 };
-elements.update(options);
+const elements = stripe.elements(options)
+const addressElement = elements.create('address', {mode: "shipping"});
+addressElement.mount('#address-element');
+const paymentElement = elements.create('payment');
+paymentElement.mount('#payment-element');
 
 const form = document.getElementById('payment-form');
 
@@ -80,7 +80,7 @@ async function getPaymentIntent() {
    
 }
 async function getItemData() {
-    const promises = productIds.map((productId) =>
+    const promises = Object.keys(products).map((productId) =>
         fetch(`${window.location.origin}/api/store/products?id=${productId}`).then(async (response) => [productId, await response.json()])
     );
 

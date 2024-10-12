@@ -1,1 +1,2 @@
-import "./root.css"
+import { refreshCart } from "../pages/store/payment.js";
+refreshCart()

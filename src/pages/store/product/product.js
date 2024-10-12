@@ -51,7 +51,6 @@ function updateInputQuantity(amount) {
 
 const addToCartButton = document.getElementById("add-to-cart") 
 addToCartButton.addEventListener("click", (e) => {
-    addCartItem("test", quantity)
     refreshCart()
     updateInputQuantity(1)
     
