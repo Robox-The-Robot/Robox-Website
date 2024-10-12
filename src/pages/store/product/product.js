@@ -1,14 +1,15 @@
 
 
-import {getProducts, addCartItem, getCart, refreshCart} from "../payment.js"
+import {getProducts, addCartItem, getCart, refreshCart, dataEvent} from "../payment.js"
 
 try { //VERY HACKY FIX BUT I NEED TO IMPORT THE FOLDER AND FOR SOME REASON THIS WORKS BUT ERRORS ON THE FRONT END
     import(`./robox-kit-1.0/${image}`)
     import(`./robox-kit-2.0/${image}`)
-
-    
 }
 catch(err) {}
+
+const productId = currentProduct["id"]
+
 let carouselImages = document.querySelectorAll(".carousel-image")
 const heroImage = document.querySelector("#hero-image")
 
@@ -26,7 +27,6 @@ leftCarouselButton.addEventListener("click", (e) => {
     if (leftCarouselButton.classList.contains("carousel-button-disabled")) return
     changeHeroImage(currentIndex-1)
 })
-
 let quantity = 1
 
 const cartQuantityInput = document.getElementById("cart-quantity")
@@ -41,13 +41,10 @@ decreaseQuantityButton.addEventListener("click", (e) => {
 })
 cartQuantityInput.addEventListener("input", (e) => {
     quantity = Number(cartQuantityInput.value)
-    console.log(2)
 })
 
 function updateInputQuantity(amount) {
-    console.log(amount)
     if (1 > amount) return
-    quantity = amount
     cartQuantityInput.value = amount
     refreshCart()
 }

@@ -77,8 +77,6 @@ export default {
         publicPath: '/',
         clean: true
     },
-    
-    
     module: {
         rules: [
             {
@@ -101,6 +99,5 @@ export default {
                 }
             },
         ],
-
     },
 };

@@ -15,14 +15,13 @@
         let currentProductName = window.location.pathname.split("/")
         currentProductName = currentProductName[currentProductName.length-1].slice(0, -5)
         var images = imageMap[currentProductName]
-
+        let currentProduct = allProducts.filter((product) => product.name.replaceAll(" ", "-").toLowerCase() === currentProductName)[0]
         images = images.map((url) => {
             let image = document.createElement("img")
             image.src = `/public/images/${currentProductName}/${url}`
             return image
-        }
-        );
-        let currentProduct = allProducts.filter((product) => product.name.replaceAll(" ", "-").toLowerCase() === currentProductName)[0]
+        });
+        
         
         
     </script>

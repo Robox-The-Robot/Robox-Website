@@ -2,7 +2,7 @@
 import {getProducts, addCartItem, getCart, refreshCart, setCartItem, getItem} from "../payment.js"
 
 let cart = getCart()
-const productIds = Object.keys(cart)
+const products = cart["products"]
 const productData = await getItemData()
 
 const availableHolder = document.querySelector("#available-section")
@@ -27,11 +27,11 @@ function renderCart() {
     let productItemisationNode = document.createElement("li")
     productItemisationNode.appendChild(document.createElement("p"))
     productItemisationNode.appendChild(document.createElement("p"))
-    for (const productId of productIds) {
+    for (const productId in products) {
         let product = productData[productId]
         if (!product) continue;
-        let price = product.price
-        let quantity = getItem(productId)
+        let price = product.price//
+        let quantity = getItem(productId)["quantity"]
         let cloneProductNode = productItemisationNode.cloneNode(true)
         cloneProductNode.firstChild.textContent = `${quantity} x ${product["name"].toUpperCase()}`
         cloneProductNode.lastChild.textContent = `$${price*quantity}`
@@ -42,7 +42,7 @@ function renderCart() {
     totalValue.textContent = `$${cost+shippingCost}`
 }
 
-for (const productId of productIds) {
+for (const productId in products) {
 
     const product = productData[productId]
     if (!product || productId == "") continue
@@ -52,9 +52,8 @@ for (const productId of productIds) {
     let name = product["name"]
     let image = product["image"]
     let status = product["status"]
-    let quantity = cart[productId]
+    let quantity = cart[productId]["quantity"]
 
-    console.log(product)
     let titleElement = clone.querySelector(".cart-item-text-title")
     let priceElement = clone.querySelector(".cart-item-text-price")
     let quantityInput = clone.querySelector(".cart-quantity")

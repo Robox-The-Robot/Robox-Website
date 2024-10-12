@@ -13,17 +13,16 @@ const paymentElement = elements.create('payment');
 paymentElement.mount('#payment-element');
 
 const cart = getCart()
-const productIds = Object.keys(cart)
+const products = cart["products"]
 const productData = await getItemData()
 
 
 
 
 let totalCost = 0
-for (const productId of productIds) {
-    if (productId === "quantity") continue
+for (const productId in products) {
     let product = productData[productId]
-    let cost = cart[productId] * product["price"]
+    let cost = products[productId]["quantity"] * product["price"]
     totalCost += cost
 }
 totalCost *= 100
@@ -68,7 +67,7 @@ async function getPaymentIntent() {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
-                products: cart,
+                products: products,
                 expected_price: totalCost
             })
         });
