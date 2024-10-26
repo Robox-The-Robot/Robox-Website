@@ -1,3 +1,4 @@
+
 import { getCart } from "../payment.js";
 import {loadStripe} from '@stripe/stripe-js';
 
@@ -6,6 +7,10 @@ const stripe = await loadStripe('pk_test_51PhrZEKQ7f0SWVUxH1XgKKNh9FCSnLZpAre95y
 
 const appearance = {
     theme: "flat",
+    variables: {
+        spacingUnit: '4px',
+
+    }
 }
 
 
@@ -38,6 +43,10 @@ const addressElement = elements.create('address', {mode: "shipping"});
 addressElement.mount('#address-element');
 const paymentElement = elements.create('payment');
 paymentElement.mount('#payment-element');
+paymentElement.on("loaderstart", (event) => {
+    document.getElementById("spinner").style.display = "none"
+    document.getElementById("stripe-content").style.justifyContent = "flex-start"
+})
 
 const form = document.getElementById('payment-form');
 

@@ -19,15 +19,22 @@
                     Payment
                 </h3>
                 <form id="payment-form">
-                    <div id="address-element">
+                    <div id="stripe-content">
+                        <div id="spinner" class="lds-dual-ring"></div>
+                        <div id="address-element">
+                        </div>
+                        <br>
+
+                        <div id="payment-element">
+            
+                        </div>
+                        
+                        <div id="error-message">
+            
+                        </div>
                     </div>
-                    <div id="payment-element">
-        
-                    </div>
+                    
                     <button id="submit" class="button">Place order and pay</button>
-                    <div id="error-message">
-        
-                    </div>
                 </form>
             </div>
             <div id="order-summary">

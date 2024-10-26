@@ -7,8 +7,7 @@ try { //VERY HACKY FIX BUT I NEED TO IMPORT THE FOLDER AND FOR SOME REASON THIS 
     import(`./robox-kit-2.0/${image}`)
 }
 catch(err) {}
-
-const productId = currentProduct["id"]
+const productId = currentProduct["item_id"]
 
 let carouselImages = document.querySelectorAll(".carousel-image")
 const heroImage = document.querySelector("#hero-image")
@@ -46,14 +45,15 @@ cartQuantityInput.addEventListener("input", (e) => {
 function updateInputQuantity(amount) {
     if (1 > amount) return
     cartQuantityInput.value = amount
+    quantity = Number(cartQuantityInput.value)
     refreshCart()
 }
 
 const addToCartButton = document.getElementById("add-to-cart") 
 addToCartButton.addEventListener("click", (e) => {
+    addCartItem(productId, quantity)
     refreshCart()
     updateInputQuantity(1)
-    
 })
 
 document.addEventListener("DOMContentLoaded", (event) => {

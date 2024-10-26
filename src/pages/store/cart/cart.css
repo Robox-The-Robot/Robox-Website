@@ -112,7 +112,7 @@ section:has(> .cart-item-holder:empty) {
 .cart-item-photo {
     background-color: gray;
     height: 100px;
-    width: 100px;
+    aspect-ratio: 16/9;
 }
 .cart-item-delete {
     align-self: flex-start;
