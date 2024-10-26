@@ -3,7 +3,16 @@ import {getProducts, addCartItem, getCart, refreshCart, setCartItem, getItem} fr
 
 let cart = getCart()
 let products = cart["products"]
-const productData = await getItemData()
+getItemData().then(serverProducts => {
+    let reload = false
+    for (const serverProductId in serverProducts) {
+        if (JSON.stringify(serverProducts[serverProductId]) !== JSON.stringify(products[serverProductId]["data"])) {
+            reload = true
+            addCartItem(serverProductId, 0, serverProducts[serverProductId])
+        }
+    }
+    if (reload) window.location.reload()
+})
 
 const availableHolder = document.querySelector("#available-section")
 const preorderHolder = document.querySelector("#preorder-section")
@@ -28,8 +37,9 @@ function renderCart() {
     let productItemisationNode = document.createElement("li")
     productItemisationNode.appendChild(document.createElement("p"))
     productItemisationNode.appendChild(document.createElement("p"))
+    console.log(products)
     for (const productId in products) {
-        let product = productData[productId]
+        let product = products[productId]["data"]
         if (!product) continue;
         let price = product.price
         let quantity = products[productId]["quantity"]
@@ -48,7 +58,7 @@ function renderCart() {
 
 for (const productId in products) {
 
-    const product = productData[productId]
+    const product = products[productId]["data"]
     if (!product || productId == "") continue
     let clone = cartItemElement.content.cloneNode(true)
 
@@ -63,7 +73,7 @@ for (const productId in products) {
     let quantityInput = clone.querySelector(".cart-quantity")
     let imageElement = clone.querySelector(".cart-item-photo")
     
-    imageElement.src = image
+    imageElement.src = `/public/images/${name.replaceAll(" ", "-").toLowerCase()}/thumbnail.jpg`
 
 
     titleElement.textContent = name.toUpperCase()
@@ -100,7 +110,7 @@ function updateCart(product, quantity) {
     let productElement = document.getElementById(product)
     let quantityInput = productElement.querySelector(".cart-quantity")
     quantityInput.value = Number(quantity)
-    setCartItem(product, Number(quantity))
+    setCartItem(product, Number(quantity), products[product]["data"])
     renderCart()
 }
 

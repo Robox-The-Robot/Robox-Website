@@ -32,6 +32,10 @@ paymentRouter.post("/create", async (req, res) => {
         error: "Server prices do not match the client prices"    
     })
     try {
+        Object.keys(products).map((productId) => {
+            products[productId] = products[productId]["quantity"]
+        })
+        console.log(products)
         const paymentIntent = await stripeAPI.paymentIntents.create({
             amount: verifiedServerCost,
             currency: 'aud',

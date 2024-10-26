@@ -4,10 +4,12 @@ import {getProducts, addCartItem, getCart, refreshCart, dataEvent} from "../paym
 
 try { //VERY HACKY FIX BUT I NEED TO IMPORT THE FOLDER AND FOR SOME REASON THIS WORKS BUT ERRORS ON THE FRONT END
     import(`./robox-kit-1.0/${image}`)
-    import(`./robox-kit-2.0/${image}`)
+    import(`./robox-kit-3.0/${image}`)
 }
 catch(err) {}
 const productId = currentProduct["item_id"]
+
+console.log(currentProduct)
 
 let carouselImages = document.querySelectorAll(".carousel-image")
 const heroImage = document.querySelector("#hero-image")
@@ -51,7 +53,7 @@ function updateInputQuantity(amount) {
 
 const addToCartButton = document.getElementById("add-to-cart") 
 addToCartButton.addEventListener("click", (e) => {
-    addCartItem(productId, quantity)
+    addCartItem(productId, quantity, currentProduct)
     refreshCart()
     updateInputQuantity(1)
 })

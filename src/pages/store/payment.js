@@ -56,21 +56,23 @@ export function addCartItem(product, quantity, cache) {
     else {
         cart["products"][product] = {"quantity": quantity, "data": {}}
     }
-    cart["products"][product]["cache"] = cache
+    cart["products"][product]["data"] = cache
     cart["quantity"] += quantity
     sessionStorage.setItem("cart", JSON.stringify(cart))
     refreshCart()
 }
-export function setCartItem(product, quantity) {
+export function setCartItem(product, quantity, cache) {
     let cart = getCart()
     let item = cart["products"][product]
     if (!item) {
-        item = {"quantity": quantity, "data": {}}
+        item = {"quantity": quantity, "data": cache}
     }
     else {
         cart["quantity"] -= item["quantity"]
         item["quantity"] = quantity
+        item["data"] = cache
     }
+    
     cart["quantity"] += quantity
     sessionStorage.setItem("cart", JSON.stringify(cart))
     refreshCart()
