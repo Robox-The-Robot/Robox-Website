@@ -31,7 +31,41 @@ totalCost *= 100
 
 
 
+const orderValueLabel = document.querySelector("#order-value-label")
+const orderValue = document.querySelector("#order-value-value")
+const itemisedList = document.querySelector("#itemised-list")
+const totalValue = document.querySelector("#total-value")
 
+const shippingCost = 100
+
+//Calc is short for calculator chat
+function renderCart() {
+
+    orderValueLabel.textContent = `Order value (${cart["quantity"]}) items:`
+    
+    let cost = 0
+    itemisedList.replaceChildren();
+    let productItemisationNode = document.createElement("li")
+    productItemisationNode.appendChild(document.createElement("p"))
+    productItemisationNode.appendChild(document.createElement("p"))
+    for (const productId in products) {
+        let product = products[productId]["data"]
+        if (!product) continue;
+        let price = product.price
+        let quantity = products[productId]["quantity"]
+        let cloneProductNode = productItemisationNode.cloneNode(true)
+        cloneProductNode.firstChild.textContent = `${quantity} x ${product["name"].toUpperCase()}`
+        cloneProductNode.lastChild.textContent = `$${price*quantity}`
+        if (quantity === 0) {
+            continue;
+        }
+        itemisedList.appendChild(cloneProductNode)
+        cost += price*quantity
+    }
+    orderValue.textContent = `$${cost}`
+    totalValue.textContent = `$${cost+shippingCost}`
+}
+renderCart()
 
 const clientSecret = await getPaymentIntent()
 const options = {
