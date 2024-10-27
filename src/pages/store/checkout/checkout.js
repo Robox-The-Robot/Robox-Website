@@ -2,8 +2,19 @@
 import { getCart } from "../payment.js";
 import {loadStripe} from '@stripe/stripe-js';
 
-const stripe = await loadStripe('pk_test_51PhrZEKQ7f0SWVUxH1XgKKNh9FCSnLZpAre95yUs2ip95ktaarscGhTfiw4JQVTyCLrsCaW0xTeXIwcVbOUHFDba00b6ZWj5AT');
 
+
+
+
+const cart = getCart()
+const products = cart["products"]
+let totalCost = 0
+for (const productId in products) {
+    let product = products[productId]["data"]
+    let cost = products[productId]["quantity"] * product["price"]
+    totalCost += cost
+}
+totalCost *= 100
 
 const appearance = {
     theme: "flat",
@@ -12,22 +23,45 @@ const appearance = {
 
     }
 }
+const stripePromise = loadStripe('pk_test_51PhrZEKQ7f0SWVUxH1XgKKNh9FCSnLZpAre95yUs2ip95ktaarscGhTfiw4JQVTyCLrsCaW0xTeXIwcVbOUHFDba00b6ZWj5AT');
+const clientSecretPromise = getPaymentIntent()
+const paymentPromises = Promise.all([stripePromise, clientSecretPromise])
+paymentPromises.then((values) => {
+    const [stripe, clientSecret] = values
+    const options = {
+        clientSecret: clientSecret,
+        appearance: appearance
+    };
+    const elements = stripe.elements(options)
+    const addressElement = elements.create('address', {mode: "shipping"});
+    addressElement.mount('#address-element');
+    const paymentElement = elements.create('payment');
+    paymentElement.mount('#payment-element');
+    paymentElement.on("loaderstart", (event) => {
+        document.getElementById("spinner").style.display = "none"
+        document.getElementById("stripe-content").style.justifyContent = "flex-start"
+    })
+})
 
 
-const cart = getCart()
-const products = cart["products"]
-const productData = await getItemData()
+
+
+
+getItemData().then(serverProducts => {
+    let reload = false
+    for (const serverProductId in serverProducts) {
+        if (JSON.stringify(serverProducts[serverProductId]) !== JSON.stringify(products[serverProductId]["data"])) {
+            reload = true
+            addCartItem(serverProductId, 0, serverProducts[serverProductId])
+        }
+    }
+    if (reload) window.location.reload()
+})
 
 
 
 
-let totalCost = 0
-for (const productId in products) {
-    let product = productData[productId]
-    let cost = products[productId]["quantity"] * product["price"]
-    totalCost += cost
-}
-totalCost *= 100
+
 
 
 
@@ -66,21 +100,6 @@ function renderCart() {
     totalValue.textContent = `$${cost+shippingCost}`
 }
 renderCart()
-
-const clientSecret = await getPaymentIntent()
-const options = {
-    clientSecret: clientSecret,
-    appearance: appearance
-};
-const elements = stripe.elements(options)
-const addressElement = elements.create('address', {mode: "shipping"});
-addressElement.mount('#address-element');
-const paymentElement = elements.create('payment');
-paymentElement.mount('#payment-element');
-paymentElement.on("loaderstart", (event) => {
-    document.getElementById("spinner").style.display = "none"
-    document.getElementById("stripe-content").style.justifyContent = "flex-start"
-})
 
 const form = document.getElementById('payment-form');
 

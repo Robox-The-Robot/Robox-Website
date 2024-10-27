@@ -53,7 +53,8 @@ function renderCart() {
         cost += price*quantity
     }
     orderValue.textContent = `$${cost}`
-    totalValue.textContent = `$${cost+shippingCost}`
+    
+    totalValue.innerHTML = `$${cost+shippingCost}<br><span style="font-size: x-small; color: grey;">(GST Included)</span>`
 }
 
 for (const productId in products) {
