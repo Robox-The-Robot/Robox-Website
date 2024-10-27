@@ -2,6 +2,7 @@ import { merge } from 'webpack-merge'
 
 import common from "./webpack.config.js"
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
+import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import CompressionPlugin from "compression-webpack-plugin"
 
 
@@ -26,6 +27,7 @@ const mergedConfig = merge(common, {
         minimizer: [
             `...`,
             new CssMinimizerPlugin(),
+            
         ],
     },
 });

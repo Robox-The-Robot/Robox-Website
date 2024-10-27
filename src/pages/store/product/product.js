@@ -9,7 +9,6 @@ try { //VERY HACKY FIX BUT I NEED TO IMPORT THE FOLDER AND FOR SOME REASON THIS 
 catch(err) {}
 const productId = currentProduct["item_id"]
 
-console.log(currentProduct)
 
 let carouselImages = document.querySelectorAll(".carousel-image")
 const heroImage = document.querySelector("#hero-image")
