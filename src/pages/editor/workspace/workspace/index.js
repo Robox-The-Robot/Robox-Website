@@ -17,17 +17,15 @@ import '../../blockly/theme/category.js';
 
 import {toolbox} from '../../blockly/toolbox.js';
 
-await import("../../blockly/blocks/sensor.js")
-import("../../blockly/generators/sensor.js")
-
-await import("../../blockly/blocks/motors.js")
-import("../../blockly/generators/motors.js")
-
-await import("../../blockly/blocks/events.js")
-import("../../blockly/generators/events.js")
-
-await import("../../blockly/blocks/systems.js")
-import("../../blockly/generators/systems.js")
+// await import("../../blockly/blocks/*")
+import(
+    /* webpackChunkName: "blocks" */ 
+    /* webpackInclude: /\.js$/ */ 
+    `../../blockly/blocks/${block}`)
+import(
+    /* webpackChunkName: "generators" */ 
+    /* webpackInclude: /\.js$/ */ 
+    `../../blockly/generators/${generator}`)
 
 import("../usb.js") 
 

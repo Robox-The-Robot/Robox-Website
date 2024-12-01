@@ -15,15 +15,6 @@ const mergedConfig = merge(common, {
         })
     ],
     optimization: {
-        usedExports: true,
-        splitChunks: {
-            cacheGroups: {
-                scripts: {
-                    test: /\.(js|ts)$/,
-                    chunks: 'all',
-                },
-            },
-        },
         minimizer: [
             `...`,
             new CssMinimizerPlugin(),

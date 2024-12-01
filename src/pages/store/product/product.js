@@ -2,16 +2,12 @@
 
 import {getProducts, addCartItem, getCart, refreshCart, dataEvent} from "../payment.js"
 
-try { //VERY HACKY FIX BUT I NEED TO IMPORT THE FOLDER AND FOR SOME REASON THIS WORKS BUT ERRORS ON THE FRONT END
-    import(`./robox-kit-1.0/${image}`)
-    import(`./robox-kit-3.0/${image}`)
-}
-catch(err) {}
+
 const productId = currentProduct["item_id"]
 
 
-let carouselImages = document.querySelectorAll(".carousel-image")
-const heroImage = document.querySelector("#hero-image")
+const carouselImages = document.querySelectorAll(".carousel-image")
+const heroImages = document.querySelectorAll(".hero-image")
 
 
 
@@ -58,13 +54,7 @@ addToCartButton.addEventListener("click", (e) => {
 })
 
 document.addEventListener("DOMContentLoaded", (event) => {
-    for (const image of images) {
-        let listItem = document.createElement("li")
-        listItem.classList.add("temp-image", "carousel-image")
-        listItem.appendChild(image)
-        imageCarousel.appendChild(listItem)
-    }
-    carouselImages = document.querySelectorAll(".carousel-image")
+
     changeHeroImage(currentIndex)
     for (const carouselImage of carouselImages) {
         carouselImage.addEventListener("click", (e) => {
@@ -82,13 +72,13 @@ function changeHeroImage(number) {
     else if (leftCarouselButton.classList.contains("carousel-button-disabled")) leftCarouselButton.classList.remove("carousel-button-disabled")
     if (number === carouselImages.length-1) rightCarouselButton.classList.add("carousel-button-disabled")
     else if (rightCarouselButton.classList.contains("carousel-button-disabled")) rightCarouselButton.classList.remove("carousel-button-disabled")
-    const element = carouselImages[number].querySelector("img")
-    let replacementURL = element.src
     heroNumber.textContent = `${number+1}\\${carouselImages.length}`
-    heroImage.src = replacementURL
 
     carouselImages[currentIndex].querySelector("img").classList.remove("selected-carousel")
-    element.classList.add("selected-carousel")
+    document.querySelector(".active").classList.remove("active")
+    const heroImage = heroImages[number]
+    heroImage.classList.add("active")
+    carouselImages[number].querySelector("img").classList.add("selected-carousel")
     currentIndex = number
 }
 
