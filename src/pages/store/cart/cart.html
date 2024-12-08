@@ -12,57 +12,61 @@
 
 <body>
     <%~ include('src/_partials/nav.html') %>
-    <h1>
-        My Cart
-    </h1>
-    <div id="main-content">
-        <div id="cart-items">
-            <section id="available-section">
-                <h3 class="cart-section-title">
-                    Available Now
-                </h3>
-                <ul class="cart-item-holder"></ul>
-            </section>
-            <section id="preorder-section">
-                <h3 class="cart-section-title">
-                    Preorder Now
-                </h3>
-                <ul class="cart-item-holder"></ul>
-            </section>
-        </div>
-        <div id="order-summary">
-            <h3 class="cart-section-title order-title">
-                Order Summary
-            </h3>
-            <div id="order-body">
-                <div id="cost-breakdown">
-                    <p id="order-value-label">
-                        Order value () items:
-                    </p>
-                    <p id="order-value-value">
-
-                    </p>
-                    <ul id="itemised-list"></ul>
-                    <hr class="cart-item-break">
-                    <p>
-                        Shipping cost
-                    </p>
-                    <p id="shipping-cost">
-                        $100
-                    </p>
-                    <p>Order Total</p>
-                    <p id="total-value">
-                        ads<br><span style="font-size: x-small; color: grey;">(GST Included)</span>
-                    </p>
-                   
-                </div>
-                <button id="checkout" class="button" onclick="window.location.href ='/store/checkout/checkout.html'">
-                    Checkout
-                </button>
+    <div class="content">
+        <h1>
+            My Cart
+        </h1>
+        <div id="main-content">
+        
+            <div id="cart-items">
+                <section id="available-section">
+                    <h3 class="cart-section-title">
+                        Available Now
+                    </h3>
+                    <ul class="cart-item-holder"></ul>
+                </section>
+                <section id="preorder-section">
+                    <h3 class="cart-section-title">
+                        Preorder Now
+                    </h3>
+                    <ul class="cart-item-holder"></ul>
+                </section>
             </div>
-            
+            <div id="order-summary">
+                <h3 class="cart-section-title order-title">
+                    Order Summary
+                </h3>
+                <div id="order-body">
+                    <div id="cost-breakdown">
+                        <p id="order-value-label">
+                            Order value () items:
+                        </p>
+                        <p id="order-value-value">
+    
+                        </p>
+                        <ul id="itemised-list"></ul>
+                        <hr class="cart-item-break">
+                        <p>
+                            Shipping cost
+                        </p>
+                        <p id="shipping-cost">
+                            $100
+                        </p>
+                        <p>Order Total</p>
+                        <p id="total-value">
+                            ads<br><span style="font-size: x-small; color: grey;">(GST Included)</span>
+                        </p>
+                       
+                    </div>
+                    <button id="checkout" class="button" onclick="window.location.href ='/store/checkout/checkout.html'">
+                        Checkout
+                    </button>
+                </div>
+                
+            </div>
         </div>
     </div>
+    
 
 </body>
 <template id="cart-item">

@@ -1,6 +1,4 @@
 #main-content {
-    padding-left: 30px;
-    padding-right: 30px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -23,6 +21,10 @@
     border-radius: 10px 10px 0 0;
     padding: 10px;
     color: black;
+}
+#payment-element {
+    overflow-y: auto;
+    max-height: 300px;
 }
 #stripe-content {
     flex-grow: 1;

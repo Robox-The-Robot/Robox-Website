@@ -13,10 +13,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+
     flex-direction: column;
 }
 #starter-info {
-    margin: 25px;
     display: flex;
     flex-direction: row;
     gap: 10px;

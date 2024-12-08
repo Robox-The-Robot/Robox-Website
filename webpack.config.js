@@ -27,8 +27,8 @@ const products = cacheProducts ? await getProductList() : JSON.parse(fs.readFile
 for (const product of products) {
     let filename = product.name.replaceAll(" ", "-").toLowerCase()
     fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${filename}.html`, productPage);
-    if (!fs.existsSync(`./src/pages/store/product/${filename}`)) {
-        fs.mkdirSync(`./src/pages/store/product/${filename}`);
+    if (!fs.existsSync(`./src/pages/store/product/images/${filename}`)) {
+        fs.mkdirSync(`./src/pages/store/product/images/${filename}`);
     }
     //Hacky fix
     productMap[filename] = JSON.parse(JSON.stringify(fs.readdirSync(`./src/pages/store/product/images/${filename}`)).replaceAll(".jpg", ".webp"))
