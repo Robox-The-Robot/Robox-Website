@@ -73,7 +73,6 @@ body {
 }
 .product {
     width: 480px;
-    height: 420px;
     display: flex;
     flex-direction: column;
     padding: 20px;

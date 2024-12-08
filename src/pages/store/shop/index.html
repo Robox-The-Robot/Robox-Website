@@ -32,7 +32,7 @@
                         <% products.forEach(function(product) { %>
                             <article class="product" id=<%= product.item_id %> price-id=<%= product.price_id %> onclick="window.location.href ='/store/product/<%= product.name.replaceAll(" ", "-").toLowerCase() %>.html'">
                                 <img class="product-image"
-                                    src="/public/images/<%= product.name.replaceAll(" ", "-").toLowerCase() %>/thumbnail.jpg">
+                                    src="/public/images/<%= product.name.replaceAll(" ", "-").toLowerCase() %>/thumbnail.webp">
                                 <h1 class="product-name"><%= product.name.toUpperCase() %></h1>
                                 <p class="product-status in-stock">In stock - ready to ship</p>
                                 <h3 class="product-price">$<%= product.price %></h3>

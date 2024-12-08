@@ -74,7 +74,7 @@ for (const productId in products) {
     let quantityInput = clone.querySelector(".cart-quantity")
     let imageElement = clone.querySelector(".cart-item-photo")
     
-    imageElement.src = `/public/images/${name.replaceAll(" ", "-").toLowerCase()}/thumbnail.jpg`
+    imageElement.src = `/public/images/${name.replaceAll(" ", "-").toLowerCase()}/thumb-thumbnail.webp`
 
 
     titleElement.textContent = name.toUpperCase()
