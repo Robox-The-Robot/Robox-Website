@@ -1,4 +1,4 @@
-import * as Blockly from 'blockly/core';
+
 import { pythonGenerator, Order } from 'blockly/python'
 
 pythonGenerator.forBlock['define_movement_motors'] = function (block, generator) {

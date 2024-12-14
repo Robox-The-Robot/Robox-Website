@@ -1,6 +1,6 @@
 
 
-import * as Blockly from 'blockly/core';
+
 import { pythonGenerator, Order } from 'blockly/python'
 
 pythonGenerator.forBlock['distance'] = function (block, generator) {

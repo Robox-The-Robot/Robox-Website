@@ -17,15 +17,35 @@ import '../../blockly/theme/category.js';
 
 import {toolbox} from '../../blockly/toolbox.js';
 
-// await import("../../blockly/blocks/*")
-import(
-    /* webpackChunkName: "blocks" */ 
-    /* webpackInclude: /\.js$/ */ 
-    `../../blockly/blocks/${block}`)
-import(
-    /* webpackChunkName: "generators" */ 
-    /* webpackInclude: /\.js$/ */ 
-    `../../blockly/generators/${generator}`)
+// await import("../../ blockly/blocks/*")
+
+let blocks = import.meta.webpackContext("../../blockly/blocks", {
+    recursive: false,
+    regExp: /\.js$/,
+});
+let generators = import.meta.webpackContext("../../blockly/generators", {
+    recursive: false,
+    regExp: /\.js$/,
+});
+blocks.keys().forEach(modulePath => {
+    const block = blocks(modulePath);
+});
+generators.keys().forEach(modulePath => {
+    const generator = generators(modulePath);
+});
+    
+// try {
+//     await import(
+//         /* webpackChunkName: "blocks" */ 
+//         /* webpackInclude: /\.js$/ */ 
+//         `../../blockly/blocks/${block}`)
+//     await import(
+//         /* webpackChunkName: "generators" */ 
+//         /* webpackInclude: /\.js$/ */ 
+//         `../../blockly/generators/${generator}`)
+// }
+// catch {}
+
 
 import("../usb.js") 
 

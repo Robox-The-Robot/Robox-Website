@@ -1,4 +1,4 @@
-import * as Blockly from 'blockly/core';
+
 import { pythonGenerator } from 'blockly/python'
 
 pythonGenerator.forBlock['event_begin'] = function (block, generator) {

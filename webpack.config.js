@@ -87,7 +87,6 @@ export default {
                         let currentProduct = resourcePath.substring(resourcePath.lastIndexOf("TEMPLATE_") + 9, resourcePath.lastIndexOf(".html"));
                         data.images = productMap[currentProduct]
                         data.product = products.filter((product) => product.name.replaceAll(" ", "-").toLowerCase() === currentProduct)[0]
-                        console.log(data.product)
                     }
 
                 },
