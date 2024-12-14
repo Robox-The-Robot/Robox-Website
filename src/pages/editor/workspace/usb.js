@@ -9,7 +9,6 @@ const connectButton = document.getElementById("connect")
 const playButton = document.getElementById("play")
 const consoleButton = document.getElementById("terminal")
 const stopButton = document.getElementById("stop")
-
 const consoleTemplate = document.querySelector("#console-output-template")
 const consoleElement = document.querySelector("#print-modal")
 
@@ -26,7 +25,6 @@ let currentReadableStreamClosed
 let restarting = false
 
 let firmware = false
-
 // Code to prefix the script. This includes libraries, etc.
 const scriptDependency = `
 from roboxlib import Motors
@@ -55,6 +53,7 @@ async function connectToPort(e) {
         createToast("Connection Error!", "Could not connect to the Robox device. Please try again.", "negative")
     })
 }
+
 
 connectButton.addEventListener("click", connectToPort);
 document.getElementById("connection").addEventListener("click", connectToPort);

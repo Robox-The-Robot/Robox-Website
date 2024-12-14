@@ -169,8 +169,12 @@ code {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    
-
+}
+#console {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
 }
 .rotating-face {
     animation-name: faceRotate;

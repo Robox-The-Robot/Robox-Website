@@ -222,7 +222,7 @@ img {
     text-align: center;
     font-size: 25px;
 }
-.modal>div {
+.modal:not(#print-modal)>div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
