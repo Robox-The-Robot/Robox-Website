@@ -6,11 +6,32 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const cacheProducts = true
+
+
+const productMap = {}
+
 
 const productPage = fs.readFileSync('./src/pages/store/product/template.ejs', 'utf8');
-const products = await getProductList()
+
+
+
+if (cacheProducts) {
+    if (!fs.existsSync("products.json")) {
+        fs.writeFileSync("products.json", JSON.stringify(await getProductList()), "utf8")
+    }
+}
+
+const products = cacheProducts ? await getProductList() : JSON.parse(fs.readFileSync("products.json"))
+
 for (const product of products) {
-    fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${product.name.replaceAll(" ", "-").toLowerCase()}.html`, productPage);
+    let filename = product.name.replaceAll(" ", "-").toLowerCase()
+    fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${filename}.html`, productPage);
+    if (!fs.existsSync(`./src/pages/store/product/images/${filename}`)) {
+        fs.mkdirSync(`./src/pages/store/product/images/${filename}`);
+    }
+    //Hacky fix
+    productMap[filename] = JSON.parse(JSON.stringify(fs.readdirSync(`./src/pages/store/product/images/${filename}`)).replaceAll(".jpg", ".webp"))
 }
 
 
@@ -18,8 +39,7 @@ for (const product of products) {
 
 
 import HtmlBundlerPlugin from 'html-bundler-webpack-plugin'
-
-
+import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import CopyPlugin from "copy-webpack-plugin"
 
 
@@ -32,7 +52,6 @@ export default {
         }
     },
     plugins: [
-        
         new HtmlBundlerPlugin({
             entry: "src/pages/",
             js: {
@@ -58,27 +77,28 @@ export default {
             },
             data: {
                 products,
-                imageMap: {
-                    "robox-kit-1.0": fs.readdirSync("./src/pages/store/product/robox-kit-1.0"),
-                    "robox-kit-2.0": fs.readdirSync("./src/pages/store/product/robox-kit-2.0")
-                }
+                imageMap: productMap
+            },
+            loaderOptions: {
+                beforePreprocessor: (content, { resourcePath, data }) => {
+                    
+                    if (resourcePath.includes('/TEMPLATE_')) {
+                        //Getting the product name (the +9 is the length of TEMPLATE)
+                        let currentProduct = resourcePath.substring(resourcePath.lastIndexOf("TEMPLATE_") + 9, resourcePath.lastIndexOf(".html"));
+                        data.images = productMap[currentProduct]
+                        data.product = products.filter((product) => product.name.replaceAll(" ", "-").toLowerCase() === currentProduct)[0]
+                    }
+
+                },
             },
         }),
-
         new CopyPlugin({
             patterns: [
                 { from: "./src/_resources", to: "resources/" },
+                { from: "**/*", to: "public/images/", toType:"dir", context: "./src/pages/store/product/images/" },
             ],
         }),
     ],
-    output: {
-        filename: 'public/js/[name].[contenthash].js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/',
-        clean: true
-    },
-    
-    
     module: {
         rules: [
             {
@@ -90,17 +110,66 @@ export default {
                 type: 'asset/resource',
             },
             {
-                test: /\.(ico|png|jp?g|svg)/,
-                type: 'asset/resource',
-                generator: {
-                    filename:({ filename }) => {
-                        let splitname = filename.split("/")
-                        if (splitname[splitname.length-3] === "product") return `public/images/${splitname[splitname.length-2]}/[name][ext][query]`
-                        else return "public/images/[hash][ext][query]"
-                    }
-                }
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                type: "asset",
             },
         ],
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new ImageMinimizerPlugin({ //The optimiser for the thumbnail photos
+                generator: [
+                    {
+                        type: "asset",
+                        implementation: ImageMinimizerPlugin.sharpGenerate,
+                        filter: (source, sourcePath) => {
+                            let splitSourcePath = sourcePath.split("/")
+                            if (splitSourcePath.length < 3) return false
+                            return splitSourcePath[splitSourcePath.length-3] === "images"
+                        },
+                        filename: "[path]thumb-[name][ext]",
 
+                        options: {
+                            
+                            encodeOptions: {
+                                webp: {
+                                    quality: 100,
+                                },
+                            },
+                            resize: {
+                                enabled: true,
+                                height: 70*2,
+                                width: 115*2,
+                            },
+                        },
+                    },
+                    {
+                        type: "asset",
+                        implementation: ImageMinimizerPlugin.sharpGenerate,
+                        filter: (source, sourcePath) => {
+                            let splitSourcePath = sourcePath.split("/")
+                            if (splitSourcePath.length < 3) return false
+                            return splitSourcePath[splitSourcePath.length-3] === "images"
+                        },
+                        filename: "[path][name][ext]",
+
+                        options: {
+                            encodeOptions: {
+                                webp: {
+                                    quality: 90,
+                                },
+                            },
+                        },
+                    },
+                ],
+            }),
+          ],
+      },
+    output: {
+        filename: 'public/js/[name].[contenthash].js',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/',
+        clean: true
     },
 };

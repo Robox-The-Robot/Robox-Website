@@ -1,18 +1,78 @@
+<!DOCTYPE html>
+
 <html lang="en">
-
-<head>
-    <%~ include('src/_partials/headMeta.html') %>
-    <script src="checkout.js" defer="defer"></script>
-    <link href="checkout.css" rel="stylesheet" />
-    <title>Robox Store</title>
-    <meta name="description" content="">
-</head>
-
-<body>
-    <!-- Display a payment form -->
-    <div id="checkout">
-        <!-- Checkout will insert the payment form here -->
-    </div>
-</body>
-
+    <head>
+        <%~ include('src/_partials/headMeta.html') %>
+        <script src="checkout.js" defer="defer"></script>
+        <link href="checkout.css" defer="defer" rel="stylesheet" />
+        <title>Robox - Robotics for Everyone</title>
+        <meta name="description" content="">
+    </head>
+    <body>
+        <%~ include('src/_partials/nav.html') %>
+        
+        <div class="content">
+            <h1>
+                Payment
+            </h1>
+            <div id="main-content">
+                <div id="payment-card">
+                    <h3 class="section-title">
+                        Payment
+                    </h3>
+                    <form id="payment-form">
+                        <div id="stripe-content">
+                            <div id="spinner" class="lds-dual-ring"></div>
+                            <div id="address-element">
+                            </div>
+                            <br>
+    
+                            <div id="payment-element">
+                
+                            </div>
+                            
+                            <div id="error-message">
+                
+                            </div>
+                        </div>
+                        
+                        <button id="submit" class="button">Place order and pay</button>
+                    </form>
+                </div>
+                <div id="order-summary">
+                    <h3 class="section-title">
+                        Order Summary
+                    </h3>
+                    <div id="order-body">
+                        <div id="cost-breakdown">
+                            <p id="order-value-label">
+                                Order value () items:
+                            </p>
+                            <p id="order-value-value">
+        
+                            </p>
+                            <ul id="itemised-list"></ul>
+                            <hr class="cart-item-break">
+                            <p>
+                                Shipping cost
+                            </p>
+                            <p id="shipping-cost">
+                                $100
+                            </p>
+                            <p>Order Total</p>
+                            <p id="total-value">
+                                <br><span style="font-size: x-small; color: grey;">(GST Included)</span>
+                            </p>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+        <footer class="footer"></footer>
+    </body>
 </html>

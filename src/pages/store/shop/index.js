@@ -28,7 +28,8 @@ for (const modal of modals) {
 const productButtons = document.querySelectorAll(".product-button")
 for (const button of productButtons) {
     button.addEventListener("click", (event) => {
-        addCartItem(button.parentElement.id, 1)
+        let productData = allProducts.filter((product) => product.item_id === button.parentElement.id)[0]
+        addCartItem(button.parentElement.id, 1, productData)
         cartModal.showModal()
         event.stopImmediatePropagation()
     })

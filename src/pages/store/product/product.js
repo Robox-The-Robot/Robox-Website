@@ -1,17 +1,13 @@
 
 
-import {getProducts, addCartItem, getCart, refreshCart} from "../payment.js"
+import {getProducts, addCartItem, getCart, refreshCart, dataEvent} from "../payment.js"
 
-try { //VERY HACKY FIX BUT I NEED TO IMPORT THE FOLDER AND FOR SOME REASON THIS WORKS BUT ERRORS ON THE FRONT END
-    import(`./robox-kit-1.0/${image}`)
-    import(`./robox-kit-2.0/${image}`)
 
-    
-}
-catch(err) {}
-refreshCart()
-let carouselImages = document.querySelectorAll(".carousel-image")
-const heroImage = document.querySelector("#hero-image")
+const productId = currentProduct["item_id"]
+
+
+const carouselImages = document.querySelectorAll(".carousel-image")
+const heroImages = document.querySelectorAll(".hero-image")
 
 
 
@@ -27,7 +23,6 @@ leftCarouselButton.addEventListener("click", (e) => {
     if (leftCarouselButton.classList.contains("carousel-button-disabled")) return
     changeHeroImage(currentIndex-1)
 })
-
 let quantity = 1
 
 const cartQuantityInput = document.getElementById("cart-quantity")
@@ -42,39 +37,24 @@ decreaseQuantityButton.addEventListener("click", (e) => {
 })
 cartQuantityInput.addEventListener("input", (e) => {
     quantity = Number(cartQuantityInput.value)
-    console.log(2)
 })
 
 function updateInputQuantity(amount) {
-    console.log(amount)
     if (1 > amount) return
-    quantity = amount
     cartQuantityInput.value = amount
+    quantity = Number(cartQuantityInput.value)
     refreshCart()
 }
 
 const addToCartButton = document.getElementById("add-to-cart") 
 addToCartButton.addEventListener("click", (e) => {
-    addCartItem("test", quantity)
+    addCartItem(productId, quantity, currentProduct)
     refreshCart()
     updateInputQuantity(1)
-    
 })
 
 document.addEventListener("DOMContentLoaded", (event) => {
-    const productName = document.querySelector("#product-name")
-    productName.textContent = currentProduct["name"].toUpperCase()
-    const productPrice = document.getElementById("price")
-    productPrice.textContent = `$${currentProduct["price"]}`
-    const imageCarousel = document.querySelector("#image-carousel")
-    for (const image of images) {
-        let listItem = document.createElement("li")
-        listItem.classList.add("temp-image", "carousel-image")
-        listItem.appendChild(image)
-        imageCarousel.appendChild(listItem)
 
-    }
-    carouselImages = document.querySelectorAll(".carousel-image")
     changeHeroImage(currentIndex)
     for (const carouselImage of carouselImages) {
         carouselImage.addEventListener("click", (e) => {
@@ -92,13 +72,13 @@ function changeHeroImage(number) {
     else if (leftCarouselButton.classList.contains("carousel-button-disabled")) leftCarouselButton.classList.remove("carousel-button-disabled")
     if (number === carouselImages.length-1) rightCarouselButton.classList.add("carousel-button-disabled")
     else if (rightCarouselButton.classList.contains("carousel-button-disabled")) rightCarouselButton.classList.remove("carousel-button-disabled")
-    const element = carouselImages[number].querySelector("img")
-    let replacementURL = element.src
     heroNumber.textContent = `${number+1}\\${carouselImages.length}`
-    heroImage.src = replacementURL
 
     carouselImages[currentIndex].querySelector("img").classList.remove("selected-carousel")
-    element.classList.add("selected-carousel")
+    document.querySelector(".active").classList.remove("active")
+    const heroImage = heroImages[number]
+    heroImage.classList.add("active")
+    carouselImages[number].querySelector("img").classList.add("selected-carousel")
     currentIndex = number
 }
 

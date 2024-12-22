@@ -1,6 +1,6 @@
 import stripe from 'stripe'
 
-const stripeAPI = stripe('sk_test_51PhrZEKQ7f0SWVUxdLCUYmqXzmCDJ4mjE5bBu2NtBUSn2hNG59ENIPCjYaol05OdJricajkdzKJeqoR9xuo7tC5E002AxPFEn1')
+export const stripeAPI = stripe('sk_test_51PhrZEKQ7f0SWVUxdLCUYmqXzmCDJ4mjE5bBu2NtBUSn2hNG59ENIPCjYaol05OdJricajkdzKJeqoR9xuo7tC5E002AxPFEn1')
 export async function getAllProducts() {
     const products = await stripeAPI.products.list();
     let has_more = products.has_more;

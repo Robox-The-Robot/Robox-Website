@@ -2,8 +2,17 @@
 import {getProducts, addCartItem, getCart, refreshCart, setCartItem, getItem} from "../payment.js"
 
 let cart = getCart()
-const productIds = Object.keys(cart)
-const productData = await getItemData()
+let products = cart["products"]
+getItemData().then(serverProducts => {
+    let reload = false
+    for (const serverProductId in serverProducts) {
+        if (JSON.stringify(serverProducts[serverProductId]) !== JSON.stringify(products[serverProductId]["data"])) {
+            reload = true
+            addCartItem(serverProductId, 0, serverProducts[serverProductId])
+        }
+    }
+    if (reload) window.location.reload()
+})
 
 const availableHolder = document.querySelector("#available-section")
 const preorderHolder = document.querySelector("#preorder-section")
@@ -19,7 +28,8 @@ const shippingCost = 100
 
 //Calc is short for calculator chat
 function renderCart() {
-    let cart = getCart()
+    cart = getCart()
+    products = cart["products"]
     orderValueLabel.textContent = `Order value (${cart["quantity"]}) items:`
     
     let cost = 0
@@ -27,24 +37,29 @@ function renderCart() {
     let productItemisationNode = document.createElement("li")
     productItemisationNode.appendChild(document.createElement("p"))
     productItemisationNode.appendChild(document.createElement("p"))
-    for (const productId of productIds) {
-        let product = productData[productId]
+    console.log(products)
+    for (const productId in products) {
+        let product = products[productId]["data"]
         if (!product) continue;
         let price = product.price
-        let quantity = getItem(productId)
+        let quantity = products[productId]["quantity"]
         let cloneProductNode = productItemisationNode.cloneNode(true)
         cloneProductNode.firstChild.textContent = `${quantity} x ${product["name"].toUpperCase()}`
         cloneProductNode.lastChild.textContent = `$${price*quantity}`
+        if (quantity === 0) {
+            continue;
+        }
         itemisedList.appendChild(cloneProductNode)
         cost += price*quantity
     }
     orderValue.textContent = `$${cost}`
-    totalValue.textContent = `$${cost+shippingCost}`
+    
+    totalValue.innerHTML = `$${cost+shippingCost}<br><span style="font-size: x-small; color: grey;">(GST Included)</span>`
 }
 
-for (const productId of productIds) {
+for (const productId in products) {
 
-    const product = productData[productId]
+    const product = products[productId]["data"]
     if (!product || productId == "") continue
     let clone = cartItemElement.content.cloneNode(true)
 
@@ -52,15 +67,14 @@ for (const productId of productIds) {
     let name = product["name"]
     let image = product["image"]
     let status = product["status"]
-    let quantity = cart[productId]
+    let quantity = products[productId]["quantity"]
 
-    console.log(product)
     let titleElement = clone.querySelector(".cart-item-text-title")
     let priceElement = clone.querySelector(".cart-item-text-price")
     let quantityInput = clone.querySelector(".cart-quantity")
     let imageElement = clone.querySelector(".cart-item-photo")
     
-    imageElement.src = image
+    imageElement.src = `/public/images/${name.replaceAll(" ", "-").toLowerCase()}/thumb-thumbnail.webp`
 
 
     titleElement.textContent = name.toUpperCase()
@@ -73,9 +87,6 @@ for (const productId of productIds) {
     productElement.setAttribute("price-id", product["price_id"])
     if (status === "in-stock") availableHolder.querySelector(".cart-item-holder").appendChild(clone)
     else preorderHolder.querySelector(".cart-item-holder").appendChild(clone)
-    
-
-
 }
 
 renderCart()
@@ -100,13 +111,13 @@ function updateCart(product, quantity) {
     let productElement = document.getElementById(product)
     let quantityInput = productElement.querySelector(".cart-quantity")
     quantityInput.value = Number(quantity)
-    setCartItem(product, Number(quantity))
+    setCartItem(product, Number(quantity), products[product]["data"])
     renderCart()
 }
 
 
 async function getItemData() {
-    const promises = productIds.map((productId) =>
+    const promises = Object.keys(products).map((productId) =>
         fetch(`${window.location.origin}/api/store/products?id=${productId}`).then(async (response) => [productId, await response.json()])
     );
 

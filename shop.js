@@ -1,5 +1,5 @@
 import cache from 'memory-cache'
-import { getProduct, getProductList } from './stripe.js';
+import { getProduct, getProductList, stripeAPI } from './stripe.js';
 
 
 import express from 'express'
@@ -7,33 +7,54 @@ const paymentRouter = express.Router()
 
 const DOMAIN = "http://localhost:3000";
 const PRODUCT_CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
+const verifiedProducts = await getProductList()
+
 
 // paymentRouter.use(express.static('./dist'))
 
-// paymentRouter.post("/api/store/checkout", async (req, res) => {
-//     //Validating the post data
-//     // let products = req.data.products
-//     // if (!products.length) return res.status(400)
-//     // for (const product of products) {
-//     //     if (!product["priceID"] || !product["quantity"]) return res.status(400)
-//     // }
-//     const session = await stripe.checkout.sessions.create({
-//         ui_mode: 'embedded',
-//         line_items: [
-//             {
-//                 // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-//                 price: 'price_1PhrbiKQ7f0SWVUxBDc9P4Aj',
-//                 quantity: 2,
-//             },
-//         ],
-//         mode: 'payment',
-//         return_url: `${DOMAIN}/return.html?session_id={CHECKOUT_SESSION_ID}`,
-//     });
+paymentRouter.post("/create", async (req, res) => {
+    let products = req.body.products
+    let expected_price = req.body.expected_price
+    if (!products) return res.status(400).send({error: "Products is not defined"})
+    let verifiedServerCost = 0
+    for (const productId in products) {
+        if (productId === "quantity") continue
+        let product = verifiedProducts.filter((product) => product["item_id"] === productId)[0]
+        let quantity = products[productId]["quantity"]
+        if (!product) return res.status(400).send({
+            error: "Product sent does not exist"
+        })
+        let itemCost = product["price"] * quantity
+        verifiedServerCost += itemCost
+    }
+    verifiedServerCost *= 100
+    if (expected_price !== verifiedServerCost) return res.status(400).send({
+        error: "Server prices do not match the client prices"    
+    })
+    try {
+        Object.keys(products).map((productId) => {
+            products[productId] = products[productId]["quantity"]
+        })
+        console.log(products)
+        const paymentIntent = await stripeAPI.paymentIntents.create({
+            amount: verifiedServerCost,
+            currency: 'aud',
+            automatic_payment_methods: {
+                enabled: true,
+            },
+            metadata: {
+                products: JSON.stringify(products),
+            }
+        });
+        res.json({client_secret: paymentIntent.client_secret});
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).send({error: err})
+    }
+})
 
-//     res.send({ clientSecret: session.client_secret });
-// })
-
-paymentRouter.get("/api/store/products", async (req, res) => {
+paymentRouter.get("/products", async (req, res) => {
     if (req.query["id"]) {
         let productId = req.query["id"]
         if (productId === "quantity") return res.status(200).send(false)
@@ -50,7 +71,7 @@ paymentRouter.get("/api/store/products", async (req, res) => {
         let products = await getProductList();
         cache.put('products', products, PRODUCT_CACHE_DURATION);
         return res.send(products)
-    } 
+    }
 })
 
 

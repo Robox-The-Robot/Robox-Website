@@ -2,7 +2,10 @@ import express from 'express'
 const app = express();
 
 import payment from "./shop.js"
-app.use(payment);
+app.use(express.json());
+
+
+app.use("/api/store", payment);
 
 app.use("/", express.static("./dist"))
 

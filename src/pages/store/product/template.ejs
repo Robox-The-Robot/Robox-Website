@@ -9,38 +9,34 @@
     <title>Robox Store</title>
     <meta name="description" content="">
     <script>
-
-        let allProducts = <%~ JSON.stringify(products) %>;
-        let imageMap = <%~ JSON.stringify(imageMap) %>;
-        let currentProductName = window.location.pathname.split("/")
-        currentProductName = currentProductName[currentProductName.length-1].slice(0, -5)
-        var images = imageMap[currentProductName]
-
-        images = images.map((url) => {
-            let image = document.createElement("img")
-            image.src = `/public/images/${currentProductName}/${url}`
-            return image
-        }
-        );
-        let currentProduct = allProducts.filter((product) => product.name.replaceAll(" ", "-").toLowerCase() === currentProductName)[0]
-        
+        const images = <%~ JSON.stringify(images) %>;
+        const currentProduct = <%~ JSON.stringify(product) %>;
         
     </script>
 </head>
 
 <body>
     <%~ include('src/_partials/nav.html') %>
-    <div id="main-content">
+    <div id="main-content " class="content">
         <div id="starter-info">
             <ul id="image-carousel">
-                
+                <% images.forEach(function(image, index){ %>
+                    <li class="carousel-image" >
+                        <img loading="<%= index > 6 ? 'lazy' : 'eager'  %>" src="<%= `/public/images/${product["name"].replaceAll(" ", "-").toLowerCase()}/thumb-${image}` %>">
+                    </li>
+                <% }) %>
             </ul>
             <hr class="vertical-bars" width="1" size="500" style="margin: 0;border: 0; border-left: 2px solid black;"/>
             <div id="hero-image-container">
                 <div id="carousel-number">
-                    1/2
+                    1/<%= images.length %>
                 </div>
-                <img class="temp-image hero-image" id="hero-image">
+                <div id="hero-image-holder">
+                    <% images.forEach(function(image, index){ %>
+                        <img class="hero-image <%= index === 0 ? 'active' : '1'  %>"  fetchpriority="<%= index === 0 ? 'high' : 'low'  %>" src="<%= `/public/images/${product["name"].replaceAll(" ", "-").toLowerCase()}/${image}` %>">
+                    <% }) %>
+                </div>
+                
                 <button id="carousel-left-button" class="button">
                     <i class="fa-solid fa-angle-left"></i>
                 </button>
@@ -87,11 +83,21 @@
 
             </div>
         </div>
+        <div>
+
+        </div>
         <h1>
             Features
         </h1>
     </div>
 
 </body>
-
+<script>
+    const productName = document.querySelector("#product-name")
+    productName.textContent = currentProduct["name"].toUpperCase()
+    const productPrice = document.getElementById("price")
+    productPrice.textContent = `$${currentProduct["price"]}`
+    const imageCarousel = document.querySelector("#image-carousel")
+    
+</script>
 </html>

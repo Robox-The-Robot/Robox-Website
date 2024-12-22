@@ -2,7 +2,6 @@
     --project-header: 0px;
 }
 body {
-    background-image: url(@images/cross.webp);
     background-color: var(--main-bg-color);
     padding: 0;
     margin: 0;
@@ -14,10 +13,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+
     flex-direction: column;
 }
 #starter-info {
-    margin: 25px;
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -55,7 +54,7 @@ body {
 }
 #hero-image-container {
     height: 500px;
-    width: 50vw;
+    width: 48vw;
     display: flex;
     align-items: center;
     position: relative;
@@ -66,19 +65,26 @@ body {
     max-height: 500px;
     aspect-ratio: 9/16 !important;
     object-fit: contain;
+    display: none;
+}
+#hero-image-holder {
+    width: 100%;
+}
+.active {
+    display: flex;
 }
 .carousel-image > img {
     object-fit: contain;
-    max-width: 115px;;
+    aspect-ratio: 16/9;
+    width: 115px;
+    height: 70px;
+
 }
 #status {
     font-size: 16px;
     color: #45B8DC;
 }
-.temp-image {
-    aspect-ratio: 16/9;
-    background-color: gray;
-}
+
 #carousel-left-button {
     left: 16px;
 }
@@ -155,10 +161,10 @@ body {
     width: max-content;
     margin-left: 20px
 }
-.further-info >i:first-child {
+.further-info > *:first-child {
     font-size: 30px;
 }
-.further-info > i {
+.further-info > * {
     align-self: center;
 }
 .further-info > .fa-arrow-right {

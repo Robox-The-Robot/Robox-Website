@@ -17,20 +17,38 @@ import '../../blockly/theme/category.js';
 
 import {toolbox} from '../../blockly/toolbox.js';
 
-await import("../../blockly/blocks/sensor.js")
-import("../../blockly/generators/sensor.js")
+// await import("../../ blockly/blocks/*")
 
-await import("../../blockly/blocks/motors.js")
-import("../../blockly/generators/motors.js")
+let blocks = import.meta.webpackContext("../../blockly/blocks", {
+    recursive: false,
+    regExp: /\.js$/,
+});
+let generators = import.meta.webpackContext("../../blockly/generators", {
+    recursive: false,
+    regExp: /\.js$/,
+});
+blocks.keys().forEach(modulePath => {
+    const block = blocks(modulePath);
+});
+generators.keys().forEach(modulePath => {
+    const generator = generators(modulePath);
+});
+    
+// try {
+//     await import(
+//         /* webpackChunkName: "blocks" */ 
+//         /* webpackInclude: /\.js$/ */ 
+//         `../../blockly/blocks/${block}`)
+//     await import(
+//         /* webpackChunkName: "generators" */ 
+//         /* webpackInclude: /\.js$/ */ 
+//         `../../blockly/generators/${generator}`)
+// }
+// catch {}
 
-await import("../../blockly/blocks/events.js")
-import("../../blockly/generators/events.js")
 
-await import("../../blockly/blocks/systems.js")
-import("../../blockly/generators/systems.js")
+import("../usb.js") 
 
-
-import "../usb.js"
 
 
 // Set up UI elements and inject Blockly

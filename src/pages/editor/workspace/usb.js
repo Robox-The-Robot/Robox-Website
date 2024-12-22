@@ -9,9 +9,8 @@ const connectButton = document.getElementById("connect")
 const playButton = document.getElementById("play")
 const consoleButton = document.getElementById("terminal")
 const stopButton = document.getElementById("stop")
-
 const consoleTemplate = document.querySelector("#console-output-template")
-const consoleElement = document.querySelector("#text-container")
+const consoleElement = document.querySelector("#print-modal")
 
 const connectionText = document.getElementById("connection-text")
 const roboxFace = document.querySelector("#robox-connection > img")
@@ -26,32 +25,35 @@ let currentReadableStreamClosed
 let restarting = false
 
 let firmware = false
-
 // Code to prefix the script. This includes libraries, etc.
-const scriptDependency = `from machine import Pin, Timer
+const scriptDependency = `
+from roboxlib import Motors
+from machine import Pin, Timer
 import time
 import json
 ENV_LED = Pin(25, Pin.OUT)
 def generatePrint(typ, message):
     jsmessage = {"type": typ, "message": message}
     return json.dumps(jsmessage)
-
+motors = Motors()
+motors.run_motors(20, 20)
 `
 
 const piVendorId = 0x2E8A
 
 reconnectPico()
 
-
 async function connectToPort(e) {
-    const port = navigator.serial.requestDevice({ filters: [{ usbVendorId: piVendorId }] });
+    const port = navigator.serial.requestPort({ filters: [{ usbVendorId: piVendorId }] });
     port.then(async (device) => {
         connect(device)
     })
     .catch((error) => { //User did not select a port (or error connecting) show toolbar?
+        if (error.name === "NotFoundError") return
         createToast("Connection Error!", "Could not connect to the Robox device. Please try again.", "negative")
     })
 }
+
 
 connectButton.addEventListener("click", connectToPort);
 document.getElementById("connection").addEventListener("click", connectToPort);
@@ -68,9 +70,8 @@ stopButton.addEventListener("click", async function (e) {
     playButton.style.display = "inline-block"
     restartPico()
 })  
-const terminalModal = document.querySelector("#print-modal")
 consoleButton.addEventListener("click", async function (e) {
-    terminalModal.showModal()
+    consoleElement.showModal()
 })  
 
 const modals = document.querySelectorAll("dialog")
@@ -110,11 +111,9 @@ async function disconnect() {
     currentPort = undefined
     if (currentReader) {
         try {
-            console.log(1)
 
             await currentReader.cancel()
             await currentReadableStreamClosed.catch((e) => { /* Ignore the error */ });
-            console.log(2)
         }
         catch(err) {
             console.log(err)
@@ -135,13 +134,16 @@ async function disconnect() {
         connectionText.textContent = "Disconnected"
         roboxFace.classList.remove("happy-face")
         roboxFace.classList.add("sad-face")
-        firmware
     }
 }
 
 async function connect(port) {
-    console.log(1)
-    await port.open({ baudRate: 9600 });
+    try {
+        await port.open({ baudRate: 9600 });
+    }
+    catch(err) {
+        return createToast("Port Error!", "We are unable to open the port on the pico! Try resetting it?", "negative")
+    }
     let textEncoder = new TextEncoderStream();
     currentPort = port
     currentWriter = textEncoder.writable.getWriter();
@@ -174,6 +176,7 @@ function warnPicoFirmware() {
 
 
 function reconnectPico() {
+    
     navigator.serial.getPorts().then((ports) => {
         for (const port of ports) {
             let portInfo = port.getInfo()
@@ -203,7 +206,6 @@ async function readPico() {
     try {
         usbloop: while (true) {
             const { value, done } = await currentReader.read()
-            console.log(done, value)
             if (done) {
                 currentReader.releaseLock();
                 break;
