@@ -1,7 +1,20 @@
 import path from 'path'
 import { getAllProducts, getProductList } from './stripe.js';
 import fs from "fs"
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'url'
+import rehypeSanitize from 'rehype-sanitize'
+import rehypeStringify from 'rehype-stringify'
+import rehypeRaw from 'rehype-raw'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import {unified} from 'unified'
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkRehype, {allowDangerousHtml: true})
+  .use(rehypeRaw)
+  .use(rehypeSanitize)
+  .use(rehypeStringify)
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,8 +42,9 @@ for (const product of products) {
     fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${filename}.html`, productPage);
     if (!fs.existsSync(`./src/pages/store/product/images/${filename}`)) {
         fs.mkdirSync(`./src/pages/store/product/images/${filename}`);
+        console.warn(`Images do not exist for ${currentProduct}`)
     }
-    //Hacky fix
+    //Hacky fix to make them all webp files
     productMap[filename] = JSON.parse(JSON.stringify(fs.readdirSync(`./src/pages/store/product/images/${filename}`)).replaceAll(".jpg", ".webp"))
 }
 
@@ -85,6 +99,20 @@ export default {
                     if (resourcePath.includes('/TEMPLATE_')) {
                         //Getting the product name (the +9 is the length of TEMPLATE)
                         let currentProduct = resourcePath.substring(resourcePath.lastIndexOf("TEMPLATE_") + 9, resourcePath.lastIndexOf(".html"));
+                        if (!fs.existsSync(`src/pages/store/product/descriptions/${currentProduct}.md`)) {
+                            console.warn(`Description does not exist for ${currentProduct}`)
+                            data.description = ""
+                        }
+                        else {
+                            processor.process(fs.readFileSync(`src/pages/store/product/descriptions/${currentProduct}.md`, "utf-8"))
+                            .then(html => {
+                                data.description = String(html)
+                            })
+                            .catch(error => {
+                                data.description = ""
+                            })
+                           
+                        }
                         data.images = productMap[currentProduct]
                         data.product = products.filter((product) => product.name.replaceAll(" ", "-").toLowerCase() === currentProduct)[0]
                     }
