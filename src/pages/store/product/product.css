@@ -151,18 +151,27 @@ body {
 #important-info > hr {
     border: 1px black solid;
 }
+#description {
+    font-size: 19px;
+    font-weight: lighter;
+}
+strong {
+    font-weight: 900;
+}
 .further-info {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     align-content: center;
 }
+
 .further-info > h5 {
     width: max-content;
-    margin-left: 20px
+    margin-left: 20px;
+    font-size: 17px
 }
 .further-info > *:first-child {
-    font-size: 30px;
+    font-size: 40px;
 }
 .further-info > * {
     align-self: center;
