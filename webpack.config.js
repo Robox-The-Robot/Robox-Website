@@ -8,6 +8,8 @@ import rehypeRaw from 'rehype-raw'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import {unified} from 'unified'
+import { MarkdownToHtmlPlugin } from './plugins/md-to-html.js';
+
 const processor = unified()
   .use(remarkParse)
   .use(remarkRehype, {allowDangerousHtml: true})
@@ -45,7 +47,8 @@ for (const product of products) {
         console.warn(`Images do not exist for ${currentProduct}`)
     }
     //Hacky fix to make them all webp files
-    productMap[filename] = JSON.parse(JSON.stringify(fs.readdirSync(`./src/pages/store/product/images/${filename}`)).replaceAll(".jpg", ".webp"))
+    productMap[filename] = fs.readdirSync(`./src/pages/store/product/images/${filename}`).map((file) => `${path.parse(file).name}.webp`)
+    console.log(productMap[filename])
 }
 
 
@@ -95,7 +98,7 @@ export default {
             },
             loaderOptions: {
                 beforePreprocessor: (content, { resourcePath, data }) => {
-                    
+                    console.log(resourcePath)
                     if (resourcePath.includes('/TEMPLATE_')) {
                         //Getting the product name (the +9 is the length of TEMPLATE)
                         let currentProduct = resourcePath.substring(resourcePath.lastIndexOf("TEMPLATE_") + 9, resourcePath.lastIndexOf(".html"));
@@ -119,6 +122,11 @@ export default {
 
                 },
             },
+        }),
+        new MarkdownToHtmlPlugin({
+            targetFolder: "src/pages/guides/tutorials",
+            outputFolder: "/guides/tutorials",
+            processor: processor,
         }),
         new CopyPlugin({
             patterns: [
