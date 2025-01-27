@@ -53,11 +53,11 @@ const sensors = [
             "options": [
                 [
                     "FORWARD",
-                    "100"
+                    "1"
                 ],
                 [
                     "BACKWARD",
-                    "-100"
+                    "-1"
                 ],
                 [
                     "STOP",
@@ -81,12 +81,12 @@ const sensors = [
             "name": "direction",
             "options": [
                 [
-                    "RIGHT",
-                    "right"
-                ],
-                [
                     "LEFT",
                     "left"
+                ],
+                [
+                    "RIGHT",
+                    "right"
                 ]
             ]
         }
@@ -131,12 +131,12 @@ const sensors = [
             "name": "motor",
             "options": [
                 [
-                    "A",
-                    "a"
+                    "LEFT",
+                    "left"
                 ],
                 [
-                    "B",
-                    "b"
+                    "RIGHT",
+                    "right"
                 ]
             ]
         },

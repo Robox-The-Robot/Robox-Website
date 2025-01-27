@@ -3,8 +3,8 @@
 <head>
     <%~ include('src/_partials/headMeta.html') %>
     
-    <script src="tutorial.js" defer="defer"></script>
-    <link href="tutorial.css" rel="stylesheet" />
+    <script src="../../tutorial.js" defer="defer"></script>
+    <link href="../../tutorial.css" rel="stylesheet" />
     <title>Building your own Robox</title>
 </head>
 
@@ -33,7 +33,7 @@
                 <div class="two-column">
                     <div class="column">
 
-                        <img class="articleImg" src="./robox.png">
+                        <img class="articleImg" src="@images/robox.png">
 
                     </div>
 
@@ -67,14 +67,14 @@
                 <div class="two-column">
                     <div class="column">
 
-                        <img class="articleImg" src="./ttMotor.jpg">
+                        <img class="articleImg" src="@images/ttMotor.jpg">
 
                         <p>Robox is a line-following robot, which means it follows a black line on the ground. Since it has to move, we need motors which can spin the wheels!</p>
                         <p>The motor has red and black wires, which are used for electricity to flow through. When electricity goes through the motors, it will start spinning.</p>
                     </div>
 
                     <div class="column">
-                        <img class="articleImg" src="./l298nMotorDriver.jpg">
+                        <img class="articleImg" src="@images/l298nMotorDriver.jpg">
                         
                         <p>But how do we control the motors? We need to use a motor driver, which can deliver the electricity to the motor. We have to send a pulse to the motor driver from a microcontroller (small robotics computer) to the driver to tell it to start moving the motors.</p>
                         <p><em>More to come soon!</em></p>

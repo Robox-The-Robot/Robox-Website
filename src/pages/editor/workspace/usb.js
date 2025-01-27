@@ -27,16 +27,18 @@ let restarting = false
 let firmware = false
 // Code to prefix the script. This includes libraries, etc.
 const scriptDependency = `
-from roboxlib import Motors
+from roboxlib import Motors, LineSensors, UltrasonicSensor
 from machine import Pin, Timer
 import time
 import json
 ENV_LED = Pin(25, Pin.OUT)
+line = LineSensors()
+ultrasonic = UltrasonicSensor()
 def generatePrint(typ, message):
     jsmessage = {"type": typ, "message": message}
     return json.dumps(jsmessage)
 motors = Motors()
-motors.run_motors(20, 20)
+motor_speed = 60
 `
 
 const piVendorId = 0x2E8A
@@ -197,7 +199,7 @@ async function sendCode() {
     consoleElement.replaceChildren()
     let code = pythonGenerator.workspaceToCode(ws);
     let finalCode = `${scriptDependency}\n${code}\nevent_begin()`
-    await currentWriter.write("x032BEGINUPLD\r" + finalCode + "\r\x04\r");
+    await currentWriter.write("x032BEGINUPLD\r" + finalCode + "\rx04\r");
     await currentWriter.write("x021STARTPROG\r");
 }
 async function readPico() {
@@ -234,7 +236,9 @@ async function readPico() {
                 error_string = rawErrorMessages.join("\n")
 
             }
+
             for (const message of consoleMessages) {
+                console.log(message)
                 let type = message["type"]
                 if (type === "error") {
                     createToast("Code Error!", message["message"], "negative")

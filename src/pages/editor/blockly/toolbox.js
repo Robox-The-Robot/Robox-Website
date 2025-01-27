@@ -449,6 +449,14 @@ export const toolbox = {
           'kind': 'block',
           'type': 'ultrasonic_distance',
         },
+        {
+          'kind': 'block',
+          'type': 'left_line_sensor',
+        },
+        {
+          'kind': 'block',
+          'type': 'right_line_sensor',
+        },
       ]
     },
     {
