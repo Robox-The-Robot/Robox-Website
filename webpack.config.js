@@ -38,9 +38,7 @@ const productPage = fs.readFileSync('./src/pages/store/product/template.ejs', 'u
 
 
 if (cacheProducts) {
-    if (!fs.existsSync("products.json")) {
-        fs.writeFileSync("products.json", JSON.stringify(await getProductList()), "utf8")
-    }
+    fs.writeFileSync("products.json", JSON.stringify(await getProductList()), "utf8")
 }
 
 const products = cacheProducts ? await getProductList() : JSON.parse(fs.readFileSync("products.json"))
@@ -50,7 +48,7 @@ for (const product of products) {
     fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${filename}.html`, productPage);
     if (!fs.existsSync(`./src/pages/store/product/images/${filename}`)) {
         fs.mkdirSync(`./src/pages/store/product/images/${filename}`);
-        console.warn(`Images do not exist for ${currentProduct}`)
+        console.warn(`Images do not exist for ${product.name}`)
     }
     productMap[filename] = fs.readdirSync(`./src/pages/store/product/images/${filename}`).map((file) => `${path.parse(file).name}.webp`)
 }

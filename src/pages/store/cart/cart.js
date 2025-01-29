@@ -54,7 +54,7 @@ function renderCart() {
     }
     orderValue.textContent = `$${cost}`
     
-    totalValue.innerHTML = `$${cost+shippingCost}<br><span style="font-size: x-small; color: grey;">(GST Included)</span>`
+    totalValue.innerHTML = `$${cost+shippingCost}<br><span style="font-size: x-small; color: grey;"></span>`
 }
 
 for (const productId in products) {

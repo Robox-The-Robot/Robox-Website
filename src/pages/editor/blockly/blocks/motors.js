@@ -4,45 +4,6 @@ import * as Blockly from 'blockly/core';
 
 
 const sensors = [
-    {
-    "type": "define_movement_motors",
-    "message0": "define left motor as %1 and right motor as %2",
-    "args0": [
-        {
-            "type": "field_dropdown",
-            "name": "left_motor",
-            "options": [
-                [
-                    "A",
-                    "a"
-                ],
-                [
-                    "B",
-                    "b"
-                ]
-            ]
-        },
-        {
-            "type": "field_dropdown",
-            "name": "right_motor",
-            "options": [
-                [
-                    "A",
-                    "a"
-                ],
-                [
-                    "B",
-                    "b"
-                ]
-            ]
-        }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": "%{BKY_MOTOR_HUE}",
-    "tooltip": "",
-    "helpUrl": ""
-},
 {
     "type": "motor_move",
     "message0": "move %1",
@@ -68,7 +29,7 @@ const sensors = [
     ],
     "previousStatement": null,
     "nextStatement": null,
-    "colour": "%{BKY_MOTOR_HUE}",
+    "colour": "%{BKY_MOTOR_COLOR}",
     "tooltip": "",
     "helpUrl": ""
 },
@@ -93,7 +54,7 @@ const sensors = [
     ],
     "previousStatement": null,
     "nextStatement": null,
-    "colour": "%{BKY_MOTOR_HUE}",
+    "colour": "%{BKY_MOTOR_COLOR}",
     "tooltip": "",
     "helpUrl": ""
 },
@@ -118,7 +79,7 @@ const sensors = [
     "inputsInline": true,
     "previousStatement": null,
     "nextStatement": null,
-    "colour": "%{BKY_MOTOR_HUE}",
+    "colour": "%{BKY_MOTOR_COLOR}",
     "tooltip": "",
     "helpUrl": ""
 },
@@ -151,7 +112,7 @@ const sensors = [
     "inputsInline": true,
     "previousStatement": null,
     "nextStatement": null,
-    "colour": "%{BKY_MOTOR_HUE}",
+    "colour": "%{BKY_MOTOR_COLOR}",
     "tooltip": "",
     "helpUrl": ""
 }]
