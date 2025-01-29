@@ -1,1 +1,1 @@
-<img class="articleImg" src="@images/robox.png">
+Hi!

@@ -2,20 +2,26 @@ import path from 'path'
 import { getAllProducts, getProductList } from './stripe.js';
 import fs from "fs"
 import { fileURLToPath } from 'url'
-import rehypeSanitize from 'rehype-sanitize'
-import rehypeStringify from 'rehype-stringify'
-import rehypeRaw from 'rehype-raw'
+
 import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
+import remarkHtml from 'remark-html'
+
 import {unified} from 'unified'
 import { MarkdownToHtmlPlugin } from './plugins/md-to-html.js';
 
-const processor = unified()
+
+import { Eta } from 'eta'
+const eta = new Eta({
+  async: false, 
+  useWith: true,
+  views: process.cwd(), // directory that contains templates
+});
+
+
+const processor = await unified()
   .use(remarkParse)
-  .use(remarkRehype, {allowDangerousHtml: true})
-  .use(rehypeRaw)
-  .use(rehypeSanitize)
-  .use(rehypeStringify)
+  .use(remarkHtml, {sanitize: false})
+
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -46,12 +52,34 @@ for (const product of products) {
         fs.mkdirSync(`./src/pages/store/product/images/${filename}`);
         console.warn(`Images do not exist for ${currentProduct}`)
     }
-    //Hacky fix to make them all webp files
     productMap[filename] = fs.readdirSync(`./src/pages/store/product/images/${filename}`).map((file) => `${path.parse(file).name}.webp`)
-    console.log(productMap[filename])
 }
 
-
+fs.readdir("src/pages/guides/tutorials", { withFileTypes: true }, (err, files) => {  
+    files.forEach((file) => {
+        const fullPath = path.join("src/pages/guides/tutorials", file.name);
+        if (file.isFile() && fullPath.endsWith('.md')) {
+            processor.process(fs.readFileSync(fullPath, "utf-8"))
+            .then(html => {
+                fs.writeFileSync(`src/pages/guides/tutorials/GUIDE_${file.name}.html`, `<!DOCTYPE html>
+                    <html lang="en">
+                        <head>
+                            <%~ include('src/_partials/headMeta.html') %>\n
+                            <title>Robox Guides</title>
+                            <meta name="description" content="">
+                        </head>
+                    <body>
+                        <%~ include('src/_partials/nav.html') %>\n
+                        ${String(html)}
+                    </body>
+                `);
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        }
+    });
+})
 
 
 
@@ -98,10 +126,10 @@ export default {
             },
             loaderOptions: {
                 beforePreprocessor: (content, { resourcePath, data }) => {
-                    console.log(resourcePath)
                     if (resourcePath.includes('/TEMPLATE_')) {
                         //Getting the product name (the +9 is the length of TEMPLATE)
                         let currentProduct = resourcePath.substring(resourcePath.lastIndexOf("TEMPLATE_") + 9, resourcePath.lastIndexOf(".html"));
+                        console.log(`src/pages/store/product/descriptions/${currentProduct}`)
                         if (!fs.existsSync(`src/pages/store/product/descriptions/${currentProduct}.md`)) {
                             console.warn(`Description does not exist for ${currentProduct}`)
                             data.description = ""
@@ -122,11 +150,6 @@ export default {
 
                 },
             },
-        }),
-        new MarkdownToHtmlPlugin({
-            targetFolder: "src/pages/guides/tutorials",
-            outputFolder: "/guides/tutorials",
-            processor: processor,
         }),
         new CopyPlugin({
             patterns: [

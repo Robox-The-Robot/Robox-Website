@@ -6,18 +6,18 @@ pythonGenerator.forBlock['wait_until'] = function (block, generator) {
 };
 pythonGenerator.forBlock['get_led_state'] = function (block, generator) {
     // TODO: Assemble python into code variable.
-    var code = 'ENV_LED.value()';
+    var code = 'ENV_LED.value()\n';
     return [code, Order.ATOMIC];
 };
 pythonGenerator.forBlock['get_time'] = function (block, generator) {
     // TODO: Assemble python into code variable.
-    var code = 'time.time()';
+    var code = 'time.time()\n';
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Order.ATOMIC];
 };
 pythonGenerator.forBlock['led_bool'] = function (block, generator) {
     var value_led_on = generator.valueToCode(block, 'led_on', Order.ATOMIC);
-    var code = `ENV_LED.value(${value_led_on})`;
+    var code = `ENV_LED.value(${value_led_on})\n`;
     return code;
 };
 pythonGenerator.forBlock['led_toggle'] = function (block, generator) {

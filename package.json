@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx webpack --mode=development --config webpack.dev.js && node server.js",
     "prod": "npx webpack --mode=production --config webpack.prod.js && node server.js",
-    "start": "nodemon --ignore ./dist/ --ignore TEMPLATE_*.html -e html,css,js,ejs,md --exec npm run dev",
+    "start": "nodemon --ignore ./dist/ --ignore TEMPLATE_*.html --ignore GUIDE_*.html -e html,css,js,ejs,md --exec npm run dev",
     "deploy": "nodemon --ignore ./dist/ --ignore TEMPLATE_*.html -e html,css,js,ejs,md --exec npm run prod"
   },
   "keywords": [],
@@ -26,6 +26,8 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "html-bundler-webpack-plugin": "^4.0.0",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.3",
     "image-minimizer-webpack-plugin": "^4.1.1",
     "imagemin": "^9.0.0",
     "sharp": "^0.33.5",

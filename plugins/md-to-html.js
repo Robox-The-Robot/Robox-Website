@@ -20,26 +20,22 @@ export class MarkdownToHtmlPlugin {
     
         // Tapping to the "thisCompilation" hook in order to further tap
         // to the compilation process on an earlier stage.
-        compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
-            let assets = []
-            fs.readdir(this.options.targetFolder, { withFileTypes: true }, (err, files) => {  
-                files.forEach((file) => {
-                    const fullPath = path.join(this.options.targetFolder, file.name);
-                    if (file.isFile() && fullPath.endsWith('.md')) {
-                        this.options.processor.process(fs.readFileSync(fullPath, "utf-8"))
-                        .then(html => {
-                            compilation.emitAsset(
-                                path.join(this.options.outputFolder, `${path.parse(fullPath).name}.html`),
-                                new RawSource(String(html))
+        compiler.hooks.emit.tapAsync(pluginName, (compilation, callback) => {
+            compilation.emitAsset(
+                path.join(this.options.outputFolder, `tests.html`),
+                    new RawSource(`<%~ include('src/_partials/headMeta.html') %>`)
+                );
+                callback()
 
-                            );
-                        })
-                        .catch(error => {
-                            console.log(error)
-                        })
-                    }
-                });
-            })
+            // compilation.hooks.processAssets.tap({
+            //     "name": pluginName,
+            //     "stage": compilation.PROCESS_ASSETS_STAGE_ADDITIONAL,
+            //     additionalAssets: true
+            // }, (assets) => {
+                
+            // });
+        
+            
         });
         
     }
