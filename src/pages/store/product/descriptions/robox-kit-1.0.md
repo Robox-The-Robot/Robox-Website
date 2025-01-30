@@ -1,5 +1,7 @@
 # Robox 1.0 Robot Kit: The Perfect Starter for Young Engineers  
 Introducing Robox, the affordable, beginner-friendly robot kit designed to make learning robotics fun and accessible for everyone! Whether you're a teacher, a parent, or a student, Robox provides everything you need to build, code, and run your very own robot.<br>
+## This kit is a flatpack kit
+This means that this kit does not come pre-assembled so all the construction and wiring are done by you! This means that it is the perfect kit to teach young engineers how to build a custom robot. If this does not sound appealing to you then we do sell a premade kit which you can take a look at here!
 ## Whats Inside the Kit
 - **Raspberry Pi Pico**: A powerful yet compact microcontroller that powers your robot's brain. With its simple interface, the Pico allows programming with both drag-and-drop software and python for the more confident engineers! 
 - **Wooden Chassis**: A sturdy, eco-friendly plywood frame that forms the case of your robot. It’s pre-cut and ready to assemble with slot fitting and zip ties!

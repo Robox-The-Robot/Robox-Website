@@ -33,9 +33,7 @@
                     1/<%= images.length %>
                 </div>
                 <div id="hero-image-holder">
-                    <% images.forEach(function(image, index){ %>
-                        <img class="hero-image <%= index === 0 ? 'active' : '1'  %>"  fetchpriority="<%= index === 0 ? 'high' : 'low'  %>" src="<%= `/public/images/${product["name"].replaceAll(" ", "-").toLowerCase()}/${image}` %>">
-                    <% }) %>
+                    2
                 </div>
                 
                 <button id="carousel-left-button" class="button">

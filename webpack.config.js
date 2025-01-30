@@ -1,4 +1,4 @@
-import path from 'path'
+import path, { sep } from 'path'
 import { getAllProducts, getProductList } from './stripe.js';
 import fs from "fs"
 import { fileURLToPath } from 'url'
@@ -59,7 +59,7 @@ fs.readdir("src/pages/guides/tutorials", { withFileTypes: true }, (err, files) =
         if (file.isFile() && fullPath.endsWith('.md')) {
             processor.process(fs.readFileSync(fullPath, "utf-8"))
             .then(html => {
-                fs.writeFileSync(`src/pages/guides/tutorials/GUIDE_${file.name}.html`, `<!DOCTYPE html>
+                fs.writeFileSync(`src/pages/guides/tutorials/GUIDE_${path.parse(file.name).name}.html`, `<!DOCTYPE html>
                     <html lang="en">
                         <head>
                             <%~ include('src/_partials/headMeta.html') %>\n
@@ -68,7 +68,9 @@ fs.readdir("src/pages/guides/tutorials", { withFileTypes: true }, (err, files) =
                         </head>
                     <body>
                         <%~ include('src/_partials/nav.html') %>\n
-                        ${String(html)}
+                        <main class="content tutorialContainer">
+                            ${String(html)}
+                        </main>
                     </body>
                 `);
             })
@@ -104,16 +106,25 @@ export default {
                 filename: 'public/css/[name].[contenthash:8].css', // output into dist/assets/css/ directory
             },
             filename: ({ filename, chunk: { name } }) => {
-                let splitname = name.split("/")
-                if (splitname[splitname.length-1] === 'index') {
-                    splitname.splice(-2, 1)
-                    splitname = splitname.join("/")
-                    return `${splitname}.html`;
+                let absolutePath = filename
+                let relativePath = name
+                // if (absolutePath.includes("index.")) {
+                //     let directory = path.dirname(relativePath)
+                //     let seperatedPath = directory.split(sep)
+                //     seperatedPath.splice(seperatedPath.length-2, 1)
+                //     return path.format({
+                //         "root": "",
+                //         "dir": seperatedPath.join(sep),
+                //         "name": path.basename(absolutePath),
+                //     })
+                // }
+                if (absolutePath.includes("TEMPLATE_")) {
+                    relativePath = relativePath.replace("TEMPLATE_", "")
+                    return `${relativePath}.html`
                 }
-                if (splitname[splitname.length-1].slice(0,9) === "TEMPLATE_") {
-                    splitname[splitname.length-1] = splitname[splitname.length-1].slice(9)
-                    splitname = splitname.join("/")
-                    return `${splitname}.html`
+                if (absolutePath.includes("GUIDE_")) {
+                    relativePath = relativePath.replace("GUIDE_", "")
+                    return `${relativePath}.html`
                 }
                 // bypass the original structure
                 return '[name].html';
@@ -124,10 +135,10 @@ export default {
             },
             loaderOptions: {
                 beforePreprocessor: (content, { resourcePath, data }) => {
-                    if (resourcePath.includes('/TEMPLATE_')) {
+                    if (resourcePath.includes("TEMPLATE_")) {
+
                         //Getting the product name (the +9 is the length of TEMPLATE)
                         let currentProduct = resourcePath.substring(resourcePath.lastIndexOf("TEMPLATE_") + 9, resourcePath.lastIndexOf(".html"));
-                        console.log(`src/pages/store/product/descriptions/${currentProduct}`)
                         if (!fs.existsSync(`src/pages/store/product/descriptions/${currentProduct}.md`)) {
                             console.warn(`Description does not exist for ${currentProduct}`)
                             data.description = ""
