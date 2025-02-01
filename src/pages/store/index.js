@@ -1,5 +1,5 @@
 
-import {getProducts, addCartItem, getCart, refreshCart} from "../payment.js"
+import {getProducts, addCartItem, getCart, refreshCart} from "./payment.js"
 
 
 
