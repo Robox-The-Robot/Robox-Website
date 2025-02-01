@@ -61,15 +61,31 @@
                 </p>
                 
                 <div id="product-holder" style="margin-top: 48px;">
-                    
-                    <div>
-                        <article class="product" onclick="window.location.href ='/guides/tutorials/building-your-robox.html'">
-                            <img class="product-image" src="@images/buildRoboxThumb.png">
+                    <% guides.forEach(function(guide){ %>
+                        <div>
+                            <article class="product">
+                                <img class="product-image" src="guides/tutorials/images/<%= guide["filename"] %>.png">
+                                <h1> <%= guide["title"] %> </h1><br>
+                                <p><%= guide["description"] %></p>
+                                <div class="product-button">
+                                    <a href="<%= guide['link'] %>">
+                                        <p>Go</p>
+                                    </a>
+                                </div>
+                            </article>
+                        </div>
+                        
+                    <% }) %>
+                    <!-- <div>
+                        <article class="product">
+                            <img class="product-image" src="">
                             <h1> Building your own Robox </h1><br>
                             <p>Let's get started! This guide will show you how to build your own Robox.</p>
-                            <button onclick="location.href = '/guides/building-your-robox'" class="product-button">
-                                Go
-                            </button>
+                            <div class="product-button">
+                                <a >
+                                    Go
+                                </a>
+                            </div>
                         </article>
                     </div>
                     <div>
@@ -77,9 +93,12 @@
                             <img class="product-image" src="@images/python.png">
                             <h1> Robox Python Library </h1><br>
                             <p>Use this Python library to help you out with coding your own Robox!</p>
-                            <button  class="product-button">
-                                Go
-                            </button>
+                            <div class="product-button">
+                                <a >
+                                    Go
+                                </a>
+                            </div>
+                            
                         </article>
                     </div>
                     <div>
@@ -87,11 +106,13 @@
                             <img class="product-image" src="@images/tilesThumb.png">
                             <h1> Tile Printouts </h1><br>
                             <p>Print these A3 tiles from the Robocup Australia Rescue Line challenge to test out your Robox!</p>
-                            <button onclick="location.href = 'https\:\/\/rcja.app\/rcj_cms\/line\/tiles\/'" class="product-button">
-                                Go
-                            </button>
+                            <div class="product-button">
+                                <a >
+                                    Go
+                                </a>
+                            </div>
                         </article>
-                    </div>
+                    </div> -->
                     
 
 

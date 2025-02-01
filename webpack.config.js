@@ -3,24 +3,26 @@ import { getAllProducts, getProductList } from './stripe.js';
 import fs from "fs"
 import { fileURLToPath } from 'url'
 
+import rehypeDocument from 'rehype-document'
+import rehypeFormat from 'rehype-format'
+import rehypeRaw from 'rehype-raw'
+
+import rehypeStringify from 'rehype-stringify'
 import remarkParse from 'remark-parse'
-import remarkHtml from 'remark-html'
+import remarkRehype from 'remark-rehype'
 
 import {unified} from 'unified'
-import { MarkdownToHtmlPlugin } from './plugins/md-to-html.js';
 
 
-import { Eta } from 'eta'
-const eta = new Eta({
-  async: false, 
-  useWith: true,
-  views: process.cwd(), // directory that contains templates
-});
 
 
-const processor = await unified()
+const processor = unified()
   .use(remarkParse)
-  .use(remarkHtml, {sanitize: false})
+  .use(remarkRehype, {allowDangerousHtml: true})
+  .use(rehypeRaw)
+  .use(rehypeDocument)
+  .use(rehypeFormat)
+  .use(rehypeStringify)
 
 
 
@@ -87,7 +89,6 @@ import HtmlBundlerPlugin from 'html-bundler-webpack-plugin'
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import CopyPlugin from "copy-webpack-plugin"
 
-
 export default {
     resolve: {
         alias: {
@@ -131,7 +132,8 @@ export default {
             },
             data: {
                 products,
-                imageMap: productMap
+                imageMap: productMap,
+                guides: (JSON.parse(fs.readFileSync("src/pages/guides/tutorials/meta.json")))["guides"]
             },
             loaderOptions: {
                 beforePreprocessor: (content, { resourcePath, data }) => {

@@ -1,0 +1,11 @@
+{
+    "guides": [
+        {
+            "filename": "building-your-robox",
+            "title": "Assembling your Robox Kit",
+            "description": "A guide to help you assemble your Robox kit!",
+            "link": "/guides/tutorials/building-your-robox.html"
+        }
+    ]
+   
+}
