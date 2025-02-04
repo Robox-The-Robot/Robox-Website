@@ -3,7 +3,7 @@
 
 import { pythonGenerator, Order } from 'blockly/python'
 
-pythonGenerator.forBlock['distance'] = function (block, generator) {
+pythonGenerator.forBlock['ultrasonic_distance'] = function (block, generator) {
     var code = 'ultrasonic.distance()';
     return [code, Order.ATOMIC];
 };

@@ -8,6 +8,7 @@
     <link href="product.css" rel="stylesheet" />
     <title>Robox Store</title>
     <meta name="description" content="">
+    <link rel="preload" href="<%= `/public/images/${product["name"].replaceAll(" ", "-").toLowerCase()}/${images[0]}` %>" as="image">
     <script>
         
         const images = <%~ JSON.stringify(images) %>;
@@ -33,6 +34,9 @@
                     1/<%= images.length %>
                 </div>
                 <div id="hero-image-holder">
+                    <% images.forEach(function(image, index){ %>
+                        <img class="hero-image" loading="<%= index === 0 ? 'eager' : 'lazy'  %>" src="<%= `/public/images/${product["name"].replaceAll(" ", "-").toLowerCase()}/${image}` %>">
+                    <% }) %>
                     
                 </div>
                 

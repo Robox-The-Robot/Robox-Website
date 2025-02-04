@@ -109,16 +109,6 @@ export default {
             filename: ({ filename, chunk: { name } }) => {
                 let absolutePath = filename
                 let relativePath = name
-                // if (absolutePath.includes("index.")) {
-                //     let directory = path.dirname(relativePath)
-                //     let seperatedPath = directory.split(sep)
-                //     seperatedPath.splice(seperatedPath.length-2, 1)
-                //     return path.format({
-                //         "root": "",
-                //         "dir": seperatedPath.join(sep),
-                //         "name": path.basename(absolutePath),
-                //     })
-                // }
                 if (absolutePath.includes("TEMPLATE_")) {
                     relativePath = relativePath.replace("TEMPLATE_", "")
                     return `${relativePath}.html`

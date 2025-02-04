@@ -12,7 +12,7 @@
     "dev": "npx webpack --mode=development --config webpack.dev.js && node server.js",
     "prod": "npx webpack --mode=production --config webpack.prod.js && node server.js",
     "start": "nodemon --ignore ./dist/ --ignore TEMPLATE_*.html --ignore GUIDE_*.html -e html,css,js,ejs,md --exec npm run dev",
-    "deploy": "nodemon --ignore ./dist/ --ignore TEMPLATE_*.html -e html,css,js,ejs,md --exec npm run prod"
+    "deploy": "nodemon --ignore ./dist/ --ignore TEMPLATE_*.html --ignore GUIDE_*.html -e html,css,js,ejs,md --exec npm run prod"
   },
   "keywords": [],
   "author": "",

@@ -5,6 +5,12 @@
             "title": "Assembling your Robox Kit",
             "description": "A guide to help you assemble your Robox kit!",
             "link": "/guides/tutorials/building-your-robox.html"
+        },
+        {
+            "filename": "coding-with-python",
+            "title": "Using Python on Robox",
+            "description": "A guide to help you use the Python programming language with Robox",
+            "link": "/guides/tutorials/coding-with-python.html"
         }
     ]
    
