@@ -5,25 +5,25 @@
  */
 
 import {inject, Events} from 'blockly';
-import { createToast } from "../alerts.js"
+import { createToast } from "./alerts.js"
 
 
 
-import { renameProject, loadBlockly, saveBlockly, getProject } from '../../blockly/serialization.js';
+import { renameProject, loadBlockly, saveBlockly, getProject } from '../blockly/serialization.js';
 
-import theme from '../../blockly/theme/theme.js';
-import '../../blockly/theme/category.js';
+import theme from '../blockly/theme/theme.js';
+import '../blockly/theme/category.js';
 
 
-import {toolbox} from '../../blockly/toolbox.js';
+import {toolbox} from '../blockly/toolbox.js';
 
 // await import("../../ blockly/blocks/*")
 
-let blocks = import.meta.webpackContext("../../blockly/blocks", {
+let blocks = import.meta.webpackContext("../blockly/blocks", {
     recursive: false,
     regExp: /\.js$/,
 });
-let generators = import.meta.webpackContext("../../blockly/generators", {
+let generators = import.meta.webpackContext("../blockly/generators", {
     recursive: false,
     regExp: /\.js$/,
 });
@@ -47,7 +47,7 @@ generators.keys().forEach(modulePath => {
 // catch {}
 
 
-import("../usb.js") 
+import("./usb.js") 
 
 
 
@@ -73,6 +73,8 @@ const ws = inject(blocklyDiv, {
     trashcan: false,
     theme: theme,
 });
+
+Blockly.Msg.LOGIC_HUE = "#ffb515";
 
 
 ws.addChangeListener(Events.disableOrphans)

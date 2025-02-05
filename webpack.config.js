@@ -1,21 +1,29 @@
-import path from 'path'
+import path, { sep } from 'path'
 import { getAllProducts, getProductList } from './stripe.js';
 import fs from "fs"
 import { fileURLToPath } from 'url'
-import rehypeSanitize from 'rehype-sanitize'
-import rehypeStringify from 'rehype-stringify'
+
+import rehypeDocument from 'rehype-document'
+import rehypeFormat from 'rehype-format'
 import rehypeRaw from 'rehype-raw'
+
+import rehypeStringify from 'rehype-stringify'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
+
 import {unified} from 'unified'
-import { MarkdownToHtmlPlugin } from './plugins/md-to-html.js';
+
+
+
 
 const processor = unified()
   .use(remarkParse)
   .use(remarkRehype, {allowDangerousHtml: true})
   .use(rehypeRaw)
-  .use(rehypeSanitize)
+  .use(rehypeDocument)
+  .use(rehypeFormat)
   .use(rehypeStringify)
+
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -32,9 +40,7 @@ const productPage = fs.readFileSync('./src/pages/store/product/template.ejs', 'u
 
 
 if (cacheProducts) {
-    if (!fs.existsSync("products.json")) {
-        fs.writeFileSync("products.json", JSON.stringify(await getProductList()), "utf8")
-    }
+    fs.writeFileSync("products.json", JSON.stringify(await getProductList()), "utf8")
 }
 
 const products = cacheProducts ? await getProductList() : JSON.parse(fs.readFileSync("products.json"))
@@ -44,21 +50,44 @@ for (const product of products) {
     fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${filename}.html`, productPage);
     if (!fs.existsSync(`./src/pages/store/product/images/${filename}`)) {
         fs.mkdirSync(`./src/pages/store/product/images/${filename}`);
-        console.warn(`Images do not exist for ${currentProduct}`)
+        console.warn(`Images do not exist for ${product.name}`)
     }
-    //Hacky fix to make them all webp files
     productMap[filename] = fs.readdirSync(`./src/pages/store/product/images/${filename}`).map((file) => `${path.parse(file).name}.webp`)
-    console.log(productMap[filename])
 }
 
-
+fs.readdir("src/pages/guides/tutorials", { withFileTypes: true }, (err, files) => {  
+    files.forEach((file) => {
+        const fullPath = path.join("src/pages/guides/tutorials", file.name);
+        if (file.isFile() && fullPath.endsWith('.md')) {
+            processor.process(fs.readFileSync(fullPath, "utf-8"))
+            .then(html => {
+                fs.writeFileSync(`src/pages/guides/tutorials/GUIDE_${path.parse(file.name).name}.html`, `<!DOCTYPE html>
+                    <html lang="en">
+                        <head>
+                            <%~ include('src/_partials/headMeta.html') %>\n
+                            <title>Robox Guides</title>
+                            <meta name="description" content="">
+                        </head>
+                    <body>
+                        <%~ include('src/_partials/nav.html') %>\n
+                        <main class="content tutorialContainer">
+                            ${String(html)}
+                        </main>
+                    </body>
+                `);
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        }
+    });
+})
 
 
 
 import HtmlBundlerPlugin from 'html-bundler-webpack-plugin'
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import CopyPlugin from "copy-webpack-plugin"
-
 
 export default {
     resolve: {
@@ -78,28 +107,28 @@ export default {
                 filename: 'public/css/[name].[contenthash:8].css', // output into dist/assets/css/ directory
             },
             filename: ({ filename, chunk: { name } }) => {
-                let splitname = name.split("/")
-                if (splitname[splitname.length-1] === 'index') {
-                    splitname.splice(-2, 1)
-                    splitname = splitname.join("/")
-                    return `${splitname}.html`;
+                let absolutePath = filename
+                let relativePath = name
+                if (absolutePath.includes("TEMPLATE_")) {
+                    relativePath = relativePath.replace("TEMPLATE_", "")
+                    return `${relativePath}.html`
                 }
-                if (splitname[splitname.length-1].slice(0,9) === "TEMPLATE_") {
-                    splitname[splitname.length-1] = splitname[splitname.length-1].slice(9)
-                    splitname = splitname.join("/")
-                    return `${splitname}.html`
+                if (absolutePath.includes("GUIDE_")) {
+                    relativePath = relativePath.replace("GUIDE_", "")
+                    return `${relativePath}.html`
                 }
                 // bypass the original structure
                 return '[name].html';
             },
             data: {
                 products,
-                imageMap: productMap
+                imageMap: productMap,
+                guides: (JSON.parse(fs.readFileSync("src/pages/guides/tutorials/meta.json")))["guides"]
             },
             loaderOptions: {
                 beforePreprocessor: (content, { resourcePath, data }) => {
-                    console.log(resourcePath)
-                    if (resourcePath.includes('/TEMPLATE_')) {
+                    if (resourcePath.includes("TEMPLATE_")) {
+
                         //Getting the product name (the +9 is the length of TEMPLATE)
                         let currentProduct = resourcePath.substring(resourcePath.lastIndexOf("TEMPLATE_") + 9, resourcePath.lastIndexOf(".html"));
                         if (!fs.existsSync(`src/pages/store/product/descriptions/${currentProduct}.md`)) {
@@ -122,11 +151,6 @@ export default {
 
                 },
             },
-        }),
-        new MarkdownToHtmlPlugin({
-            targetFolder: "src/pages/guides/tutorials",
-            outputFolder: "/guides/tutorials",
-            processor: processor,
         }),
         new CopyPlugin({
             patterns: [

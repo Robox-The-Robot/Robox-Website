@@ -35,7 +35,6 @@ paymentRouter.post("/create", async (req, res) => {
         Object.keys(products).map((productId) => {
             products[productId] = products[productId]["quantity"]
         })
-        console.log(products)
         const paymentIntent = await stripeAPI.paymentIntents.create({
             amount: verifiedServerCost,
             currency: 'aud',

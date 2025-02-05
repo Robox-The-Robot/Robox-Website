@@ -1,8 +1,8 @@
 
 
-import { createToast } from "../workspace/alerts.js"
+import { createToast } from "./workspace/alerts.js"
 
-import { createProject, getProject, getProjects, renameProject, deleteProject, saveBlocklyCompressed } from '../blockly/serialization.js';
+import { createProject, getProject, getProjects, renameProject, deleteProject, saveBlocklyCompressed } from './blockly/serialization.js';
 
 import relativeTime from "dayjs/plugin/relativeTime.js"
 import dayjs from 'dayjs';

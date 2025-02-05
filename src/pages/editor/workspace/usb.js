@@ -164,6 +164,7 @@ async function connect(port) {
     roboxFace.classList.remove("sad-face")
     if (restarting) restarting = false
     readPico()
+    console.log("TEST")
     await currentWriter.write("x019FIRMCHECK\r")
     
     setTimeout(() => {

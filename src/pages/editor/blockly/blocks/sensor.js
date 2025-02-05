@@ -14,7 +14,7 @@ const sensors = [
             } 
         ],
         "output": null,
-        "colour": "%{BKY_SENSOR_HUE}",
+        "colour": "%{BKY_SENSOR_COLOR}",
         "inputsInline": true
     },
     {
@@ -29,7 +29,7 @@ const sensors = [
             } 
         ],
         "output": null,
-        "colour": "%{BKY_SENSOR_HUE}",
+        "colour": "%{BKY_SENSOR_COLOR}",
         "inputsInline": true
     },
     {
@@ -44,7 +44,7 @@ const sensors = [
             } 
         ],
         "output": null,
-        "colour": "%{BKY_SENSOR_HUE}",
+        "colour": "%{BKY_SENSOR_COLOR}",
         "inputsInline": true
     },
 ]
