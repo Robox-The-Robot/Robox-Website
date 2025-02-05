@@ -54,8 +54,8 @@ for (const product of products) {
     }
     productMap[filename] = fs.readdirSync(`./src/pages/store/product/images/${filename}`).map((file) => `${path.parse(file).name}.webp`)
 }
-console.log(fs.readdir("src/pages/guides/tutorials"))
-console.log(fs.readdir("/"))
+console.log(fs.readdirSync("src/pages/guides/tutorials"))
+console.log(fs.readdirSync("/"))
 fs.readdir("src/pages/guides/tutorials", { withFileTypes: true }, (err, files) => {  
     files.forEach((file) => {
         const fullPath = path.join("src/pages/guides/tutorials", file.name);
