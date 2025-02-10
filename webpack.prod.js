@@ -5,8 +5,8 @@ import CssMinimizerPlugin from "css-minimizer-webpack-plugin"
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import CompressionPlugin from "compression-webpack-plugin"
 
-
-const mergedConfig = merge(common, {
+let config = await common()
+const mergedConfig = merge(config, {
     mode: 'production',
     devtool: false,
     plugins: [
