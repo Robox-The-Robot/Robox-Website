@@ -18,6 +18,7 @@ import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import CopyPlugin from "copy-webpack-plugin"
 
 
+const cacheProducts = true
 
 const processor = unified()
   .use(remarkParse)
@@ -62,179 +63,176 @@ fs.readdir("src/pages/guides/tutorials", { withFileTypes: true }, (err, files) =
     });
 })
 
-const cacheProducts = true
-const productMap = {}
-const productPage = fs.readFileSync('./src/pages/store/product/template.ejs', 'utf8');
-var products;
+async function processProducts(cache) {
+    let productPage = fs.readFileSync('./src/pages/store/product/template.ejs', 'utf8');
+    let productMap = {}
+    let products;
 
-async function processProducts() {
-    return new Promise(async (resolve, _) => {
-        if (cacheProducts) {
-            products = await getProductList()
-            fs.writeFileSync("products.json", JSON.stringify(products), "utf8")
-        } else {
-            products = JSON.parse(fs.readFileSync("products.json"))
+    if (cache) {
+        products = await getProductList()
+        fs.writeFileSync("products.json", JSON.stringify(products), "utf8")
+    } else {
+        products = JSON.parse(fs.readFileSync("products.json"))
+    }
+    
+    for (const product of products) {
+        let filename = product.name.replaceAll(" ", "-").toLowerCase()
+        fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${filename}.html`, productPage);
+        if (!fs.existsSync(`./src/pages/store/product/images/${filename}`)) {
+            fs.mkdirSync(`./src/pages/store/product/images/${filename}`);
+            console.warn(`Images do not exist for ${product.name}`)
         }
-        
-        for (const product of products) {
-            let filename = product.name.replaceAll(" ", "-").toLowerCase()
-            fs.writeFileSync(`./src/pages/store/product/TEMPLATE_${filename}.html`, productPage);
-            if (!fs.existsSync(`./src/pages/store/product/images/${filename}`)) {
-                fs.mkdirSync(`./src/pages/store/product/images/${filename}`);
-                console.warn(`Images do not exist for ${product.name}`)
-            }
-            productMap[filename] = fs.readdirSync(`./src/pages/store/product/images/${filename}`).map((file) => `${path.parse(file).name}.webp`)
-        }
+        productMap[filename] = fs.readdirSync(`./src/pages/store/product/images/${filename}`).map((file) => `${path.parse(file).name}.webp`)
+    }
 
-        resolve()
-    })
+    return [products, productMap];
 }
 
-export default function() {
-    return processProducts().then(() => {
-        return {
-            resolve: {
-                alias: {
-                    "@images": path.join(__dirname, 'src/_images/'),
-                    "@partials": path.join(__dirname, 'src/_partials/'),
-                    "@root": path.join(__dirname, 'src/_root/')
-                }
-            },
-            plugins: [
-                new HtmlBundlerPlugin({
-                    entry: "src/pages/",
-                    js: {
-                        filename: 'public/js/[name].[contenthash:8].js', // output into dist/assets/js/ directory
-                    },
-                    css: {
-                        filename: 'public/css/[name].[contenthash:8].css', // output into dist/assets/css/ directory
-                    },
-                    filename: ({ filename, chunk: { name } }) => {
-                        let absolutePath = filename
-                        let relativePath = name
-                        if (absolutePath.includes("TEMPLATE_")) {
-                            relativePath = relativePath.replace("TEMPLATE_", "")
-                            return `${relativePath}.html`
-                        }
-                        if (absolutePath.includes("GUIDE_")) {
-                            relativePath = relativePath.replace("GUIDE_", "")
-                            return `${relativePath}.html`
-                        }
-                        // bypass the original structure
-                        return '[name].html';
-                    },
-                    data: {
-                        products,
-                        imageMap: productMap,
-                        guides: (JSON.parse(fs.readFileSync("src/pages/guides/tutorials/meta.json")))["guides"]
-                    },
-                    loaderOptions: {
-                        beforePreprocessor: (content, { resourcePath, data }) => {
-                            if (resourcePath.includes("TEMPLATE_")) {
-    
-                                //Getting the product name (the +9 is the length of TEMPLATE)
-                                let currentProduct = resourcePath.substring(resourcePath.lastIndexOf("TEMPLATE_") + 9, resourcePath.lastIndexOf(".html"));
-                                if (!fs.existsSync(`src/pages/store/product/descriptions/${currentProduct}.md`)) {
-                                    console.warn(`Description does not exist for ${currentProduct}`)
-                                    data.description = ""
-                                }
-                                else {
-                                    processor.process(fs.readFileSync(`src/pages/store/product/descriptions/${currentProduct}.md`, "utf-8"))
-                                    .then(html => {
-                                        data.description = String(html)
-                                    })
-                                    .catch(error => {
-                                        data.description = ""
-                                    })
-                                
-                                }
-                                data.images = productMap[currentProduct]
-                                data.product = products.filter((product) => product.name.replaceAll(" ", "-").toLowerCase() === currentProduct)[0]
+export default async function() {
+    let [products, productMap] = await processProducts(cacheProducts)
+
+    return {
+        resolve: {
+            alias: {
+                "@images": path.join(__dirname, 'src/_images/'),
+                "@partials": path.join(__dirname, 'src/_partials/'),
+                "@root": path.join(__dirname, 'src/_root/')
+            }
+        },
+        plugins: [
+            new HtmlBundlerPlugin({
+                entry: "src/pages/",
+                js: {
+                    filename: 'public/js/[name].[contenthash:8].js', // output into dist/assets/js/ directory
+                },
+                css: {
+                    filename: 'public/css/[name].[contenthash:8].css', // output into dist/assets/css/ directory
+                },
+                filename: ({ filename, chunk: { name } }) => {
+                    let absolutePath = filename
+                    let relativePath = name
+                    if (absolutePath.includes("TEMPLATE_")) {
+                        relativePath = relativePath.replace("TEMPLATE_", "")
+                        return `${relativePath}.html`
+                    }
+                    if (absolutePath.includes("GUIDE_")) {
+                        relativePath = relativePath.replace("GUIDE_", "")
+                        return `${relativePath}.html`
+                    }
+                    // bypass the original structure
+                    return '[name].html';
+                },
+                data: {
+                    products,
+                    imageMap: productMap,
+                    guides: (JSON.parse(fs.readFileSync("src/pages/guides/tutorials/meta.json")))["guides"]
+                },
+                loaderOptions: {
+                    beforePreprocessor: (content, { resourcePath, data }) => {
+                        if (resourcePath.includes("TEMPLATE_")) {
+
+                            //Getting the product name (the +9 is the length of TEMPLATE)
+                            let currentProduct = resourcePath.substring(resourcePath.lastIndexOf("TEMPLATE_") + 9, resourcePath.lastIndexOf(".html"));
+                            if (!fs.existsSync(`src/pages/store/product/descriptions/${currentProduct}.md`)) {
+                                console.warn(`Description does not exist for ${currentProduct}`)
+                                data.description = ""
                             }
-    
-                        },
+                            else {
+                                processor.process(fs.readFileSync(`src/pages/store/product/descriptions/${currentProduct}.md`, "utf-8"))
+                                .then(html => {
+                                    data.description = String(html)
+                                })
+                                .catch(error => {
+                                    data.description = ""
+                                })
+                            
+                            }
+                            data.images = productMap[currentProduct]
+                            data.product = products.filter((product) => product.name.replaceAll(" ", "-").toLowerCase() === currentProduct)[0]
+                        }
+
                     },
-                }),
-                new CopyPlugin({
-                    patterns: [
-                        { from: "./src/_resources", to: "resources/" },
-                        { from: "**/*", to: "public/images/", toType:"dir", context: "./src/pages/store/product/images/" },
+                },
+            }),
+            new CopyPlugin({
+                patterns: [
+                    { from: "./src/_resources", to: "resources/" },
+                    { from: "**/*", to: "public/images/", toType:"dir", context: "./src/pages/store/product/images/" },
+                ],
+            }),
+        ],
+        module: {
+            rules: [
+                {
+                    test: /\.css$/i,
+                    use: ['css-loader'], //"style-loader"
+                },
+                {
+                    test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                    type: 'asset/resource',
+                },
+                {
+                    test: /\.(jpe?g|png|gif|svg)$/i,
+                    type: "asset",
+                },
+            ],
+        },
+        optimization: {
+            minimize: true,
+            minimizer: [
+                new ImageMinimizerPlugin({ //The optimiser for the thumbnail photos
+                    generator: [
+                        {
+                            type: "asset",
+                            implementation: ImageMinimizerPlugin.sharpGenerate,
+                            filter: (source, sourcePath) => {
+                                let splitSourcePath = sourcePath.split("/")
+                                if (splitSourcePath.length < 3) return false
+                                return splitSourcePath[splitSourcePath.length-3] === "images"
+                            },
+                            filename: "[path]thumb-[name][ext]",
+
+                            options: {
+                                
+                                encodeOptions: {
+                                    webp: {
+                                        quality: 100,
+                                    },
+                                },
+                                resize: {
+                                    enabled: true,
+                                    height: 70*2,
+                                    width: 115*2,
+                                },
+                            },
+                        },
+                        {
+                            type: "asset",
+                            implementation: ImageMinimizerPlugin.sharpGenerate,
+                            filter: (source, sourcePath) => {
+                                let splitSourcePath = sourcePath.split("/")
+                                if (splitSourcePath.length < 3) return false
+                                return splitSourcePath[splitSourcePath.length-3] === "images"
+                            },
+                            filename: "[path][name][ext]",
+
+                            options: {
+                                encodeOptions: {
+                                    webp: {
+                                        quality: 90,
+                                    },
+                                },
+                            },
+                        },
                     ],
                 }),
             ],
-            module: {
-                rules: [
-                    {
-                        test: /\.css$/i,
-                        use: ['css-loader'], //"style-loader"
-                    },
-                    {
-                        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-                        type: 'asset/resource',
-                    },
-                    {
-                        test: /\.(jpe?g|png|gif|svg)$/i,
-                        type: "asset",
-                    },
-                ],
-            },
-            optimization: {
-                minimize: true,
-                minimizer: [
-                    new ImageMinimizerPlugin({ //The optimiser for the thumbnail photos
-                        generator: [
-                            {
-                                type: "asset",
-                                implementation: ImageMinimizerPlugin.sharpGenerate,
-                                filter: (source, sourcePath) => {
-                                    let splitSourcePath = sourcePath.split("/")
-                                    if (splitSourcePath.length < 3) return false
-                                    return splitSourcePath[splitSourcePath.length-3] === "images"
-                                },
-                                filename: "[path]thumb-[name][ext]",
-    
-                                options: {
-                                    
-                                    encodeOptions: {
-                                        webp: {
-                                            quality: 100,
-                                        },
-                                    },
-                                    resize: {
-                                        enabled: true,
-                                        height: 70*2,
-                                        width: 115*2,
-                                    },
-                                },
-                            },
-                            {
-                                type: "asset",
-                                implementation: ImageMinimizerPlugin.sharpGenerate,
-                                filter: (source, sourcePath) => {
-                                    let splitSourcePath = sourcePath.split("/")
-                                    if (splitSourcePath.length < 3) return false
-                                    return splitSourcePath[splitSourcePath.length-3] === "images"
-                                },
-                                filename: "[path][name][ext]",
-    
-                                options: {
-                                    encodeOptions: {
-                                        webp: {
-                                            quality: 90,
-                                        },
-                                    },
-                                },
-                            },
-                        ],
-                    }),
-                ],
-            },
-            output: {
-                filename: 'public/js/[name].[contenthash].js',
-                path: path.resolve(__dirname, 'dist'),
-                publicPath: '/',
-                clean: true
-            },
-        }
-    })
+        },
+        output: {
+            filename: 'public/js/[name].[contenthash].js',
+            path: path.resolve(__dirname, 'dist'),
+            publicPath: '/',
+            clean: true
+        },
+    }
 }
