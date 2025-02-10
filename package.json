@@ -45,6 +45,7 @@
     "css-minimizer-webpack-plugin": "^7.0.0",
     "dayjs": "^1.11.10",
     "memory-cache": "^0.2.0",
+    "nodemon": "^3.1.9",
     "rehype-document": "^7.0.3",
     "rehype-format": "^5.0.1",
     "rehype-raw": "^7.0.0",
