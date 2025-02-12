@@ -18,7 +18,7 @@ import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import CopyPlugin from "copy-webpack-plugin"
 
 
-const cacheProducts = true
+const cacheProducts = false
 
 const processor = unified()
   .use(remarkParse)
@@ -33,8 +33,6 @@ const processor = unified()
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-console.log(fs.readdirSync("src/pages/guides/tutorials"))
-console.log(fs.readdirSync("/"))
 fs.readdir("src/pages/guides/tutorials", { withFileTypes: true }, (err, files) => {  
     files.forEach((file) => {
         const fullPath = path.join("src/pages/guides/tutorials", file.name);

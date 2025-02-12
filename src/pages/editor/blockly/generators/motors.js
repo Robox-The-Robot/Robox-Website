@@ -1,13 +1,6 @@
 
 import { pythonGenerator, Order } from 'blockly/python'
 
-pythonGenerator.forBlock['define_movement_motors'] = function (block, generator) {
-    var dropdown_left_motor = block.getFieldValue('left_motor');
-    var dropdown_right_motor = block.getFieldValue('right_motor');
-    // TODO: Assemble python into code variable.
-    var code = '...\n';
-    return code;
-};
 
 pythonGenerator.forBlock['motor_move'] = function (block, generator) {
     var dropdown_direction = block.getFieldValue('direction');

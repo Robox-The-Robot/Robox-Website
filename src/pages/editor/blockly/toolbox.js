@@ -451,11 +451,11 @@ export const toolbox = {
         },
         {
           'kind': 'block',
-          'type': 'left_line_sensor',
+          'type': 'distance_bool',
         },
         {
           'kind': 'block',
-          'type': 'right_line_sensor',
+          'type': 'sensor_bool',
         },
       ]
     },
@@ -520,10 +520,6 @@ export const toolbox = {
       'name': 'Motors',
       'categorystyle': 'motor_category',
       'contents': [
-        {
-          'kind': 'block',
-          'type': 'define_movement_motors',
-        },
         {
           'kind': 'block',
           'type': 'motor_move',

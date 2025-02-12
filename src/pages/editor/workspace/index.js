@@ -14,6 +14,9 @@ import { renameProject, loadBlockly, saveBlockly, getProject } from '../blockly/
 import theme from '../blockly/theme/theme.js';
 import '../blockly/theme/category.js';
 
+import {registerFieldColour} from '@blockly/field-colour';
+registerFieldColour();
+
 
 import {toolbox} from '../blockly/toolbox.js';
 
