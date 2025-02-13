@@ -11,6 +11,12 @@
             "title": "Using Python on Robox",
             "description": "A guide to help you use the Python programming language with Robox",
             "link": "/guides/tutorials/coding-with-python.html"
+        },
+        {
+            "filename": "reflashing-the-robox",
+            "title": "Reflashing your Robox!",
+            "description": "A guide to help you reflash the Robox if you ever get in a tight spot!",
+            "link": "/guides/tutorials/reflashing-the-robox.html"
         }
     ]
    

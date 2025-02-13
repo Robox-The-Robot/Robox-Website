@@ -1,21 +1,3 @@
 # Building your own Robox
-This guide will show you everything you need to build your own Robox from scratch.
-## Table of Contents
-### 1. [Components](#components)
-### 2. [How does Robox work?](#howWork)
-### 3. [Putting it Together](#assembly)
-
-## Components
-<div class="two-column">
-<div class="column">
-
-# hi
-asda 
-
-</div>
-<div class="column">
-
-# hi
-
-</div>
-</div>
+This guide will show you everything you need to build your own Robox from scratch! Currently we do not have a website guide on the topic but the main guide is on google slides at this link!
+https://docs.google.com/presentation/d/147FEx7fMrp2AClizQSYNw8NKmKRLBh3HdTd3q4mjOug/edit?usp=sharing
