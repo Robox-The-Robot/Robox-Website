@@ -61,24 +61,26 @@
                 </p>
                 
                 <div id="product-holder" style="margin-top: 48px;">
-                    <% guides.forEach(function(guide){ %>
-                        <div>
-                            <article class="product">
-                                <img class="product-image" src="guides/tutorials/images/<%= guide["filename"] %>.png">
-                                <h1> <%= guide["title"] %> </h1><br>
-                                <p><%= guide["description"] %></p>
-                                <div class="product-button">
-                                    <a href="<%= guide['link'] %>">
-                                        <p>Go</p>
-                                    </a>
-                                </div>
-                            </article>
+                    <% guides.forEach(function(guide, index){ %>
+                        <% if (index % 2 === 0) { %>
+                        <div class="sub-product-grid">
+                        <% } %>
+                            <div>
+                                <article class="product">
+                                    <img class="product-image" src="guides/tutorials/images/<%= guide["filename"] %>.png">
+                                    <h1> <%= guide["title"] %> </h1><br>
+                                    <p><%= guide["description"] %></p>
+                                    <div class="product-button">
+                                        <a href="<%= guide['link'] %>">
+                                            <p>Go</p>
+                                        </a>
+                                    </div>
+                                </article>
+                            </div>
+                        <% if (index % 2 === 1) { %>
                         </div>
-                        
+                        <% } %>
                     <% }) %>
-                    
-
-
                 </div>
             </section>
         </main>
