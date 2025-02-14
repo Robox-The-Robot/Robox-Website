@@ -24,7 +24,7 @@
             <ul id="image-carousel">
                 <% images.forEach(function(image, index){ %>
                     <li class="carousel-image" >
-                        <img loading="<%= index > 6 ? 'lazy' : 'eager'  %>" src="<%= `/public/images/${product["name"].replaceAll(" ", "-").toLowerCase()}/thumb-${image}` %>">
+                        <img class="<%= index === 0 ? 'selected-carousel' : ''  %>" loading="<%= index > 6 ? 'lazy' : 'eager'  %>" src="<%= `/public/images/${product["name"].replaceAll(" ", "-").toLowerCase()}/thumb-${image}` %>">
                     </li>
                 <% }) %>
             </ul>
@@ -35,12 +35,12 @@
                 </div>
                 <div id="hero-image-holder">
                     <% images.forEach(function(image, index){ %>
-                        <img class="hero-image" loading="<%= index === 0 ? 'eager' : 'lazy'  %>" src="<%= `/public/images/${product["name"].replaceAll(" ", "-").toLowerCase()}/${image}` %>">
+                        <img class="<%= index === 0 ? 'active' : ''  %> hero-image"src="<%= `/public/images/${product["name"].replaceAll(" ", "-").toLowerCase()}/${image}` %>">
                     <% }) %>
                     
                 </div>
                 
-                <button id="carousel-left-button" class="button">
+                <button id="carousel-left-button" class="button carousel-button-disabled">
                     <i class="fa-solid fa-angle-left"></i>
                 </button>
                 <button id="carousel-right-button" class="button">
@@ -50,8 +50,8 @@
             <hr class="small-element">
             <hr class="vertical-bars" width="1" size="500" style="margin: 0;border: 0; border-left: 2px solid black;" />
             <div id="important-info">
-                <h1 id="product-name">ROBOX 1.0 KIT</h1>
-                <p id="price">$229.00</p>
+                <h1 id="product-name"><%= product["name"].toUpperCase() %></h1>
+                <p id="price">$<%= product["price"] %></p>
                 <p id="status">Available now</p>
                 <div id="cart-quantity-button">
                     <button id="decrease-cart-button" class="button">
@@ -94,12 +94,4 @@
     </div>
 
 </body>
-<script>
-    const productName = document.querySelector("#product-name")
-    productName.textContent = currentProduct["name"].toUpperCase()
-    const productPrice = document.getElementById("price")
-    productPrice.textContent = `$${currentProduct["price"]}`
-    const imageCarousel = document.querySelector("#image-carousel")
-    
-</script>
 </html>

@@ -52,10 +52,9 @@ addToCartButton.addEventListener("click", (e) => {
     refreshCart()
     updateInputQuantity(1)
 })
-
 document.addEventListener("DOMContentLoaded", (event) => {
 
-    changeHeroImage(currentIndex)
+    
     for (const carouselImage of carouselImages) {
         carouselImage.addEventListener("click", (e) => {
             let liElement = e.target.closest("li")
