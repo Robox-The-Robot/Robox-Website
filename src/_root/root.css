@@ -40,7 +40,7 @@ a:hover {
 .heroImage > img {
     object-fit: cover;
     width: 100vw;
-    height: 100vh;
+    aspect-ratio: 16/9;
 }
 
 .heroText {
