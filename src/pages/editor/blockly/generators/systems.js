@@ -1,6 +1,6 @@
 import { pythonGenerator, Order } from 'blockly/python'
 pythonGenerator.forBlock['wait_until'] = function (block, generator) {
-    var value_name = generator.valueToCode(block, 'NAME', Order.ATOMIC);
+    var value_name = generator.valueToCode(block, 'bool', Order.ATOMIC);
     var code = `while not ${value_name}:
         time.sleep(0.01)\n`;
     return code;

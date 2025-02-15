@@ -14,14 +14,6 @@ body {
     scrollbar-width: none !important;
 
 }
-#heroImage {
-    height: 100vh;
-}
-#heroImage > img {
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-}
 .fullWindow::-webkit-scrollbar {
     display: none !important;
 }

@@ -26,6 +26,7 @@ const appearance = {
 const stripePromise = loadStripe('pk_test_51PhrZEKQ7f0SWVUxH1XgKKNh9FCSnLZpAre95yUs2ip95ktaarscGhTfiw4JQVTyCLrsCaW0xTeXIwcVbOUHFDba00b6ZWj5AT');
 const clientSecretPromise = getPaymentIntent()
 const paymentPromises = Promise.all([stripePromise, clientSecretPromise])
+
 paymentPromises.then((values) => {
     const [stripe, clientSecret] = values
     const options = {
@@ -39,8 +40,28 @@ paymentPromises.then((values) => {
     paymentElement.mount('#payment-element');
     paymentElement.on("loaderstart", (event) => {
         document.getElementById("spinner").style.display = "none"
+        document.getElementById("email").style.display = "block"
+        document.getElementById("email-label").style.display = "block"
         document.getElementById("stripe-content").style.justifyContent = "flex-start"
     })
+    const form = document.getElementById('payment-form');
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+        const {error} = await stripe.confirmPayment({
+            elements,
+            confirmParams: {
+                return_url: '/',
+                receipt_email: email,
+            },
+        });
+
+        if (error) {
+            const messageContainer = document.querySelector('#error-message');
+            messageContainer.textContent = error.message;
+        } 
+    });
 })
 
 
@@ -70,7 +91,7 @@ const orderValue = document.querySelector("#order-value-value")
 const itemisedList = document.querySelector("#itemised-list")
 const totalValue = document.querySelector("#total-value")
 
-const shippingCost = 100
+const shippingCost = 10
 
 //Calc is short for calculator chat
 function renderCart() {
@@ -101,26 +122,7 @@ function renderCart() {
 }
 renderCart()
 
-const form = document.getElementById('payment-form');
 
-form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const {error} = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-            return_url: 'https://www.google.com',
-        },
-    });
-
-    if (error) {
-        const messageContainer = document.querySelector('#error-message');
-        messageContainer.textContent = error.message;
-    } 
-    else {
-
-    }
-});
   
 
 async function getPaymentIntent() {
