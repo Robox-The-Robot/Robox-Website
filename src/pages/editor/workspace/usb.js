@@ -61,6 +61,7 @@ connectButton.addEventListener("click", connectToPort);
 document.getElementById("connection").addEventListener("click", connectToPort);
 
 playButton.addEventListener("click", async function (e) {
+    if (playButton.querySelector("svg.fa-play").style.display === "none") return createToast("Connecting to pico!", "We are connecting to the pico please wait!", "positive")
     if (!firmware) createToast("Connecting to pico!", "We are connecting to the pico please wait!", "negative")
     sendCode()
     playButton.style.display = 'none'
@@ -69,6 +70,9 @@ playButton.addEventListener("click", async function (e) {
 
 stopButton.addEventListener("click", async function (e) {
     stopButton.style.display = 'none'
+    playButton.querySelector("svg.fa-spinner").style.display = "inline-block"
+    playButton.querySelector("svg.fa-play").style.display = "none"
+
     playButton.style.display = "inline-block"
     restartPico()
 })  
@@ -130,7 +134,7 @@ async function disconnect() {
         await localPort.close()
     }
     if (roboxFace.classList.contains("rotating-face")) roboxFace.classList.remove("rotating-face")
-    if (!restarting) {
+    if (!restarting) { 
         connectButton.style.display = "inline-block"
         playButton.style.display = "none"
         connectionText.textContent = "Disconnected"
@@ -155,18 +159,20 @@ async function connect(port) {
     currentReadableStreamClosed = currentPort.readable.pipeTo(textDecoder.writable);
     currentReader = textDecoder.readable.getReader();
 
-
     playButton.style.display = "inline-block"
+    playButton.querySelector("svg.fa-spinner").style.display = "inline-block"
+    playButton.querySelector("svg.fa-play").style.display = "none"
     connectButton.style.display = "none"
     connectionText.textContent = "Connected"
     roboxFace.classList.add("happy-face")
     roboxFace.classList.remove("rotating-face")
     roboxFace.classList.remove("sad-face")
-    if (restarting) restarting = false
+    if (restarting) {
+        restarting = false
+        
+    }
     readPico()
-    console.log("TEST")
     await currentWriter.write("x019FIRMCHECK\r")
-    
     setTimeout(() => {
         warnPicoFirmware()
     }, "1000");
@@ -249,6 +255,12 @@ async function readPico() {
                 }
                 else if (type === "confirmation") {
                     firmware = true
+                    console.log(playButton.querySelector("svg.fa-play").style.display)
+                    if (playButton.querySelector("svg.fa-play").style.display === "none") {
+                        playButton.querySelector("svg.fa-spinner").style.display = "none"
+                        playButton.querySelector("svg.fa-play").style.display = "inline-block"
+                    }
+                    
                     warnPicoFirmware()
                 }
             }
