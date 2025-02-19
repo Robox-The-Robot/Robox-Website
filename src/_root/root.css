@@ -38,13 +38,13 @@ a:hover {
     padding: 20px 50px;
 }
 .heroImage {
-    aspect-ratio: 16/9;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
 }
 .heroImage > img {
     width: 100%;
-    aspect-ratio: 16/9;
-    object-fit: fill;
+    height: 100%;
+    object-fit: cover;
 }
 
 .heroText {
