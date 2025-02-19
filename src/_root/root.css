@@ -16,6 +16,7 @@
 body {
     background-color: #A1EEBD;
     margin: 0;
+    overflow-x: hidden;
     background-image: url(@images/cross.png);
 }
 
@@ -36,11 +37,14 @@ a:hover {
     /* height: 50vh; */
     padding: 20px 50px;
 }
-
-.heroImage > img {
-    object-fit: cover;
-    width: 100vw;
+.heroImage {
     aspect-ratio: 16/9;
+    width: 100%;
+}
+.heroImage > img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: fill;
 }
 
 .heroText {
@@ -316,8 +320,8 @@ img {
     display: flex;
     justify-content: space-between;
     padding: 0 30px;
-    width: 100vw;
     height: var(--header-size);
+    width: 100%;
     background-color: var(--secondary-bg-color);
     align-items: center;
     z-index: 999;
