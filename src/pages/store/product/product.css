@@ -7,7 +7,9 @@ body {
     margin: 0;
     
 }
+.content {
 
+}
 #main-content {
     width: 100%;
     display: flex;
@@ -19,8 +21,9 @@ body {
 #starter-info {
     display: flex;
     flex-direction: row;
+
     gap: 10px;
-    width: calc(100% - 50px) ;
+    width: calc(100% - 25px) ;
 }
 .selected-carousel {
     border: 3px var(--secondary-bg-color) solid;
@@ -163,6 +166,7 @@ strong {
     flex-wrap: wrap;
     flex-direction: row;
     align-content: center;
+    container-type: inline-size;
 }
 
 .further-info > h5 {
@@ -170,6 +174,7 @@ strong {
     margin-left: 20px;
     font-size: 17px
 }
+
 .further-info > *:first-child {
     font-size: 40px;
 }
@@ -231,7 +236,10 @@ strong {
 .further-info {
     cursor: pointer;
 }
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 940px) {
+    #starter-info {
+        padding-left: 25px;
+    }
     #starter-info > .vertical-bars {
         display: none;
     }
@@ -253,4 +261,9 @@ strong {
         width: 100%;
     }
 
+}
+@media only screen and (max-width: 1000px) and (min-width: 940px) {
+    #starter-info {
+        width: 860px;
+    }
 }
