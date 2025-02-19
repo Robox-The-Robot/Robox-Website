@@ -3,3 +3,5 @@ node_modules
 dist
 TEMPLATE_*.html
 GUIDE_*.html
+.env
+products.json
