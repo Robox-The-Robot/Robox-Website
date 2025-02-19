@@ -10,6 +10,6 @@ app.use("/api/store", payment);
 app.use("/", express.static("./dist"))
 
 // Serve the files on port 3000.
-app.listen(3000, function () {
+app.listen(80, function () {
     console.log('Robox website listening on port 3000!\n');
 }); 
