@@ -14,7 +14,7 @@ pythonGenerator.forBlock['get_time'] = function (block, generator) {
     return [code, Order.ATOMIC];
 };
 pythonGenerator.forBlock['led_bool'] = function (block, generator) {
-    var value_led_on = generator.valueToCode(block, 'led_on', Order.ATOMIC);
+    var value_led_on = block.getFieldValue('state');
     var code = `ENV_LED.value(${value_led_on})\n`;
     return code;
 };

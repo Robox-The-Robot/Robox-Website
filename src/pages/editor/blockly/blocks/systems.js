@@ -37,11 +37,11 @@ const systems = [{
             "options": [
                 [
                     "ON",
-                    "on"
+                    "1"
                 ],
                 [
                     "OFF",
-                    "off"
+                    "0"
                 ]
             ]
         }
