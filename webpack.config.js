@@ -19,7 +19,7 @@ import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import CopyPlugin from "copy-webpack-plugin"
 
 
-const cacheProducts = false
+const cacheProducts = process.env.CACHE_MODE
 
 const processor = unified()
   .use(remarkParse)

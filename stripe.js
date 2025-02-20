@@ -1,6 +1,6 @@
 import stripe from 'stripe'
-
-export const stripeAPI = stripe(process.env.stripeKey)
+import 'dotenv/config'
+export const stripeAPI = stripe(process.env.STRIPE_KEY)
 export async function getAllProducts() {
     const products = await stripeAPI.products.list();
     let has_more = products.has_more;
