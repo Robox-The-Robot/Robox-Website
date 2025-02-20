@@ -245,7 +245,6 @@ async function readPico() {
             }
 
             for (const message of consoleMessages) {
-                console.log(message)
                 let type = message["type"]
                 if (type === "error") {
                     createToast("Code Error!", message["message"], "negative")
