@@ -1,5 +1,6 @@
 import path, { sep } from 'path'
 import { getAllProducts, getProductList } from './stripe.js';
+import 'dotenv/config'
 import fs from "fs"
 import { fileURLToPath } from 'url'
 
