@@ -38,7 +38,8 @@ a:hover {
     padding: 20px 50px;
 }
 .heroImage {
-    width: 100vw;
+    top: 0;
+    left: 0;
     height: 100vh;
 }
 .heroImage > img {
