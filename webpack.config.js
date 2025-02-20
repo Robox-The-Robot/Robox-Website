@@ -83,7 +83,6 @@ async function processProducts(cache) {
         }
         productMap[filename] = fs.readdirSync(`./src/pages/store/product/images/${filename}`).map((file) => `${path.parse(file).name}.webp`)
     }
-
     return [products, productMap];
 }
 
