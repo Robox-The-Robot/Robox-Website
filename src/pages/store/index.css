@@ -49,6 +49,10 @@ body {
     align-items: flex-start;
 } */
 
+.product {
+    cursor: pointer;
+}
+
 .product-price {
     color: #5D5D5D;
 }
@@ -56,7 +60,7 @@ body {
 
 .product-button {
     background-color: #7BD3EA;
-
+    cursor: pointer;
 }
 
 #cart-buttons > * {
