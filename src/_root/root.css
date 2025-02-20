@@ -56,7 +56,7 @@ a:hover {
 .heroImage {
     top: 0;
     left: 0;
-    height: 100vh;
+    height: max(100vh, 500px);
     width: 100vw;
 }
 .heroImage > img {
@@ -89,10 +89,6 @@ a:hover {
 .heroText > p:not([style]) {
     font-size: 1.3rem;
     font-weight: lighter;
-}
-
-#about {
-    padding-top: var(--header-size);
 }
 
 .largeButton {
