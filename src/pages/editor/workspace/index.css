@@ -7,10 +7,6 @@ body {
     overflow: hidden;
 }
 
-.header {
-    position: sticky;
-}
-
 pre,
 code {
     overflow: auto;
@@ -213,7 +209,6 @@ code {
 
 #back{
     height: 20px;
-    text-decoration: none;
     color: black;
     width: 20px;
     display: flex;

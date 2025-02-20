@@ -6,16 +6,6 @@
     flex-direction: row;
 
 }
-#order-summary {
-    background-color: var(--primary-card-color);
-    width: 300px;
-    height: 675px;
-    flex-grow: 0;
-    flex-direction: column;
-    border-radius: 10px;
-    display: flex;
-    flex-shrink: 0;
-}
 .section-title {
     background-color: var(--secondary-bg-color);
     margin: 0;
@@ -82,13 +72,6 @@
     width: 80px;
     height: 80px;
 }
-.cart-item-break {
-    width: 100%;
-    background-color: rgba(123, 212, 234, 0.8);
-    height: 3px;
-    border-width: 0;
-    margin-bottom: 32px;
-}
 
 .lds-dual-ring:after {
     content: " ";
@@ -117,46 +100,9 @@
     flex-shrink: 1;
     flex-direction: column;
 }
-#cost-breakdown {
-    flex-grow: 1;
-    display: grid;
-    padding: 10px;
-    margin-bottom: 80.5px;
-    grid-template-columns: repeat(5, 1fr);
-    padding-bottom: 0;
-    
-    grid-template-rows: 50px auto 10px 50px 50px 
-}
-#cost-breakdown > .cart-item-break {
-    grid-column: 1 / span 5;
-    margin: 0;
-    align-self: center;
-    grid-row: 10px;
-}
-#itemised-list {
-    grid-column: span 5;
-    margin-top: 0;
-}
-#itemised-list > li {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-}
-#cost-breakdown > p:nth-child(2n +4 of :not(.cart-item-break)), #order-value-label  {
-    grid-column: 1 / span 3;
-}
-#cost-breakdown > p:nth-child(2n +3 of :not(.cart-item-break)), #order-value-value {
-    text-align: right;
-    grid-column: span 2;
-    line-height:17px;
-}
-#order-summary {
-    background-color: var(--primary-card-color);
-    width: 300px;
-    height: 675px;
-    flex-grow: 0;
-    flex-direction: column;
-    border-radius: 10px;
-    display: flex;
-    flex-shrink: 0;
+
+@media only screen and (max-width: 900px) {
+    #main-content {
+        flex-direction: column;
+    }
 }

@@ -96,7 +96,7 @@ const shippingCost = 10
 //Calc is short for calculator chat
 function renderCart() {
 
-    orderValueLabel.textContent = `Order value (${cart["quantity"]}) items:`
+    orderValueLabel.textContent = `Total ${cart["quantity"]} items:`
     
     let cost = 0
     itemisedList.replaceChildren();

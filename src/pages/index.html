@@ -3,6 +3,7 @@
 <html lang="en">
     <head>
         <%~ include('src/_partials/headMeta.html') %>
+        <link href="index.css" rel="stylesheet" />
         <title>Robox - Robotics for Everyone</title>
         <meta name="description" content="">
         <style>
@@ -64,13 +65,9 @@
                             <div>
                                 <article class="product">
                                     <img class="product-image" src="guides/tutorials/images/<%= guide["filename"] %>.png">
-                                    <h1> <%= guide["title"] %> </h1><br>
+                                    <h1 class="product-name"> <%= guide["title"] %> </h1>
                                     <p><%= guide["description"] %></p>
-                                    <div class="product-button">
-                                        <a href="<%= guide['link'] %>">
-                                            <p>Go</p>
-                                        </a>
-                                    </div>
+                                    <a class="product-button" href="<%= guide['link'] %>">Go</a>
                                 </article>
                             </div>
                     <% }) %>
