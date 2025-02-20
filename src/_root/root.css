@@ -33,26 +33,12 @@ body {
     margin: 0;
     overflow-x: hidden;
     background-image: url(@images/cross.png);
-    background-attachment:fixed;
     background-position: left top;
-
-    animation-name: moveBg;
-    animation-duration: 2s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-@keyframes moveBg {
-    from {
-        background-position: 0 0;
-    }
-    to { 
-        background-position: 40px 40px;
-    }
 }
 
 a {
     text-decoration: none;
+    color: black;
 }
 a:hover {
     color: gray;
