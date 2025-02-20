@@ -250,7 +250,7 @@ img {
     color: black;
 }
 .product {
-    width: 480px;
+    max-width: 480px;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -411,9 +411,24 @@ header {
 }
 
 
-
+/* @media screen and (max-width: 480) {
+    .product {
+        max-width: 99vw;
+    }
+} */
+#home-alt {
+    color: rgb(62, 71, 105);
+}
+@media screen and (max-width: 400px) {
+    #home {
+        display: none !important;
+    }
+    #home-alt {
+        display: inline-block !important;
+    }
+}
 @media screen and (max-width: 800px) {
-    .two-column {
+    .two-column {   
         flex-direction: column;
     }
 
