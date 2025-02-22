@@ -530,6 +530,10 @@ export const toolbox = {
         },
         {
           'kind': 'block',
+          'type': 'motor_switch',
+        },
+        {
+          'kind': 'block',
           'type': 'motor_percentage',
           "inputs": {
             'left_motor': {

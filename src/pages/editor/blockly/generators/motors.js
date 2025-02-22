@@ -23,7 +23,7 @@ pythonGenerator.forBlock['motor_percentage'] = function (block, generator) {
     var code = `motors.run_motors(left_motor_polarity*${value_left_motor},right_motor_polarity*${value_right_motor})\n`;
     return code;
 };
-pythonGenerator.forBlock['switch_motors'] = function (block, generator) {
+pythonGenerator.forBlock['motor_switch'] = function (block, generator) {
     const dropdown_motor = block.getFieldValue('motor');
     let polarities = {"left": "left_motor_polarity", "right": "right_motor_polarity", "both": "left_motor_polarity = right_motor_polarity"}
     if (dropdown_motor === "both") {

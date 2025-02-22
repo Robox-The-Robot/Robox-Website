@@ -34,7 +34,7 @@ const sensors = [
     "helpUrl": ""
 },
 {
-    "type": "switch_motors",
+    "type": "motor_switch",
     "tooltip": "",
     "helpUrl": "",
     "message0": "switch %1 motors",
@@ -60,7 +60,7 @@ const sensors = [
     ],
     "previousStatement": null,
     "nextStatement": null,
-    "colour": 225
+    "colour": "%{BKY_MOTOR_HUE}",
 },
 {
     "type": "motor_turn",
