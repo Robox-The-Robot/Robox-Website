@@ -33,6 +33,7 @@ import time
 import json
 ENV_LED = Pin(25, Pin.OUT)
 line = LineSensors()
+left_motor_polarity = right_motor_polarity = -1
 ultrasonic = UltrasonicSensor()
 def generatePrint(typ, message):
     jsmessage = {"type": typ, "message": message}
