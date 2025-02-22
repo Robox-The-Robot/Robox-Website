@@ -33,6 +33,7 @@ import time
 import json
 ENV_LED = Pin(25, Pin.OUT)
 line = LineSensors()
+left_motor_polarity = right_motor_polarity = -1
 ultrasonic = UltrasonicSensor()
 def generatePrint(typ, message):
     jsmessage = {"type": typ, "message": message}
@@ -63,6 +64,12 @@ document.getElementById("connection").addEventListener("click", connectToPort);
 playButton.addEventListener("click", async function (e) {
     if (playButton.querySelector("svg.fa-play").style.display === "none") return createToast("Connecting to pico!", "We are connecting to the pico please wait!", "positive")
     if (!firmware) createToast("Connecting to pico!", "We are connecting to the pico please wait!", "negative")
+    if (ws.getBlocksByType("event_begin").length === 0){
+        return createToast("Missing Event!", "Please create a begin event!", "negative")
+    } 
+    if (ws.getBlocksByType("event_begin").length > 1) {
+        return createToast("Too many events!", "Please keep to one event! We are adding support for more soon", "negative")
+    }
     sendCode()
     playButton.style.display = 'none'
     stopButton.style.display = 'flex'

@@ -14,11 +14,11 @@ const sensors = [
             "options": [
                 [
                     "FORWARD",
-                    "1"
+                    "-1"
                 ],
                 [
                     "BACKWARD",
-                    "-1"
+                    "1"
                 ],
                 [
                     "STOP",
@@ -32,6 +32,35 @@ const sensors = [
     "colour": "%{BKY_MOTOR_HUE}",
     "tooltip": "",
     "helpUrl": ""
+},
+{
+    "type": "switch_motors",
+    "tooltip": "",
+    "helpUrl": "",
+    "message0": "switch %1 motors",
+    "args0": [
+        {
+            "type": "field_dropdown",
+            "name": "motor",
+            "options": [
+            [
+                "LEFT",
+                "left"
+            ],
+            [
+                "RIGHT",
+                "right"
+            ],
+            [
+                "both",
+                "both"
+            ]
+            ]
+        },
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 225
 },
 {
     "type": "motor_turn",

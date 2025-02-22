@@ -89,6 +89,11 @@ ws.addChangeListener(Events.disableOrphans)
 const urlParams = new URLSearchParams(window.location.search);
 const workspaceId = urlParams.get('id')
 const project = getProject(workspaceId)
+if (ws.getAllBlocks().length === 0) {
+    let parent_block = ws.newBlock("event_begin")
+    parent_block.initSvg();
+    parent_block.render();
+}
 let workspaceName = project["name"]
 
 loadBlockly(workspaceId, ws)
@@ -134,15 +139,23 @@ const deleteIndicator = document.getElementById("delete-drag")
 
 
 
-ws.addChangeListener((e) => { //On drag show delete menu
-    if (e.type !== Events.BLOCK_DRAG) return
-    let width = blocklyFlyout.style.display === "none" ? blocklyToolbar.getBoundingClientRect()["width"] : blocklyFlyout.getBoundingClientRect()["right"] 
+// ws.addChangeListener((e) => { //On drag show delete menu
+//     if (e.type !== Events.BLOCK_DRAG) return
+//     let width = blocklyFlyout.style.display === "none" ? blocklyToolbar.getBoundingClientRect()["width"] : blocklyFlyout.getBoundingClientRect()["right"] 
     
-    if (e.isStart) {
-        deleteIndicator.style.width = `${width}px`
-        deleteIndicator.style.display = "flex"
-    }
-    else {
-        deleteIndicator.style.display = "none"
-    }
-})
+//     if (e.isStart) {
+//         deleteIndicator.style.width = `${width}px`
+//         deleteIndicator.style.display = "flex"
+//     }
+//     else {
+//         deleteIndicator.style.display = "none"
+//     }
+// })
+// ws.addChangeListener((e) => { //On drag show delete menu
+//     if (e.type !== Events.BLOCK_CREATE) return
+//     if (e.json.type === "event_begin") {
+//         for (const block of ws.getAllBlocks()) {
+//             if (block.type === "event_begin") e.forward(false)
+//         }
+//     }
+// })
