@@ -185,16 +185,19 @@ img {
     position: relative;
     text-decoration: none !important;
 }
-#cart > p {
-    position: absolute;
-    background-color: rgba(200, 0, 0, 1);
+#cart p {
     color: white;
     font-size: 10px;
-    min-width: 20px;
-    padding: 0px 3px;
     text-align: center;
-    height: 20px;
     line-height: 20px;
+    margin: 0;
+    padding: 0 5px;
+}
+#cart > div {
+    position: absolute;
+    background-color: rgba(200, 0, 0, 1);
+    min-width: 20px;
+    height: 20px;
     border-radius: 10px;
     right: -10px;
     top: -10px;
