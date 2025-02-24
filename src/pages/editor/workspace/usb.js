@@ -186,6 +186,7 @@ async function connect(port) {
 }
 function warnPicoFirmware() {
     if (!firmware) {
+        restartPico()
         //Show modal about issue
     }
 }
@@ -205,7 +206,9 @@ function reconnectPico() {
 }
 
 async function restartPico() {
-    await currentWriter.write("x069\r")
+    await currentWriter.write("\x03\n")
+    await currentWriter.write("import machine\r")
+    await currentWriter.write("machine.reset()\r")
     restarting = true
 }
 const ws = Blockly.getMainWorkspace()
@@ -261,7 +264,6 @@ async function readPico() {
                 }
                 else if (type === "confirmation") {
                     firmware = true
-                    console.log(playButton.querySelector("svg.fa-play").style.display)
                     if (playButton.querySelector("svg.fa-play").style.display === "none") {
                         playButton.querySelector("svg.fa-spinner").style.display = "none"
                         playButton.querySelector("svg.fa-play").style.display = "inline-block"
