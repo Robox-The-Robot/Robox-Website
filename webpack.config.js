@@ -155,6 +155,7 @@ export default async function() {
             }),
             new CopyPlugin({
                 patterns: [
+                    { from: "./src/pages/editor/blockly/robox.uf2", to: "public/robox.uf2" },
                     { from: "./src/_resources", to: "resources/" },
                     { from: "**/*", to: "public/images/", toType:"dir", context: "./src/pages/store/product/images/" },
                 ],
