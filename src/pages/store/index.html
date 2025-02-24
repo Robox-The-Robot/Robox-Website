@@ -22,6 +22,11 @@
                 <div class="heroImage">
                     <img draggable="false" src="@images/hero.jpg">
                 </div>
+
+                <div class="heroText">
+                    <h1>ROBOX SHOP</h1>
+                    <p>Check out our Robox product range!</p>
+                </div>
             </section>
             <div class="fullWindowComponent content">
                 <h1 id="product-header">
@@ -30,20 +35,14 @@
                 <section id="products">
                     <div id="product-holder" tabindex="0">
                         <% products.forEach(function(product, index) { %>
-                            <div>
-                                <article class="product" id=<%= product.item_id %> price-id=<%= product.price_id %> onclick="window.location.href ='/store/product/<%= product.name.replaceAll(" ", "-").toLowerCase() %>.html'">
-                                    <img class="product-image"
-                                        src="/public/images/<%= product.name.replaceAll(" ", "-").toLowerCase() %>/thumbnail.webp">
-                                    <h1 class="product-name"><%= product.name.toUpperCase() %></h1>
-                                    <p class="product-status in-stock">In stock - ready to ship</p>
-                                    <h3 class="product-price">$<%= product.price %></h3>
-                                    <button class="product-button">
-                                        <p>
-                                            Add to Cart
-                                        </p>
-                                    </button>
-                                </article>
-                            </div>
+                            <article class="product" id=<%= product.item_id %> price-id=<%= product.price_id %> onclick="window.location.href ='/store/product/<%= product.name.replaceAll(" ", "-").toLowerCase() %>.html'">
+                                <img class="product-image"
+                                    src="/public/images/<%= product.name.replaceAll(" ", "-").toLowerCase() %>/thumbnail.webp">
+                                <h1 class="product-name"><%= product.name.toUpperCase() %></h1>
+                                <p class="product-status in-stock">In stock - ready to ship</p>
+                                <h3 class="product-price">$<%= product.price %></h3>
+                                <button class="product-button">Add to Cart</button>
+                            </article>
                         <% }) %>
                     </div>
                 </div>
@@ -75,5 +74,7 @@
                 </div>
             </div>
         </dialog>
+
+        <footer class="footer"></footer>
     </body>
 </html>

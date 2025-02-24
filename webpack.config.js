@@ -52,6 +52,7 @@ fs.readdir("src/pages/guides/tutorials", { withFileTypes: true }, (err, files) =
                         <main class="content tutorialContainer">
                             ${String(html)}
                         </main>
+                        <footer class="footer"></footer>
                     </body>
                 `);
             })

@@ -4,6 +4,7 @@
 body {
     margin: 0;
     max-width: 100vw;
+    overflow: hidden;
 }
 
 pre,
@@ -208,7 +209,6 @@ code {
 
 #back{
     height: 20px;
-    text-decoration: none;
     color: black;
     width: 20px;
     display: flex;

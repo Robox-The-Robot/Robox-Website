@@ -3,6 +3,7 @@
 <html lang="en">
     <head>
         <%~ include('src/_partials/headMeta.html') %>
+        <link href="index.css" rel="stylesheet" />
         <title>Robox - Robotics for Everyone</title>
         <meta name="description" content="">
         <style>
@@ -31,7 +32,6 @@
                     <p>
                         Robox is an ultra-cheap, easy to use line-following robotics kit that can be used to teach STEM to anyone.
                         Most robotics kits are expensive and out of budget for many schools and students, and Robox aims to break cost barriers.
-                        By reusing components from around the house and using cheap components, one Robox kit can be built for under <strong>US$8</strong>.
                         Additionally, Robox is designed to be easy to build and use, with no soldering required and a simple design.
                         <br><br>
                         Robox is designed to be used with the Raspberry Pi Pico, a cheap microcontroller that can be programmed in C or MicroPython.
@@ -44,7 +44,7 @@
                     <p>
                         This block code editor is available to make it as accessible as possible to beginners!
                         <br><br>
-                        <em>DISCLAIMER: The editor only works for Windows, MacOS and Linux (sorry mobile devices) and only on specific browsers like Chrome, Edge, and Opera</em>
+                        <em>We recommend using the block code editor on desktop with a modern browser.</em>
                     </p>
 
                     <a href="/editor/" class="largeButton">Try out the Robox Block Code Editor »</a>
@@ -56,7 +56,7 @@
                 <p>
                     Robox is a platform for making robotics as accessible to everyone, regardless of if you have any coding experience.
                     
-                    Here are some guides and other resources to help you get started!
+                    Here is a guide to help you get started!
                     <br><br>
                 </p>
                 
@@ -65,13 +65,9 @@
                             <div>
                                 <article class="product">
                                     <img class="product-image" src="guides/tutorials/images/<%= guide["filename"] %>.png">
-                                    <h1> <%= guide["title"] %> </h1><br>
+                                    <h1 class="product-name"> <%= guide["title"] %> </h1>
                                     <p><%= guide["description"] %></p>
-                                    <div class="product-button">
-                                        <a href="<%= guide['link'] %>">
-                                            <p>Go</p>
-                                        </a>
-                                    </div>
+                                    <a class="product-button" href="<%= guide['link'] %>">Go</a>
                                 </article>
                             </div>
                     <% }) %>

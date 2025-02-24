@@ -30,11 +30,10 @@ export function refreshCart() {
     cart["quantity"] = quantity
     const cartElement = document.getElementById("cart")
     if (cart["quantity"] > 0) {
-        cartElement.querySelector("p").innerHTML = `<span style=\"color: #FDFF9E; \">(</span>${cart["quantity"]}<span style=\"color: #FDFF9E;\">)</span>`
-        cartElement.style.display = "flex"
-    }
-    else if (cartElement.style.display === "flex") {
-        cartElement.style.display = "none"
+        cartElement.querySelector("p").innerHTML = `${cart["quantity"]}`
+        cartElement.style.visibility = "visible"
+    } else {
+        cartElement.style.visibility = "hidden"
     }
 }
 //expects an object of quantity and id

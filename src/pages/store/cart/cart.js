@@ -30,7 +30,7 @@ const shippingCost = 100
 function renderCart() {
     cart = getCart()
     products = cart["products"]
-    orderValueLabel.textContent = `Order value (${cart["quantity"]}) items:`
+    orderValueLabel.textContent = `Total ${cart["quantity"]} items:`
     
     let cost = 0
     itemisedList.replaceChildren();

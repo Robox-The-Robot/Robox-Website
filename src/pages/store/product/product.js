@@ -71,7 +71,7 @@ function changeHeroImage(number) {
     else if (leftCarouselButton.classList.contains("carousel-button-disabled")) leftCarouselButton.classList.remove("carousel-button-disabled")
     if (number === carouselImages.length-1) rightCarouselButton.classList.add("carousel-button-disabled")
     else if (rightCarouselButton.classList.contains("carousel-button-disabled")) rightCarouselButton.classList.remove("carousel-button-disabled")
-    heroNumber.textContent = `${number+1}\\${carouselImages.length}`
+    heroNumber.textContent = `${number+1}/${carouselImages.length}`
     carouselImages[currentIndex].querySelector("img").classList.remove("selected-carousel")
     document.querySelector(".active")?.classList.remove("active")
     const heroImage = heroImages[number]

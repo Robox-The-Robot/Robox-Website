@@ -4,6 +4,9 @@ body {
     margin: 0;
     
 }
+.header {
+    position: absolute;
+}
 .fullWindow {
     width: 100vw;
     max-height: 100vh;
@@ -39,11 +42,15 @@ body {
     box-sizing: border-box;
 }
 
-#products {
+/* #products {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: flex-start;
+} */
+
+.product {
+    cursor: pointer;
 }
 
 .product-price {
@@ -53,7 +60,7 @@ body {
 
 .product-button {
     background-color: #7BD3EA;
-
+    cursor: pointer;
 }
 
 #cart-buttons > * {

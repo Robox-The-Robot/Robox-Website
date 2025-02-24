@@ -1,3 +1,3 @@
 # Building your own Robox
-This guide will show you everything you need to build your own Robox from scratch! Currently we do not have a website guide on the topic but the main guide is on google slides at this link!
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQagpVpIAgb5miB7PjaYKWlYfkpdZjOQm0MIkRPe0iYE_6VloKwofiRhAoRHUn8BmIeXdepCGHqqHbK/embed?start=true&loop=true&delayms=60000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+This guide will show you everything you need to build your own Robox from scratch. We currently do not have a full website guide, but you can view the Google Slides guide below:
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQagpVpIAgb5miB7PjaYKWlYfkpdZjOQm0MIkRPe0iYE_6VloKwofiRhAoRHUn8BmIeXdepCGHqqHbK/embed?start=true&loop=true&delayms=60000" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" style="width:100%;aspect-ratio:16/9;"></iframe>
