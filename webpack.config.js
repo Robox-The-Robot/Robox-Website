@@ -33,8 +33,7 @@ const processor = unified()
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-fs.readdir("src/pages/guides/tutorials", { withFileTypes: true }, (err, files) => {  
+fs.readdir("src/pages/guides/tutorials", { withFileTypes: true }, (err, files) => {
     files.forEach((file) => {
         const fullPath = path.join("src/pages/guides/tutorials", file.name);
         if (file.isFile() && fullPath.endsWith('.md')) {
@@ -60,6 +59,10 @@ fs.readdir("src/pages/guides/tutorials", { withFileTypes: true }, (err, files) =
                 console.log(error)
             })
         }
+        if (file.isFile() && fullPath.endsWith('.html') && fullPath.lastIndexOf('GUIDE_') !== -1) {
+            let currentGuide = fullPath.substring(fullPath.lastIndexOf("GUIDE_") + 6, fullPath.lastIndexOf(".html"))
+            if (!fs.existsSync(`src/pages/guides/tutorials/${currentGuide}.md`)) fs.unlink(fullPath)
+        }
     });
 })
 
@@ -84,6 +87,15 @@ async function processProducts(cache) {
         }
         productMap[filename] = fs.readdirSync(`./src/pages/store/product/images/${filename}`).map((file) => `${path.parse(file).name}.webp`)
     }
+    fs.readdir("src/pages/store/product/", { withFileTypes: true }, (err, files) => {
+        files.forEach((file) => {
+            const fullPath = path.join("src/pages/store/product/", file.name);
+            if (file.isFile() && fullPath.endsWith('.html') && fullPath.lastIndexOf('TEMPLATE') !== -1) {
+                let currentProduct = fullPath.substring(fullPath.lastIndexOf("TEMPLATE_") + 9, fullPath.lastIndexOf(".html"))
+                if (!productMap[currentProduct]) fs.unlinkSync(fullPath)
+            }
+        })
+    })
     return [products, productMap];
 }
 
