@@ -57,23 +57,6 @@ async function connectToPort(e) {
     })
 }
 
-async function flashBootsel() {
-    const dirHandle = await window.showDirectoryPicker();
-    if (!dirHandle.name.includes("RPI-RP2")) {
-        alert("Please select the RPI-RP2 drive!");
-        return;
-    }
-    const response = await fetch("/public/robox.uf2");
-    if (!response.ok) throw new Error("Failed to fetch UF2 file");
-        
-    const uf2Data = await response.arrayBuffer();
-    const fileHandle = await dirHandle.getFileHandle("robox.uf2", { create: true });
-    const writable = await fileHandle.createWritable();
-
-    await writable.write(uf2Data);
-    await writable.close();
-    alert("UF2 file successfully written! The Pico should reboot now.");
-}
 connectButton.addEventListener("click", connectToPort);
 document.getElementById("connection").addEventListener("click", connectToPort);
 
