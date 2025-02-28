@@ -273,8 +273,8 @@ async function readPico() {
             }
         }
     } catch(err) {
+        console.warn(err)
     }
-    
 }
 
 
