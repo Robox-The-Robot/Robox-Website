@@ -123,13 +123,13 @@ export class Pico extends EventTarget {
             resolve("Code has been written!")
         })
     }
-    async restartPico() {
+    async restart() {
         await currentWriter.write(COMMANDS.KEYBOARDINTERRUPT) //Stop whatever program is currently running, the pico enters REPL
         await currentWriter.write("import machine\r")
         await currentWriter.write("machine.reset()\r") 
         this.restarting = true //We are manually restarting the pico so we can add that to the disconnect context
     }
-    async writePico(message) {
+    async write(message) {
         return new Promise(async (resolve, reject) => {
             try {
                 await this.currentWriter.write(message)
@@ -140,7 +140,7 @@ export class Pico extends EventTarget {
             }
         })
     }
-    async readPico() {
+    async read() {
         let error_string = ''
         try {
             usbloop: while (true) { //Forever loop for reading the pico
