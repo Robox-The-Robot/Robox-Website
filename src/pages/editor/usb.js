@@ -1,39 +1,4 @@
-const piVendorId = 0x2e8a
 
-let pico = new Pico()
-navigator.serial.addEventListener("connect", (event) => { //When pico is connected 
-    let portInfo = event.target.getInfo()
-    let port = event.target
-    if (portInfo.usbVendorId === piVendorId) {
-        pico.connect(port)
-    }
-});
-
-navigator.serial.addEventListener("disconnect", (e) => { //When pico is disconnected 
-    let portInfo = e.target.getInfo()
-    if (portInfo.usbVendorId === piVendorId) {
-        pico.disconnect()
-        delete pico
-        let pico = new Pico()
-    }
-});
-pico.addEventListener("disconnect", (event) => {
-    console.log(event)
-})
-checkIfPicoIsAlreadyConnected() //If the pico is already connected before opening the website the website doesnt detect it as a connect event
-
-
-function checkIfPicoIsAlreadyConnected() { 
-    navigator.serial.getPorts().then((ports) => {
-        for (const port of ports) {
-            let portInfo = port.getInfo()
-            if (portInfo.usbVendorId === piVendorId) {
-                pico.connect(port)
-                break;
-            }
-        }
-    });
-}
 
 const COMMANDS = {
     FIRMWARECHECK: "x019FIRMCHECK\r",
