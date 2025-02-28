@@ -43,7 +43,7 @@ const COMMANDS = {
     KEYBOARDINTERRUPT: "\x03\n"
 }
 
-class Pico extends EventTarget {
+export class Pico extends EventTarget {
     constructor(baudRate = 9600, firmwareVersion=1) {
         super();
         //Initing all the things we need!
@@ -72,7 +72,7 @@ class Pico extends EventTarget {
             if (this.currentReader) {
                 try {
                     await this.currentReader.cancel()
-                    await this.currentReadableStreamClosed.catch((e) => { /* Ignore the error */ });
+                    await this.currentReadableStreamClosed?.catch((e) => { /* Ignore the error */ });
                 }
                 catch(err) {
                     reject(err)
@@ -88,6 +88,7 @@ class Pico extends EventTarget {
         });
     }
     async connect(port) {
+        this.port = port
         //Opening the ports
         try {
             await this.port.open({ baudRate: 9600 });
@@ -143,9 +144,9 @@ class Pico extends EventTarget {
         let error_string = ''
         try {
             usbloop: while (true) { //Forever loop for reading the pico
-                const { value, done } = await currentReader.read()
+                const { value, done } = await this.currentReader.read()
                 if (done) {
-                    currentReader.releaseLock(); //Disconnects the serial port since the port is released
+                    this.currentReader.releaseLock(); //Disconnects the serial port since the port is released
                     break;
                 }
                 let consoleMessages = [] //The console messages SHOULD be sent full JSON, but sometimes that does not happen
@@ -178,7 +179,7 @@ class Pico extends EventTarget {
                     if (type === "confirmation") {
                         this.firmware = true //The firmware check was successful!
                     }
-                    this.#emitChangeEvent(type, message["message"])
+                    this.#emitChangeEvent(type, {message: message["message"]})
                 }
             }
         } catch(err) {
