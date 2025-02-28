@@ -40,6 +40,115 @@ code {
     justify-content: space-between;
     align-items: center;
 }
+#connection-managment.disconnected { 
+    #play {
+        display: none;
+        svg.fa-spinner {
+            display: none;
+        }
+        svg.fa-play {
+            display: none;
+        }
+
+    }
+    #connect {
+        display: inline-block;
+    }
+    #stop {
+        display: none;
+    }
+    #connection-text:after {
+        content: "Disconnected"
+    }
+    #robox-connection > img {
+        content: url(./sadRobox.png);
+        animation-name: none !important;
+    }
+}
+#connection-managment.connected {
+    #play {
+        display: inline-block;
+        svg.fa-spinner {
+            display: none;
+        }
+        svg.fa-play {
+            display: inline-block;
+        }
+
+    }
+    #connect {
+        display: none;
+    }
+    #stop {
+        display: none;
+    }
+    #connection-text:after {
+        content: "Connected"
+    }
+    #robox-connection > img {
+        content: url(./RoboxLogo.png);
+    }
+}
+#connection-managment.playing {
+    #play {
+        display: none;
+        svg.fa-spinner {
+            display: none;
+        }
+        svg.fa-play {
+            display: none;
+        }
+
+    }
+    #connect {
+        display: none;
+    }
+    #stop {
+        display: flex;
+    }
+    #connection-text:after {
+        content: "Connected"
+    }
+    #robox-connection > img {
+        content: url(./RoboxLogo.png);
+    }
+
+}
+#connection-managment.loading {
+    #play {
+        display: inline-block;
+        svg.fa-spinner {
+            display: inline-block;
+        }
+        svg.fa-play {
+            display: none;
+        }
+
+    }
+    #connect {
+        display: none;
+    }
+    #stop {
+        display: none;
+    }
+    #connection-text:after {
+        content: "Connected"
+    }
+    #robox-connection > img {
+        content: url(./RoboxLogo.png);
+    }
+}
+
+
+
+/* .happy-face {
+    content: url(./RoboxLogo.png);
+}
+.sad-face {
+    content: url(./sadRobox.png);
+} */
+
+
 
 .floating-button {
     width: 40px;
@@ -176,21 +285,6 @@ code {
     justify-content: space-between;
     align-items: center;
     height: 100%;
-}
-.rotating-face {
-    animation-name: faceRotate;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-    transform-origin: 50% 50%;
-    animation-duration: 3s;
-}
-@keyframes faceRotate {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
 }
 .console-output > .console-time {
     font-size: 14px;

@@ -11,9 +11,11 @@ const consoleButton = document.getElementById("terminal")
 const stopButton = document.getElementById("stop")
 const consoleTemplate = document.querySelector("#console-output-template")
 const consoleElement = document.querySelector("#print-modal")
+const connectionHolder = document.getElementById("connection-managment")
 
 const connectionText = document.getElementById("connection-text")
 const roboxFace = document.querySelector("#robox-connection > img")
+
 
 let currentPort = null
 let currentWriter = null
@@ -58,7 +60,6 @@ async function connectToPort(e) {
 }
 
 connectButton.addEventListener("click", connectToPort);
-document.getElementById("connection").addEventListener("click", connectToPort);
 
 playButton.addEventListener("click", async function (e) {
     if (playButton.querySelector("svg.fa-play").style.display === "none") return createToast("Connecting to pico!", "We are connecting to the pico please wait!", "positive")
@@ -70,16 +71,14 @@ playButton.addEventListener("click", async function (e) {
         return createToast("Too many events!", "Please keep to one event! We are adding support for more soon", "negative")
     }
     sendCode()
-    playButton.style.display = 'none'
-    stopButton.style.display = 'flex'
-})  
-
+    connectionHolder.classList.remove(...connectionHolder.classList);
+    connectionHolder.classList.add("playing")
+    // playButton.style.display = 'none'
+    // stopButton.style.display = 'flex' //Playing
+})
 stopButton.addEventListener("click", async function (e) {
-    stopButton.style.display = 'none'
-    playButton.querySelector("svg.fa-spinner").style.display = "inline-block"
-    playButton.querySelector("svg.fa-play").style.display = "none"
-
-    playButton.style.display = "inline-block"
+    connectionHolder.classList.remove(...connectionHolder.classList);
+    connectionHolder.classList.add("loading")
     restartPico()
 })  
 consoleButton.addEventListener("click", async function (e) {
@@ -140,12 +139,9 @@ async function disconnect() {
         await localPort.close()
     }
     if (roboxFace.classList.contains("rotating-face")) roboxFace.classList.remove("rotating-face")
-    if (!restarting) { 
-        connectButton.style.display = "inline-block"
-        playButton.style.display = "none"
-        connectionText.textContent = "Disconnected"
-        roboxFace.classList.remove("happy-face")
-        roboxFace.classList.add("sad-face")
+    if (!restarting) { //Disconnected
+        connectionHolder.classList.remove(...connectionHolder.classList);
+        connectionHolder.classList.add("disconnected")
     }
 }
 
@@ -164,15 +160,8 @@ async function connect(port) {
     let textDecoder = new TextDecoderStream()
     currentReadableStreamClosed = currentPort.readable.pipeTo(textDecoder.writable);
     currentReader = textDecoder.readable.getReader();
-
-    playButton.style.display = "inline-block"
-    playButton.querySelector("svg.fa-spinner").style.display = "inline-block"
-    playButton.querySelector("svg.fa-play").style.display = "none"
-    connectButton.style.display = "none"
-    connectionText.textContent = "Connected"
-    roboxFace.classList.add("happy-face")
-    roboxFace.classList.remove("rotating-face")
-    roboxFace.classList.remove("sad-face")
+    connectionHolder.classList.remove(...connectionHolder.classList);
+    connectionHolder.classList.add("connected")
     if (restarting) {
         restarting = false
         
