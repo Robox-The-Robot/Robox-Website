@@ -349,15 +349,17 @@ img {
     cursor: pointer;
     background: none;
 }
-
+body {
+    width: 100dvw;
+}
 .header {
     position: sticky;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
-    padding: 0 30px;
     height: var(--header-size);
-    width: 100%;
+    width: 100dvw;
+    padding: 0 30px;
     background-color: var(--secondary-bg-color);
     align-items: center;
     z-index: 999;
