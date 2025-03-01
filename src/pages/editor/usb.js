@@ -26,7 +26,7 @@ export class Pico extends EventTarget {
         this.restarting = false //So that we know when a disconnect is from us or unexpected
         this.firmware = false //CHecking if the pico is the right firmware version
         this.#startup()
-        this.#startupConnectToPico()
+        this.#startupConnect()
     }
     //For events that will be happening
     //EVENTS:
@@ -52,7 +52,7 @@ export class Pico extends EventTarget {
     #emitChangeEvent(event, options) {
         this.dispatchEvent(new CustomEvent(event, options));
     }
-    #startupConnectToPico() { //Check if the Pico is already connected to the website on startup
+    #startupConnect() { //Check if the Pico is already connected to the website on startup
         navigator.serial.getPorts().then((ports) => {
             for (const port of ports) {
                 let portInfo = port.getInfo()
@@ -62,6 +62,16 @@ export class Pico extends EventTarget {
                 }
             }
         });
+    }
+    async request() {
+        const device = navigator.serial.requestPort({ filters: [{ usbVendorId: piVendorId }] });
+        device.then(async (port) => {
+            this.connect(port)
+        })
+        .catch((error) => { //User did not select a port (or error connecting) show toolbar?
+            if (error.name === "NotFoundError") return
+            throw new Error("Connection Error!", "Could not connect to the Robox device. Please try again.")
+        })
     }
     async disconnect() {
         return new Promise(async (resolve, reject) => {
