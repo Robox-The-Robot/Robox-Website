@@ -8,6 +8,8 @@ const COMMANDS = {
     KEYBOARDINTERRUPT: "\x03\n"
 }
 
+const piVendorId = 0x2e8a
+
 export class Pico extends EventTarget {
     constructor(baudRate = 9600, firmwareVersion=1) {
         super();
@@ -23,14 +25,27 @@ export class Pico extends EventTarget {
         this.firmwareVersion = firmwareVersion
         this.restarting = false //So that we know when a disconnect is from us or unexpected
         this.firmware = false //CHecking if the pico is the right firmware version
+
+        this.#startupConnectToPico()
     }
     //For events that will be happening
     //EVENTS:
     //Connect: no info needed
     //Disconnect: {error: bool, message: """}
     //Message: {type: type, message: ""}
+    
     #emitChangeEvent(event, options) {
         this.dispatchEvent(new CustomEvent(event, options));
+    }
+    #startupConnectToPico() { //Check if the Pico is already connected to the website on startup
+        const device = navigator.serial.requestPort({ filters: [{ usbVendorId: piVendorId }] });
+        device.then(async (port) => {
+            this.connect(port)
+        })
+        .catch((error) => { //User did not select a port (or error connecting) show toolbar?
+            if (error.name === "NotFoundError") return
+            throw new Error("Cannot connect to the Robox")
+        })
     }
     async disconnect() {
         return new Promise(async (resolve, reject) => {
