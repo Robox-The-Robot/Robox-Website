@@ -25,7 +25,7 @@ export class Pico extends EventTarget {
         this.firmwareVersion = firmwareVersion
         this.restarting = false //So that we know when a disconnect is from us or unexpected
         this.firmware = false //CHecking if the pico is the right firmware version
-
+        this.#startup()
         this.#startupConnectToPico()
     }
     //For events that will be happening
@@ -33,7 +33,22 @@ export class Pico extends EventTarget {
     //Connect: no info needed
     //Disconnect: {error: bool, message: """}
     //Message: {type: type, message: ""}
-    
+    #startup() { //This will need to be tested if this properly disposes of the connection or causes issues!
+        navigator.serial.addEventListener("connect", (event) => { //When pico is connected 
+            let portInfo = event.target.getInfo()
+            let port = event.target
+            if (portInfo.usbVendorId === piVendorId) {
+                this.connect(port)
+            }
+        });
+        
+        navigator.serial.addEventListener("disconnect", (e) => { //When pico is disconnected 
+            let portInfo = e.target.getInfo()
+            if (portInfo.usbVendorId === piVendorId) {
+                this.disconnect()
+            }
+        });
+    }
     #emitChangeEvent(event, options) {
         this.dispatchEvent(new CustomEvent(event, options));
     }
