@@ -53,14 +53,15 @@ export class Pico extends EventTarget {
         this.dispatchEvent(new CustomEvent(event, options));
     }
     #startupConnectToPico() { //Check if the Pico is already connected to the website on startup
-        const device = navigator.serial.requestPort({ filters: [{ usbVendorId: piVendorId }] });
-        device.then(async (port) => {
-            this.connect(port)
-        })
-        .catch((error) => { //User did not select a port (or error connecting) show toolbar?
-            if (error.name === "NotFoundError") return
-            throw new Error("Cannot connect to the Robox")
-        })
+        navigator.serial.getPorts().then((ports) => {
+            for (const port of ports) {
+                let portInfo = port.getInfo()
+                if (portInfo.usbVendorId === piVendorId) {
+                    this.connect(port)
+                    break;
+                }
+            }
+        });
     }
     async disconnect() {
         return new Promise(async (resolve, reject) => {
