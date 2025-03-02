@@ -106,12 +106,12 @@ export class Pico extends EventTarget {
         this.currentWriterStreamClosed = this.textEncoder.readable.pipeTo(this.port.writable);
         this.currentReadableStreamClosed = this.port.readable.pipeTo(this.textDecoder.writable);
         this.#emitChangeEvent("connected", {})
-        this.readPico()
+        this.read()
         return this.firmwareCheck()
     }
     async firmwareCheck() {
         return new Promise(async (resolve, reject) => {
-            this.writePico(COMMANDS.FIRMWARECHECK)
+            this.write(COMMANDS.FIRMWARECHECK)
             setTimeout(() => {
                 if (this.firmware) {
                     resolve("Firmware is up to date")
@@ -124,8 +124,8 @@ export class Pico extends EventTarget {
     }
     async sendCode(code) {
         return new Promise(async (resolve, reject) => {
-            this.writePico(`${COMMANDS.STARTUPLOAD}${code}\r${COMMANDS.ENDUPLOAD}`)
-            this.writePico(`${COMMANDS.STARTPROGRAM}`)
+            this.write(`${COMMANDS.STARTUPLOAD}${code}\r${COMMANDS.ENDUPLOAD}`)
+            this.write(`${COMMANDS.STARTPROGRAM}`)
             resolve("Code has been written!")
         })
     }
