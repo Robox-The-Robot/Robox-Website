@@ -8,9 +8,8 @@ const COMMANDS = {
     KEYBOARDINTERRUPT: "\x03\n"
 }
 
-const piVendorId = 0x2e8a
 
-export class Pico extends EventTarget {
+class Pico extends EventTarget {
     constructor(baudRate = 9600, firmwareVersion=1) {
         super();
         //Initing all the things we need!
@@ -25,7 +24,6 @@ export class Pico extends EventTarget {
         this.firmwareVersion = firmwareVersion
         this.restarting = false //So that we know when a disconnect is from us or unexpected
         this.firmware = false //CHecking if the pico is the right firmware version
-        this.#startup()
         this.#startupConnect()
     }
     //For events that will be happening
@@ -33,27 +31,11 @@ export class Pico extends EventTarget {
     //Connect: no info needed
     //Disconnect: {error: bool, message: """}
     //Message: {type: type, message: ""}
-    #startup() { //This will need to be tested if this properly disposes of the connection or causes issues!
-        navigator.serial.addEventListener("connect", (event) => { //When pico is connected 
-            let portInfo = event.target.getInfo()
-            let port = event.target
-            if (portInfo.usbVendorId === piVendorId) {
-                this.connect(port)
-            }
-        });
-        
-        navigator.serial.addEventListener("disconnect", (e) => { //When pico is disconnected 
-            let portInfo = e.target.getInfo()
-            if (portInfo.usbVendorId === piVendorId) {
-                this.disconnect()
-            }
-        });
-    }
     #emitChangeEvent(event, options) {
-        this.dispatchEvent(new CustomEvent(event, options));
+        this.dispatchEvent(new CustomEvent(event, {detail: options}));
     }
     #startupConnect() { //Check if the Pico is already connected to the website on startup
-        navigator.serial.getPorts().then((ports) => {
+        navigator.serial.getPorts().then(ports => {
             for (const port of ports) {
                 let portInfo = port.getInfo()
                 if (portInfo.usbVendorId === piVendorId) {
@@ -90,6 +72,10 @@ export class Pico extends EventTarget {
             }
             if (this.port) await this.port.close()
             this.#emitChangeEvent("disconnect", {error: false, restarting: this.restarting})
+            this.textEncoder = new TextEncoderStream();
+            this.currentWriter = this.textEncoder.writable.getWriter();
+            this.textDecoder = new TextDecoderStream()
+            this.currentReader = this.textDecoder.readable.getReader();
             resolve("disconnected")
         });
     }
@@ -105,7 +91,7 @@ export class Pico extends EventTarget {
         //Piping our reader and streaming into the right port
         this.currentWriterStreamClosed = this.textEncoder.readable.pipeTo(this.port.writable);
         this.currentReadableStreamClosed = this.port.readable.pipeTo(this.textDecoder.writable);
-        this.#emitChangeEvent("connected", {})
+        this.#emitChangeEvent("connect", {})
         this.read()
         return this.firmwareCheck()
     }
@@ -130,9 +116,9 @@ export class Pico extends EventTarget {
         })
     }
     async restart() {
-        await currentWriter.write(COMMANDS.KEYBOARDINTERRUPT) //Stop whatever program is currently running, the pico enters REPL
-        await currentWriter.write("import machine\r")
-        await currentWriter.write("machine.reset()\r") 
+        await this.currentWriter.write(COMMANDS.KEYBOARDINTERRUPT) //Stop whatever program is currently running, the pico enters REPL
+        await this.currentWriter.write("import machine\r")
+        await this.currentWriter.write("machine.reset()\r") 
         this.restarting = true //We are manually restarting the pico so we can add that to the disconnect context
     }
     async write(message) {
@@ -194,3 +180,19 @@ export class Pico extends EventTarget {
     }
     
 }
+export let pico = new Pico()
+const piVendorId = 0x2e8a
+
+navigator.serial.addEventListener("connect", (event) => { //When pico is connected 
+    let portInfo = event.target.getInfo()
+    if (portInfo.usbVendorId === piVendorId) {
+        pico.connect(event.target || event.port)
+    }
+});
+
+navigator.serial.addEventListener("disconnect", async (event) => { //When pico is disconnected 
+    let portInfo = event.target.getInfo()
+    if (portInfo.usbVendorId === piVendorId) {
+        await pico.disconnect()
+    }
+});
