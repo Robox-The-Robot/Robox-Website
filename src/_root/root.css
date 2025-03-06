@@ -167,7 +167,7 @@ img {
     flex-direction: column;
     width: 265px;
     right: 90px;
-    height: calc(100% - var(--header-size) - 15px - var(--project-header));
+    height: calc(100vh - var(--header-size) - 15px - var(--project-header));
     z-index: 1000;
     justify-content: space-between;
     align-items: center;
