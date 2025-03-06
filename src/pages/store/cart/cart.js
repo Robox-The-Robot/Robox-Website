@@ -1,5 +1,5 @@
 
-import {getProducts, addCartItem, getCart, refreshCart, setCartItem, getItem} from "../payment.js"
+import {getProducts, addCartItem, getCart, refreshCart, setCartItem, getItem, removeCartItem} from "../payment.js"
 
 let cart = getCart()
 let products = cart["products"]
@@ -68,6 +68,10 @@ for (const productId in products) {
     let image = product["image"]
     let status = product["status"]
     let quantity = products[productId]["quantity"]
+    if (Number(quantity) === 0) {
+        removeCartItem(productId)
+        continue
+    }
 
     let titleElement = clone.querySelector(".cart-item-text-title")
     let priceElement = clone.querySelector(".cart-item-text-price")
