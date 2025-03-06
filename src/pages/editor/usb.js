@@ -91,6 +91,7 @@ class Pico extends EventTarget {
         //Piping our reader and streaming into the right port
         this.currentWriterStreamClosed = this.textEncoder.readable.pipeTo(this.port.writable);
         this.currentReadableStreamClosed = this.port.readable.pipeTo(this.textDecoder.writable);
+        this.restarting = false
         this.#emitChangeEvent("connect", {})
         this.read()
         return this.firmwareCheck()
