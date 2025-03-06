@@ -29,10 +29,15 @@ export function refreshCart() {
     }
     cart["quantity"] = quantity
     const cartElement = document.getElementById("cart")
-    if (cart["quantity"] > 0) {
+    if (cart["quantity"] > 99) {
+        cartElement.querySelector("p").innerHTML = "99+"
+        cartElement.style.display = ""
+    }
+    else if (cart["quantity"] > 0) {
         cartElement.querySelector("p").innerHTML = `${cart["quantity"]}`
         cartElement.style.display = ""
-    } else {
+    }
+    else {
         cartElement.style.display = "none"
     }
 }
