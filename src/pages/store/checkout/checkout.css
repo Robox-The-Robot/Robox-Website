@@ -19,6 +19,10 @@
     justify-content: center;
     flex-direction: column;
 }
+body {
+    background-image: none !important;
+}
+
 #email-label {
     color: rgb(48, 49, 61);
     font-size: 0.93rem;
