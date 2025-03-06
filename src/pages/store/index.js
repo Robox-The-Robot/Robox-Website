@@ -1,16 +1,12 @@
 
+import { createToast } from "../editor/workspace/alerts.js"
 import {getProducts, addCartItem, getCart, refreshCart} from "./payment.js"
 
 
 
 
 refreshCart()
-const cartModal = document.getElementById("cart-dialog")
 
-const continueShoppingButton = document.getElementById("continue-button")
-continueShoppingButton.addEventListener("click", (event) => {
-    cartModal.close()
-})
 const modals = document.querySelectorAll("dialog")
 for (const modal of modals) {
     modal.addEventListener("click", (event) => {
@@ -30,7 +26,7 @@ for (const button of productButtons) {
     button.addEventListener("click", (event) => {
         let productData = allProducts.filter((product) => product.item_id === button.parentElement.id)[0]
         addCartItem(button.parentElement.id, 1, productData)
-        cartModal.showModal()
+        createToast(`Item has been added to cart`, `${productData.name} has been added to cart`, "positive")
         event.stopImmediatePropagation()
     })
 }

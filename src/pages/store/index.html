@@ -14,6 +14,11 @@
 
     <body>
         <%~ include('src/_partials/nav.html') %>
+        <div id="floating-item-holder">
+            
+            <div id="toast-holder">
+            </div>
+        </div>
         <div id="main-content">
             <section class="fullWindow">
                 <!-- <button id="heroButton" class="button" onclick="document.getElementById('product-header').scrollIntoView({behavior: 'smooth'});">
@@ -60,7 +65,18 @@
                 </button>
             </article>
         </template>
-        <dialog class="modal" id="cart-dialog">
+        <template id="toast-template">
+            <div class="toast ">
+                <div class="icon-holder">
+        
+                </div>
+                <div class="toast-text">
+                    <h1>Success something</h1>
+                    <p>Lorem thingy</p>
+                </div>
+            </div>
+        </template>
+        <!-- <dialog class="modal" id="cart-dialog">
             <div>
                 <i class="fa-solid fa-bag-shopping fa-4x"></i>
                 <h1 class="modal-title" id="cart-title">Added item to the cart!</h1>
@@ -73,7 +89,7 @@
                     </button>
                 </div>
             </div>
-        </dialog>
+        </dialog> -->
 
         <footer class="footer"></footer>
     </body>
