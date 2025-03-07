@@ -126,6 +126,7 @@ for (const deleteButton of deleteButtons) {
     })
 }
 function updateCart(product, quantity) {
+    if (quantity > 100000000) return
     let productElement = document.getElementById(product)
     let quantityInput = productElement.querySelector(".cart-quantity")
     quantityInput.value = Number(quantity)
