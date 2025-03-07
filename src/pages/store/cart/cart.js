@@ -56,7 +56,9 @@ function renderCart() {
     
     totalValue.innerHTML = `$${cost+shippingCost}<br><span style="font-size: x-small; color: grey;"></span>`
 }
-
+function renderPreview() {
+    availableHolder.querySelector(".cart-item-holder").replaceChildren()
+    preorderHolder.querySelector(".cart-item-holder").replaceChildren()
 for (const productId in products) {
 
     const product = products[productId]["data"]
@@ -92,6 +94,8 @@ for (const productId in products) {
     if (status === "in-stock") availableHolder.querySelector(".cart-item-holder").appendChild(clone)
     else preorderHolder.querySelector(".cart-item-holder").appendChild(clone)
 }
+}
+renderPreview()
 
 renderCart()
 const quantityButtons = document.querySelectorAll(".cart-quantity-button")
