@@ -109,7 +109,7 @@ section:has(> .cart-item-holder:empty) {
     color: rgba(200, 0, 0, 1);
 }
 .cart-item-delete > .fa-trash {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 
