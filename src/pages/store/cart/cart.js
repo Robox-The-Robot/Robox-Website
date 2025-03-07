@@ -37,7 +37,6 @@ function renderCart() {
     let productItemisationNode = document.createElement("li")
     productItemisationNode.appendChild(document.createElement("p"))
     productItemisationNode.appendChild(document.createElement("p"))
-    console.log(products)
     for (const productId in products) {
         let product = products[productId]["data"]
         if (!product) continue;
@@ -59,43 +58,44 @@ function renderCart() {
 function renderPreview() {
     availableHolder.querySelector(".cart-item-holder").replaceChildren()
     preorderHolder.querySelector(".cart-item-holder").replaceChildren()
-for (const productId in products) {
+    for (const productId in products) {
 
-    const product = products[productId]["data"]
-    if (!product || productId == "") continue
-    let clone = cartItemElement.content.cloneNode(true)
-
-    let price = product["price"]
-    let name = product["name"]
-    let image = product["image"]
-    let status = product["status"]
-    let quantity = products[productId]["quantity"]
-    if (Number(quantity) === 0) {
-        removeCartItem(productId)
-        continue
+        const product = products[productId]["data"]
+        if (!product || productId == "") continue
+        let clone = cartItemElement.content.cloneNode(true)
+    
+        let price = product["price"]
+        let name = product["name"]
+        let image = product["image"]
+        let status = product["status"]
+        let quantity = products[productId]["quantity"]
+        if (Number(quantity) === 0) {
+            removeCartItem(productId)
+            continue
+        }
+    
+        let titleElement = clone.querySelector(".cart-item-text-title")
+        let priceElement = clone.querySelector(".cart-item-text-price")
+        let quantityInput = clone.querySelector(".cart-quantity")
+        let imageElement = clone.querySelector(".cart-item-photo")
+        
+        imageElement.src = `/public/images/${name.replaceAll(" ", "-").toLowerCase()}/thumb-thumbnail.webp`
+    
+    
+        titleElement.textContent = name.toUpperCase()
+        priceElement.textContent = `$ ${price}`
+        
+        quantityInput.value = Number(quantity)
+    
+        let productElement = clone.querySelector(".cart-item")
+        productElement.id = product["item_id"]
+        productElement.setAttribute("price-id", product["price_id"])
+        if (status === "in-stock") availableHolder.querySelector(".cart-item-holder").appendChild(clone)
+        else preorderHolder.querySelector(".cart-item-holder").appendChild(clone)
     }
-
-    let titleElement = clone.querySelector(".cart-item-text-title")
-    let priceElement = clone.querySelector(".cart-item-text-price")
-    let quantityInput = clone.querySelector(".cart-quantity")
-    let imageElement = clone.querySelector(".cart-item-photo")
-    
-    imageElement.src = `/public/images/${name.replaceAll(" ", "-").toLowerCase()}/thumb-thumbnail.webp`
-
-
-    titleElement.textContent = name.toUpperCase()
-    priceElement.textContent = `$ ${price}`
-    
-    quantityInput.value = Number(quantity)
-
-    let productElement = clone.querySelector(".cart-item")
-    productElement.id = product["item_id"]
-    productElement.setAttribute("price-id", product["price_id"])
-    if (status === "in-stock") availableHolder.querySelector(".cart-item-holder").appendChild(clone)
-    else preorderHolder.querySelector(".cart-item-holder").appendChild(clone)
-}
 }
 renderPreview()
+
 
 renderCart()
 const quantityButtons = document.querySelectorAll(".cart-quantity-button")
@@ -115,6 +115,16 @@ for (const quantityButton of quantityButtons) {
         updateCart(productId, Number(quantityElement.value)-1)
     })
 }
+const deleteButtons = document.querySelectorAll(".cart-item-delete")
+for (const deleteButton of deleteButtons) {
+    let productId = deleteButton.closest(".cart-item").id
+    deleteButton.addEventListener("click", (event) => {
+        removeCartItem(productId)
+        //TODO: add toast
+        renderCart()
+        renderPreview()
+    })
+}
 function updateCart(product, quantity) {
     let productElement = document.getElementById(product)
     let quantityInput = productElement.querySelector(".cart-quantity")
@@ -128,7 +138,6 @@ async function getItemData() {
     const promises = Object.keys(products).map((productId) =>
         fetch(`${window.location.origin}/api/store/products?id=${productId}`).then(async (response) => [productId, await response.json()])
     );
-
     const data = await Promise.all(promises);
     return Object.fromEntries(data)
 }
