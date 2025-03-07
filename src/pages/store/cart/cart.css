@@ -171,3 +171,15 @@ input[type='number']::-webkit-outer-spin-button {
         flex-direction: column;
     }
 }
+@media only screen and (max-width: 600px) {
+    #main-content {
+        flex-direction: column;
+    }
+    .cart-item {
+        flex-direction: column;
+        height: unset;
+    }
+    .cart-item-photo {
+        height: unset;
+    }
+}
