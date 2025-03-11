@@ -303,7 +303,7 @@ img {
     align-items: flex-start;
     justify-content: space-between;
     gap: 12px;
-    max-width: 20vw;
+    width: 20vw;
     min-width: 200px;
     border-radius: 15px;
     
