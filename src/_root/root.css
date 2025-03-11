@@ -43,10 +43,6 @@ a {
 a:hover {
     color: gray;
 }
-a:visited {
-    color: inherit;
-}
-
 .fullWindowComponent {
     width: 100vw;
     min-height: calc(100vh - var(--header-size));
